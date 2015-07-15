@@ -10,7 +10,7 @@ require(maptools)       #spRbind
 
 dataDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Data"
 origDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Data/Original"
-progDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Programs"
+progDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/sgPrograms"
 # wBugDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Programs"
 outpDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Output"
 polyDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Data/Spatial/Density Polygons"
@@ -79,7 +79,7 @@ dat1stZerosLeks <- vector("list",9)
 #resultsA <- vector("list",8)
 #resultsB <- vector("list",8)
 resultsC <- vector("list",8)
-resultsD <- vector("list",8)
+#resultsD <- vector("list",8)
 #resultsE <- vector("list",8)
 resultsF <- vector("list",8)
 
@@ -90,27 +90,27 @@ resultsJ <- vector("list",1)
 #resultsK <- vector("list",1)
 resultsL <- vector("list",1)
 
-for(i in 5:7){
+for(i in 8:8){
 
 #   datAllZerosCore[[i]] <- readOGR(analDir,paste0('Zone ',i,' Core-75 - All Zero'))@data        # read in all zeros, core data, ith mzone
 #   datAllZerosNoco[[i]] <- readOGR(analDir,paste0('Zone ',i,' Non-Core-75 - All Zero'))@data    # read in all zeros, non-core data, ith mzone
 #   datAllZerosLeks[[i]] <- readOGR(analDir,paste0('Zone ',i,' Both - All Zero'))@data        # read in all zeros, all data, ith mzone
  
-  dat1stZerosCore[[i]] <- readOGR(analDir,paste0('Zone ',i,' Core-75 - 1st Zero'))@data        # read in 1st zeros, core data, ith mzone
+#   dat1stZerosCore[[i]] <- readOGR(analDir,paste0('Zone ',i,' Core-75 - 1st Zero'))@data        # read in 1st zeros, core data, ith mzone
 #   dat1stZerosNoco[[i]] <- readOGR(analDir,paste0('Zone ',i,' Non-Core-75 - 1st Zero'))@data    # read in 1st zeros, non-core data, ith mzone
-#   dat1stZerosLeks[[i]] <- readOGR(analDir,paste0('Zone ',i,' Both - 1st Zero'))@data        # read in 1st zeros, all data, ith mzone
+  dat1stZerosLeks[[i]] <- readOGR(analDir,paste0('Zone ',i,' Both - 1st Zero'))@data        # read in 1st zeros, all data, ith mzone
   
   if(i <= 8){   
     
-    BUGSDir <- 'C:/Users/jmitchell/WinBUGS14'
+    BUGSDir <- 'C:/Program Files/WinBUGS14'
     
    #resultsA[[i]] <- runMA(datAllZerosCore[[i]],progDir,BUGSDir,i)    # all zeros, core,     no mzone effect
    #resultsB[[i]] <- runMB(datAllZerosNoco[[i]],progDir,BUGSDir,i)    # all zeros, non-core, no mzone effect
    #resultsC[[i]] <- runMC(datAllZerosLeks[[i]],progDir,BUGSDir,i)    # all zeros, all leks, no mzone effect
   
-    resultsD[[i]] <- runMD(dat1stZerosCore[[i]],progDir,BUGSDir,i)    # 1st zeros, core,     no mzone effect
+   #resultsD[[i]] <- runMD(dat1stZerosCore[[i]],progDir,BUGSDir,i)    # 1st zeros, core,     no mzone effect
    #resultsE[[i]] <- runME(dat1stZerosNoco[[i]],progDir,BUGSDir,i)    # 1st zeros, non-core, no mzone effect
-   #resultsF[[i]] <- runMF(dat1stZerosLeks[[i]],progDir,BUGSDir,i)    # 1st zeros, all leks, no mzone effect     <--- already done ---
+   resultsF[[i]] <- runMF(dat1stZerosLeks[[i]],progDir,BUGSDir,i)    # 1st zeros, all leks, no mzone effect     <--- already done ---
     
   } else if(i == 9){
     

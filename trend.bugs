@@ -1,0 +1,28 @@
+model
+{
+    for (k in 1:nCounts) {
+        log(lambda[k]) <- mu[nZoneCls[k]]
+        beta[nZoneCls[k]] * (year[k] - medYear) + omega[lekCls[k]] + 
+            delta[yearCls[k], lekCls[k]] + noise[k]
+        noise[k] ~ dnorm(0.00000E+00, taunoise)
+        count[k] ~ dpois(lambda[k])
+    }
+    taunoise ~ dgamma(0.001, 0.001)
+    sdnoise <- 1/pow(taunoise, 0.5)
+    for (i in 1:nLeks) {
+        omega[i] ~ dnorm(0.00000E+00, taulek)
+    }
+    taulek ~ dgamma(0.001, 0.001)
+    sdlek <- 1/pow(taulek, 0.5)
+    for (s in 1:nZones) {
+        mu[s] ~ dnorm(0.00000E+00, 1.00000E-06)
+        beta[s] ~ dnorm(0.00000E+00, 1.00000E-06)
+    }
+    for (x in 1:nLeks) {
+        for (y in 1:nYears) {
+            delta[y, x] ~ dnorm(0.00000E+00, tauyear[x])
+        }
+        tauyear[x] ~ dgamma(0.001, 0.001)
+        sdyear[x] <- 1/pow(tauyear[s], 0.5)
+    }
+}

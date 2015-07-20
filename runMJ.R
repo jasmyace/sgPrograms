@@ -47,7 +47,7 @@ runMJ <- function(dat,progDir,BUGSDir){
                 n.thin=1)                                                          # default burn-in tosses half
   
   CYear <- dat$yearCls - rep(26,nrow(dat))
-  freqs <- glmer(Peak_Males ~ 1 + CYear + Mgmt_zone + Mgmt_zone*Cyear (1 + CYear | Lek_ID),data=dat,family="poisson")  # check for correct
+  freqs <- glmer(Peak_Males ~ 1 + CYear + Mgmt_zone + Mgmt_zone*CYear + (1 + CYear | Lek_ID),data=dat,family="poisson")  # check for correct
   
   # output results
   save(data,inits,parameters,bayes,CYear,freqs,file=paste0(outpDir,"/Model J MZone 9.RData"))

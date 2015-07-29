@@ -45,9 +45,11 @@ source(paste0(progDir,"/prepareForAnalysis.R"))             # prep the data; dea
 #source(paste0(progDir,"/runMM.R"))
 #source(paste0(progDir,"/runMN.R"))
 #source(paste0(progDir,"/runMO.R"))
-source(paste0(progDir,"/runMP.R"))
+#source(paste0(progDir,"/runMP.R"))
 #source(paste0(progDir,"/runMQ.R"))
-source(paste0(progDir,"/runMR.R"))
+#source(paste0(progDir,"/runMR.R"))
+source(paste0(progDir,"/runMS.R"))
+
 
 sg <- read.csv(paste0(origDir,"/allStatesFinal2015.csv"))
 
@@ -97,9 +99,10 @@ dat1stZerosCore <- vector("list",9)
 #resultsM <- vector("list",1)
 #resultsN <- vector("list",1)
 #resultsO <- vector("list",1)
-resultsP <- vector("list",1)
-resultsQ <- vector("list",1)
-resultsR <- vector("list",1)
+# resultsP <- vector("list",1)
+# resultsQ <- vector("list",1)
+# resultsR <- vector("list",1)
+resultsS <- vector("list",1)
 
 for(i in 9:9){
 
@@ -155,6 +158,7 @@ for(i in 9:9){
     resultsP[[1]] <- runMP(Core1stZeros15p     ,progDir,BUGSDir,9)    # 1st zeros, core, 15% BAS sample,  triple-level fixed mzone, collapsed model-- 1 lek var
     resultsQ[[1]] <- runMQ(Core1stZeros15p     ,progDir,BUGSDir,9)    # 1st zeros, core, 15% BAS sample,  triple-level random mzone, collapsed model-- 1 lek var
     resultsR[[1]] <- runMR(Core1stZeros15p     ,progDir,BUGSDir,9)    # 1st zeros, core, 15% BAS sample,  triple-level random mzone, collapsed model, exp val monitoring
+    resultsS[[1]] <- runMS(smallCoreSamp       ,progDir,BUGSDir,9)    # 1st zeros, core, 15% BAS sample,  Sauer-Link model with B-matrices
    
   }
 }

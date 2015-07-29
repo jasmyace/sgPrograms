@@ -2,7 +2,7 @@ assignCore <- function(dat,shpfile){
   
   
   dat <- datList[[1]]#preCountDat
-  
+  dat <- dat[!is.na(dat$Lat) | !is.na(dat$Long),]    # throw out any coords with NAs
   
   coords = cbind(dat$Long,dat$Lat)
   sp = SpatialPoints(coords,proj4string=CRS(PROJlat))
@@ -42,7 +42,7 @@ assignCore <- function(dat,shpfile){
   SumFcoreAllZero <- NULL
   SumFnocoAllZero <- NULL
   
-  for(i in 1:7){
+  for(i in 1:1){
     
     leks[[i]] <- sp2[sp2@data$mZoneNum == i,]
     core[[i]] <- readOGR(polyDir,paste0('MZone_',i,'_the75'))    # fix self-intersections   
@@ -51,8 +51,8 @@ assignCore <- function(dat,shpfile){
       buff0[[i]] <- core[[i]]
       buff1[[i]] <- core[[i]]
     } else {
-      buff0[[i]] <- gBuffer(core[[i]],width=0) 
-      buff1[[i]] <- gBuffer(core[[i]],width=0.01) 
+      buff0[[i]] <- gBuffer(core[[i]],width=0.0001) 
+      buff1[[i]] <- gBuffer(core[[i]],width=0.0001) 
     }
     
     diff0[i] <- ( gArea(buff0[[i]]) - gArea(core[[i]]) ) / 120^2
@@ -99,7 +99,7 @@ assignCore <- function(dat,shpfile){
     if(i == 8){       # combine zones 2 and 7
       for(j in 1:3){
         if(j == 1){
-          doit <- 'Both'
+          doit <- 'Both-75'
         } else if(j == 2){
           doit <- 'Core-75'
         } else {

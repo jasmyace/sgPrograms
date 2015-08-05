@@ -124,7 +124,7 @@ assignCore <- function(dat,shpfile){
     } else {          # make big file
       for(j in 1:3){
         if(j == 1){
-          doit <- 'Both'
+          doit <- 'Both-75'
         } else if(j == 2){
           doit <- 'Core-75'
         } else {

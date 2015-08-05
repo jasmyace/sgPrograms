@@ -5,10 +5,10 @@ pointsSummary <- function(){
   
   for(i in 1:9){
     
-    FleksAllZero[[i]] <- readOGR(analDir,paste0('Zone ',i,' Both - All Zero'))
+    FleksAllZero[[i]] <- readOGR(analDir,paste0('Zone ',i,' Both-75 - All Zero'))
     FcoreAllZero[[i]] <- readOGR(analDir,paste0('Zone ',i,' Core-75 - All Zero'))
     FnocoAllZero[[i]] <- readOGR(analDir,paste0('Zone ',i,' Non-Core-75 - All Zero'))
-    Fleks1stZero[[i]] <- readOGR(analDir,paste0('Zone ',i,' Both - 1st Zero'))
+    Fleks1stZero[[i]] <- readOGR(analDir,paste0('Zone ',i,' Both-75 - 1st Zero'))
     Fcore1stZero[[i]] <- readOGR(analDir,paste0('Zone ',i,' Core-75 - 1st Zero'))
     Fnoco1stZero[[i]] <- readOGR(analDir,paste0('Zone ',i,' Non-Core-75 - 1st Zero'))
       
@@ -30,6 +30,6 @@ pointsSummary <- function(){
     SumData <- SumData[order(SumData$mZone,SumData$Cut),]
   }
   
-write.csv(SumData,paste0(analDir,"/SumData.csv"))
+write.csv(SumData,paste0(analDir,"/SumData - 2015 Data - 20150731.csv"))
 
 }

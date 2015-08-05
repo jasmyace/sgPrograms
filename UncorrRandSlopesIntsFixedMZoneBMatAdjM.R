@@ -21,38 +21,32 @@
   for(z in 1:nZones){
     m[z] ~ dnorm(0,.0001)                              # for the fixed-effect zone intercepts
     n[z] ~ dnorm(0,.0001)                              # for the fixed-effect zone slopes
-    m.adj[z] <- m[z] - mean(m[])
-    n.adj[z] <- n[z] - mean(n[])
   }
   
   for(j in 1:nLeks){
-    a[j] <- B[j,1]                                     # put random intercepts in 1st col of B matrix
-    b[j] <- B[j,2]                                     # put random slopes in 2nd col of B matrix
-    B[j,1:2] ~ dmnorm(B.hat[j,], Tau.B[,])             # sample from mulitvariate normal
-    B.hat[j,1] <- mu.a                                 # make a matrix of overall intercept
-    B.hat[j,2] <- mu.b                                 # make a matrix of overall slope
+    a[j] ~ dnorm(a.hat[j],tau.a)
+    b[j] ~ dnorm(b.hat[j],tau.b)
+    a.hat[j] <- mu.a
+    b.hat[j] <- mu.b
   }
   
   mu.a ~ dnorm(0,.0001)                                # like an overall intercept -- uninformative prior
   mu.b ~ dnorm(0,.0001)                                # like an overall slope -- uninformative prior
-  Tau.B[1:2,1:2] <- inverse(Sigma.B[,])                # take inverse of covariance matrix to get precision matrix
-  Sigma.B[1,1]<-pow(sigma.a,2)                         # square estimate of sd(int) and put in [1,1] spot in Sigma.B matrix
-  sigma.a ~ dunif(0,100)                               # positive uninformative prior for estimate of sigma.a
-  Sigma.B[2,2] <- pow(sigma.b,2)                       # square estimate of sd(slope) and put in [2,2] spot in Sigma.B matrix
-  sigma.b ~ dunif(0,100)                               # positive uninformative prior for estimate of sigma.b
   
-  #correlation
-  Sigma.B[1,2] <- rho*sigma.a*sigma.b                  # calculate covariance of intercepts and slopes and place in [1,2]
-  Sigma.B[2,1] <- Sigma.B[1,2]                         # and in [2,1] of covariance matrix of Sigma.B
-  rho ~ dunif(-1,1)                                    # uninformative prior on correlation
+  tau.a <- pow(sigma.a,-2)
+  sigma.a ~ dunif(0,100)
+  sd.a <- 1 / pow(tau.a, 0.5)
+  tau.b <- pow(sigma.b,-2)
+  sigma.b ~ dunif(0,100)
+  sd.b <- 1 / pow(tau.b, 0.5)
    
   # make the B-matrices
   for (i in 1:nZones){
     for (j in 1:nYears) {
-      N[i,j] <- exp(m.adj[i] +                         # fixed zone effect
-                    n.adj[i]*(yearCls[j] - medYear) +  # fixed zone slope                        
-                    mu.a +                             # grand intercept
-                    mu.b*(yearCls[j] - medYear) +      # grand slope
+      N[i,j] <- exp(m[i] +                                    # fixed zone effect
+                    n[i]*(yearCls[j] - medYear) +             # fixed zone slope                        
+                    mu.a +                                    # grand intercept
+                    mu.b*(yearCls[j] - medYear) +             # grand slope
                     0.5*sdnoise*sdnoise) 
     }
   }

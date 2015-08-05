@@ -7,8 +7,8 @@
     pMales[k] ~ dpois(lambda[k])                         # count (number of peak males) distribution
     log(lambda[k]) <-                                    # expected number of peaked males
       
-      m[zoneCls[k]] +                                    # fixed zone effect
-      n[zoneCls[k]]*(yearCls[k] - medYear) +             # fixed zone slope
+      m.adj[zoneCls[k]] +                                # fixed zone effect
+      n.adj[zoneCls[k]]*(yearCls[k] - medYear) +         # fixed zone slope
       
       a[lekCls[k]] +                                     # random lek intercept
       b[lekCls[k]]*(yearCls[k] - medYear) +              # random lek slope
@@ -21,8 +21,8 @@
   for(z in 1:nZones){
     m[z] ~ dnorm(0,.0001)                              # for the fixed-effect zone intercepts
     n[z] ~ dnorm(0,.0001)                              # for the fixed-effect zone slopes
-    m.adj[z] <- m[z] - mean(m[])
-    n.adj[z] <- n[z] - mean(n[])
+    m.adj[z] <- m[z] - mu.a
+    n.adj[z] <- n[z] - mu.b
   }
   
   for(j in 1:nLeks){

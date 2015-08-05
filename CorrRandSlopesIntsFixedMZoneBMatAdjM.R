@@ -7,8 +7,8 @@
     pMales[k] ~ dpois(lambda[k])                         # count (number of peak males) distribution
     log(lambda[k]) <-                                    # expected number of peaked males
       
-      m[zoneCls[k]] +                                    # fixed zone effect
-      n[zoneCls[k]]*(yearCls[k] - medYear) +             # fixed zone slope
+      m.adj[zoneCls[k]] +                                # fixed zone effect
+      n.adj[zoneCls[k]]*(yearCls[k] - medYear) +         # fixed zone slope
       
       a[lekCls[k]] +                                     # random lek intercept
       b[lekCls[k]]*(yearCls[k] - medYear) +              # random lek slope

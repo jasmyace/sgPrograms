@@ -1,4 +1,4 @@
-runMS <- function(dat,progDir,BUGSDir,thisRun,z){
+runMT <- function(dat,progDir,BUGSDir,thisRun,z){
   
   #dat <- smallCoreSamp2
 
@@ -39,9 +39,7 @@ runMS <- function(dat,progDir,BUGSDir,thisRun,z){
 #   for(j in 1:51){
 #     thing[j] <- sum(nLeksMat[1:3,j] * nLeksMat[1:3,j]) / nLeksVec[j]
 #   }
-  
-  
-  
+
   
   data <- list(pMales = dat$Peak_Males,                                            # count outcome
                lekCls = dat$lekCls,                                                # integers representing different leks
@@ -173,7 +171,7 @@ runMS <- function(dat,progDir,BUGSDir,thisRun,z){
   bayes <- bugs(data=data,                                                         # data to feed to winbugs
                 inits=inits,                                                       # start chain with these
                 parameters.to.save=parameters,                                     # monitor these
-                model.file=paste0(progDir,"/CorrRandSlopesIntsFixedMZoneBMat.R"),  # winbugs code
+                model.file=paste0(progDir,"/CorrRandSlopesIntsFixedMZoneBMatAdjM.R"),  # winbugs code
                 #debug=TRUE,
                 bugs.directory=BUGSDir,
                 n.chains=1,                                                        # n chains >= 3
@@ -187,7 +185,7 @@ runMS <- function(dat,progDir,BUGSDir,thisRun,z){
   freqs <- "Hello."#glmer(Peak_Males ~ 1 + CYear + (1 + CYear | Lek_ID),data=dat,family="poisson")
   
   # output results
-  save(data,inits,parameters,bayes,CYear,freqs,time,file=paste0(outpDir,"/Model S MZone ",z," ",thisRun,".RData"))
+  save(data,inits,parameters,bayes,CYear,freqs,time,file=paste0(outpDir,"/Model T MZone ",z," ",thisRun,".RData"))
   
   list(data,inits,parameters,bayes,CYear,freqs,time)
   

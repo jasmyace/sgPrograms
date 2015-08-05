@@ -1,12 +1,415 @@
 
 
 
+# loadThis <- 'Model S MZone 9 All MZones Core, Try 2'
+# loadThis <- 'Model S MZone 9 All MZones Non-Core, Try 2'
+# 
+# loadThis <- 'Model S MZone 9 MZones 1,3,5 Core, Try 1'
+# loadThis <- 'Model T MZone 9 MZones 1,3,5 Core, Adj M,Try 1'
+# 
+# loadThis <- 'Model U MZone 9 All MZones Non-Core, Adj M,Try 1'
+# loadThis <- 'Model U MZone 9 All MZones Core, Adj M,Try 1'
 
 theFiles <- list.files(outpDir)
+theFiles <- theFiles[grepl("RData", theFiles) == 1]
+colVec <- brewer.pal(8,"Set1")
 
-estsC <- summarizeModels(modelLetter="C")
-estsD <- summarizeModels(modelLetter="D")
-estsF <- summarizeModels(modelLetter="F")
+
+states <- c("CA","CO","ID","MT","ND","NV","OR","SD","UT","WA","WY")
+mZones <- c("MZone 1","MZone 3","MZone 4","MZone 5","MZone 6","MZone 8")
+
+nStates <- length(states)
+nMZones <- length(mZones)
+
+
+
+
+
+# loop over mZone files in theFiles
+for(i in 1:nMZones){
+  
+  theMZone <- mZones[i]
+  numMZone <- as.numeric(substr(theMZone,7,7))
+  MZoneFile <- theFiles[grepl(mZones[i],theFiles)]
+  
+  for(j in 1:3){
+    
+    # get data for analysis
+    load(paste0(outpDir,'/',MZoneFile[j]))                                                 # get bayesian stuff
+    if(j == 1){
+      dat <- dat1stZerosCore[[numMZone]]                                                   # get orig data
+    } else if(j == 2){
+      dat <- dat1stZerosNoco[[numMZone]]                                                   # get orig data      
+    } else {
+      dat <- dat1stZerosLeks[[numMZone]]                                                   # get orig data
+    }
+    
+    dat$mZone_num <- as.numeric(as.roman(unlist(strsplit(as.character(droplevels(dat$Mgmt_zone))," ",fixed=TRUE))[c(FALSE,TRUE)]))
+    
+    # make a folder where needed, for files in tracDir, if it doesn't already exist.
+    file <- substr(MZoneFile[j],1,nchar(MZoneFile[j]) - 6)
+    ifelse(!dir.exists(file.path(tracDir,file)), dir.create(file.path(tracDir,file)), FALSE)
+    
+    # make trace plots
+    nParms <- dim(bayes$sims.array)[3]
+    parmList <- dimnames(bayes$sims.array)[[3]]
+    makeTracePlots(nParms,parmList,tracDir,bayes$sims.array,bayes$summary)
+    
+    
+    # make posterior plots
+    
+    
+    
+    
+    
+    
+    
+    
+    rm(nParms,parmList)
+  }
+}
+
+
+# load in data for sample means 
+dat <- dat1stZerosCore[[9]]    # loop over cores?
+#dat <- dat1stZerosNoco[[9]]  
+
+# load(paste0(outpDir,'/smallCoreSamp2.Sonic2.RData'))
+# dat <- smallCoreSamp2
+
+
+
+# nZones <- length(unique(dat$mZone_num))
+
+
+# load(paste0(outpDir,'/',loadThis,'.RData')) 
+
+
+
+
+
+
+# Create trace plots from simulation effort.
+nParms <- dim(bayes$sims.array)[3]
+parmList <- dimnames(bayes$sims.array)[[3]]
+
+png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 1-196 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+
+  lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+  layout.show(lay)
+  for(i in 1:196){
+    plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
+  }
+
+dev.off()
+
+png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 197-392 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+
+  lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+  layout.show(lay)
+  for(i in 197:392){
+    plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
+  }
+
+dev.off()
+
+png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 393-588 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+
+  lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+  layout.show(lay)
+  for(i in 393:588){
+    plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
+  }
+
+dev.off()
+
+png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 589-784 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+
+  lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+  layout.show(lay)
+  for(i in 589:nParms){
+    plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
+  }
+
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Create histograms from simulation effort.
+nParms <- dim(bayes$sims.array)[3]
+parmList <- dimnames(bayes$sims.array)[[3]]
+
+png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 1-196 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+
+lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+layout.show(lay)
+for(i in 1:196){
+  hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=100)
+  abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
+  abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
+}
+
+dev.off()
+
+png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 197-392 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+
+lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+layout.show(lay)
+for(i in 197:392){
+  hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
+  abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
+  abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
+}
+
+dev.off()
+
+png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 393-588 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+
+lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+layout.show(lay)
+for(i in 393:588){
+  hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
+  abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
+  abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
+}
+
+dev.off()
+
+png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 589-784 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+
+lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+layout.show(lay)
+for(i in 589:nParms){
+  hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
+  abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
+  abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
+}
+
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# try2 <- bayes$summary
+# try3 <- bayes$summary
+
+
+# load model 
+# these <- grep(paste0("Model ",modelLetter), theFiles , ignore.case=FALSE, fixed=TRUE)
+# zoneString <- unlist(lapply(strsplit(theFiles,".",fixed=TRUE),function(x) strsplit(x,".",fixed=TRUE)[[1]][1]))
+# zones <- as.numeric(substr(zoneString,nchar(zoneString),nchar(zoneString)))
+# loadThese <- paste0(outpDir,"/",theFiles[these])
+# assign(paste0("nModel",modelLetter),length(loadThese))
+# 
+
+
+
+
+# these <- 6
+# load(paste0(outpDir,"/",theFiles[these]))  
+
+
+
+Year <- data.frame(Year=seq(1965,2015,1))
+
+indx <- data.frame(bayes$summary)
+indx$vars <- rownames(indx)
+indx$x <- ifelse(substr(indx$vars,1,1) == 'N',substr(indx$vars,3,3),-99)
+indx$y <- ifelse(substr(indx$vars,1,1) == 'N',ifelse(nchar(indx$vars) == 6,substr(indx$vars,5,5),substr(indx$vars,5,6)),-99)
+indx$x0 <- ifelse(substr(indx$vars,1,2) == 'N0',ifelse(nchar(indx$vars) == 5,substr(indx$vars,4,4),substr(indx$vars,4,5)),-99)
+  
+# build the true B-matrix
+beta.mzone <- matrix(NA,nrow=nZones,ncol=51)
+list.beta.mzone <- indx[substr(indx$vars,1,2) == 'N[',]
+for(i in 1:nZones){
+  for(j in 1:51){
+    beta.mzone[i,j] <- list.beta.mzone[list.beta.mzone$x == i & list.beta.mzone$y == j,]$mean
+  }
+}
+
+
+
+
+
+if(grepl("Non-Core", loadThis) == 1){
+  coreText <- "Non-Core"
+} else {
+  coreText <- "Core"
+}
+
+dev.off()
+par(mfrow=c(3,2))
+
+for(i in 1:nZones){
+  if(i == 1){mZone <- 1}
+  if(i == 2){mZone <- 3}
+  if(i == 3){mZone <- 4}
+  if(i == 4){mZone <- 5}
+  if(i == 5){mZone <- 6}
+  if(i == 6){mZone <- 8}
+  
+  theN <- data.frame(Year=seq(1965,2015,1),N=beta.mzone[i,])
+  
+  thisOne <- dat[dat$mZone_num == mZone,]
+  obsMeans <- data.frame(MeanPMales=tapply(thisOne$Peak_Males, list(thisOne$Year), mean))
+  obsMeans$Year <- rownames(obsMeans)
+  
+  plotYears <- merge(obsMeans,theN,by=c('Year'),all.x=TRUE)
+  
+  x  <- plotYears$Year
+  y1 <- plotYears$N
+  y2 <- plotYears$MeanPMales
+  
+  yMax <- 100
+  
+  plot(x,y1,type='p',pch=19,col='darkgray',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",coreText," - Management Zone ",mZone))
+  par(new=TRUE)
+  plot(x,y2,type='l',col=colVec[i],axes=FALSE, frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  axis(side=1,labels=TRUE,seq(1965,2015,5))
+  axis(side=2,labels=TRUE,seq(0,yMax,10))
+  
+  rm(plotYears,x,y1,y2)
+}
+
+
+
+
+
+
+
+
+  
+  
+dev.off()
+# investigate regionwide trends
+# build the true B-matrix
+beta.range <- rep(NA,51)
+list.beta.range <- indx[substr(indx$vars,1,3) == 'N0[',]
+for(k in 1:51){
+  beta.range[k] <- list.beta.range[list.beta.range$x0 == k,]$mean
+}
+
+theN <- data.frame(Year=seq(1965,2015,1),N=beta.range)
+
+thisOne <- dat
+obsMeans <- data.frame(MeanPMales=tapply(thisOne$Peak_Males, list(thisOne$Year), mean))
+obsMeans$Year <- rownames(obsMeans)
+
+plotYears <- merge(obsMeans,theN,by=c('Year'),all.x=TRUE)
+
+x  <- plotYears$Year
+y1 <- plotYears$N
+y2 <- plotYears$MeanPMales
+i <- 1
+
+yMax <- 100
+
+plot(x,y1,type='p',pch=19,col='darkgray',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2014\n75% ",coreText," Core - Rangewide"))
+par(new=TRUE)
+plot(x,y2,type='l',col=colVec[i],axes=FALSE, frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+axis(side=1,labels=TRUE,seq(1965,2015,5))
+axis(side=2,labels=TRUE,seq(0,yMax,10))
+
+rm(plotYears,x,y1,y2)  
+
+
+
+
+
+
+
+
+
+
+
+B10 <- data.frame(bayes$summary[substr(rownames(bayes$summary),1,3) == 'B10',])
+
+B10$mZone <- as.numeric(substr(rownames(B10),11,11))
+
+for(i in 1:nZones){
+  if(i == 1){mZone <- 1}
+  if(i == 2){mZone <- 3}
+  if(i == 3){mZone <- 4}
+  if(i == 4){mZone <- 5}
+  if(i == 5){mZone <- 6}
+  if(i == 6){mZone <- 8}
+  
+  theN <- data.frame(Year=seq(1965,2015,1),N=beta.mzone[i,])
+  
+  thisOne <- dat[dat$mZone_num == mZone,]
+  obsMeans <- data.frame(MeanPMales=tapply(thisOne$Peak_Males, list(thisOne$Year), mean))
+  obsMeans$Year <- rownames(obsMeans)
+  
+  plotYears <- merge(obsMeans,theN,by=c('Year'),all.x=TRUE)
+  
+  x  <- plotYears$Year
+  y1 <- plotYears$N
+  y2 <- plotYears$MeanPMales
+  
+  yMax <- 100
+  
+  plot(x,y1,type='p',pch=19,col='darkgray',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% Core - Management Zone ",mZone))
+  par(new=TRUE)
+  plot(x,y2,type='l',col=colVec[i],axes=FALSE, frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  axis(side=1,labels=TRUE,seq(1965,2015,5))
+  axis(side=2,labels=TRUE,seq(0,yMax,10))
+  
+  rm(plotYears,x,y1,y2)  
+}
+
+
+g <- smallCoreSamp2$Peak_Males[smallCoreSamp2$Peak_Males <= 100]
+h <- hist(g, breaks=100, density=10, col="lightgray", xlab="Accuracy", main="Overall") 
+xfit <- seq(min(g),max(g),length=40) 
+yfit <- dpois(xfit,lambda=mean(g)) 
+yfit <- yfit*diff(h$mids[1:2])*length(g) 
+lines(xfit, yfit, col="black", lwd=2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 allResults <- rbind(estsC,estsD,estsF)
 rm(estsC,estsD,estsF)
@@ -44,6 +447,7 @@ for(i in 1:8){
   #C <- readOGR(analDir,paste0('Zone ',i,' Both - All Zero'))@data           # C - read in all zeros, all data, ith mzone
   
   D <- readOGR(analDir,paste0('Zone ',i,' Core-75 - 1st Zero'))@data        # D - read in 1st zeros, core data, ith mzone
+  D <- smallCoreSamp
   #E <- readOGR(analDir,paste0('Zone ',i,' Non-Core-75 - 1st Zero'))@data    # E - read in 1st zeros, non-core data, ith mzone
   #F <- readOGR(analDir,paste0('Zone ',i,' Both - 1st Zero'))@data           # F - read in 1st zeros, all data, ith mzone
   

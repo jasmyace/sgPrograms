@@ -1,8 +1,8 @@
 makeHistogramPlots <- function(dat,theUnit,tracDir){
   
-  dat <- dat
-  theUnit <- 'WY'
-  tracDir <- paste0(outpDir,'/',file,'/Zeros Plots')
+#   dat <- dat
+#   theUnit <- 'WY'
+#   tracDir <- paste0(outpDir,'/',file,'/Zeros Plots')
   
   
   
@@ -20,7 +20,7 @@ makeHistogramPlots <- function(dat,theUnit,tracDir){
     if(z <= nYears){
       thisYear <- years[z]
       yearDat <- dat[dat$Year == thisYear & dat$Peak_Males <= 100,]
-      hist(yearDat$Peak_Males,breaks=100,main=paste0(theUnit,' - First Zeros - Year ',thisYear))
+      hist(yearDat$Peak_Males,breaks=100,main=paste0('Histogram',theUnit,' - First Zeros - Year ',thisYear))
     } else {
       plot.new()
     }

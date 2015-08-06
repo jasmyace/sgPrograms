@@ -56,6 +56,7 @@ source(paste0(progDir,"/runMF.R"))
 #source(paste0(progDir,"/runMS.R"))
 #source(paste0(progDir,"/runMT.R"))
 #source(paste0(progDir,"/runMU.R"))
+source(paste0(progDir,"/runMV.R"))
 
 sg <- read.csv(paste0(origDir,"/allStatesFinal2015.csv"))
 
@@ -82,7 +83,7 @@ rm(sg)
 mZones <- unique(datList[[1]]$mZoneNum)
 mZones <- mZones[order(mZones)]
 
-#datAllZerosCore <- vector("list",9)
+datAllZerosCore <- vector("list",9)
 #datAllZerosNoco <- vector("list",9) 
 #datAllZerosLeks <- vector("list",9) 
 dat1stZerosCore <- vector("list",9) 
@@ -110,6 +111,7 @@ resultsF <- vector("list",8)
 #resultsS <- vector("list",1)
 #resultsT <- vector("list",1)
 #resultsU <- vector("list",1)
+resultsV <- vector("list",8)
 
 for(i in 1:6){
 
@@ -121,7 +123,7 @@ for(i in 1:6){
   if(i == 6){mZone <- 8}
   if(i == 7){mZone <- 9}
   
- #datAllZerosCore[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Core-75 - All Zero'))@data        # read in all zeros, core data, ith mzone
+  datAllZerosCore[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Core-75 - All Zero'))@data        # read in all zeros, core data, ith mzone
  #datAllZerosNoco[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Non-Core-75 - All Zero'))@data    # read in all zeros, non-core data, ith mzone
  #datAllZerosLeks[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Both-75 - All Zero'))@data        # read in all zeros, all data, ith mzone
  
@@ -141,7 +143,9 @@ for(i in 1:6){
   
     resultsD[[mZone]] <- runMD(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Try 1',mZone)                 # 1st zeros, core,     ind mzone, B mat
     resultsE[[mZone]] <- runME(dat1stZerosNoco[[mZone]],progDir,BUGSDir,'Try 1',mZone)                 # 1st zeros, non-core, ind mzone, B mat
-    resultsF[[mZone]] <- runMF(dat1stZerosLeks[[mZone]],progDir,BUGSDir,'Try 1',mZone)                 # 1st zeros, all leks, no mzone effect     <--- already done ---
+    resultsF[[mZone]] <- runMF(dat1stZerosLeks[[mZone]],progDir,BUGSDir,'Try 1',mZone)                 # 1st zeros, all leks, no mzone effect     
+    
+    resultsV[[mZone]] <- runMV(datAllZerosCore[[mZone]],progDir,BUGSDir,'ZInf Try 2',mZone)            # ALL zeros, core,     ind mzone, B mat, zero inf
     
    } #else if(mZone == 9){
 #     

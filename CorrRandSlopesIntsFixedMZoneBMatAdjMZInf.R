@@ -23,7 +23,6 @@
   psi ~ dunif(0,1)
   R.lpsi <- logit(1 - psi)
   
-  
   for(z in 1:nZones){
     m[z] ~ dnorm(0,.0001)                              # for the fixed-effect zone intercepts
     n[z] ~ dnorm(0,.0001)                              # for the fixed-effect zone slopes

@@ -1,4 +1,6 @@
 
+packDir <- "C:/Program Files/R/R-3.2.1/library"
+install.packages(c("R2WinBUGS","lme4","sp","rgdal","rgeos","raster","maptools","Cairo","RColorBrewer"),packDir,repos="http://cran.us.r-project.org")
 
 require(R2WinBUGS)      # run WinBUGS
 require(lme4)           # glmm for poisson
@@ -18,19 +20,20 @@ outpDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Output"
 rsltDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Results"
 polyDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Data/Spatial/Density Polygons"
 analDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Data/Spatial/Analysis Sets"
-tracDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Output/Trace Plots"
-postDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Output/Posterior Plots"
 
 PROJaea <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"
 PROJlat <- "+init=epsg:4326"
 
 source(paste0(progDir,"/helperFunctions.R"))                # helpful functions available for use, when needed
 source(paste0(progDir,"/prepareForAnalysis.R"))             # prep the data; deal with zeros
-#source(paste0(progDir,"/makeDensityPolyBits.R"))            # convert rasters to shapefiles
-#source(paste0(progDir,"/assignCore.R"))                     # assign core
-#source(paste0(progDir,"/pointsSummary.R"))                  # summarize results of assigning by core
-
-
+#source(paste0(progDir,"/makeDensityPolyBits.R"))           # convert rasters to shapefiles
+#source(paste0(progDir,"/assignCore.R"))                    # assign core
+#source(paste0(progDir,"/pointsSummary.R"))                 # summarize results of assigning by core
+source(paste0(progDir,"/readInAnalyticFiles.R"))            # read in analytic shapefiles
+source(paste0(progDir,"/makeTracePlots.R"))                 # make trace plots
+source(paste0(progDir,"/makePosteriorPlots.R"))             # make posterior plots
+source(paste0(progDir,"/makeTrendPlots.R"))                 # make trend plots
+source(paste0(progDir,"/makeHistogramPlots.R"))             # make histogram plots
 
 #source(paste0(progDir,"/runMA.R"))
 #source(paste0(progDir,"/runMB.R"))

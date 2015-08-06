@@ -34,7 +34,8 @@ runMD <- function(dat,progDir,BUGSDir,thisRun,z){
          mu.b=rnorm(1),                                                            # pull from normal of 1x1
          sigma.b=runif(1),                                                         # pull from rand uni [0,1], positive
          rho=runif(1,-0.2,0.2),                                                    # pull from rand uni [-0.2,0.2]
-         noise=runif(length(data$pMales),min=0,max=0.5)
+         noise=runif(length(data$pMales),min=0,max=0.5),                           # noise
+         psi=runif(1)
     )
   }
   

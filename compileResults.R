@@ -22,52 +22,108 @@ nStates <- length(states)
 nMZones <- length(mZones)
 
 
+readInAnalyticFiles(analDir)
 
 
 
-# loop over mZone files in theFiles
-for(i in 1:nMZones){
+
+
+for(h in 1:2){
+  if(h == 1){
+    units <- mZones
+    nUnits <- nMZones
+    start <- 1
+    string <- 'Management Zone'
+  } else {
+    units <- states
+    nUnits <- nStates
+    start <- 3
+    string <- 'State'
+  }
+
+  # loop over mZone files in theFiles
+  for(i in 1:nUnits){
   
-  theMZone <- mZones[i]
-  numMZone <- as.numeric(substr(theMZone,7,7))
-  MZoneFile <- theFiles[grepl(mZones[i],theFiles)]
+    theUnit <- units[i]
+    numUnit <- as.numeric(substr(theUnit,7,7))                                               # applicable only to mZone?
+    unitFile <- theFiles[grepl(units[i],theFiles)]
   
-  for(j in 1:3){
-    
-    # get data for analysis
-    load(paste0(outpDir,'/',MZoneFile[j]))                                                 # get bayesian stuff
-    if(j == 1){
-      dat <- dat1stZerosCore[[numMZone]]                                                   # get orig data
-    } else if(j == 2){
-      dat <- dat1stZerosNoco[[numMZone]]                                                   # get orig data      
-    } else {
-      dat <- dat1stZerosLeks[[numMZone]]                                                   # get orig data
+    for(j in start:3){
+      
+      # get data for analysis
+      if(h == 1){
+        load(paste0(outpDir,'/',unitFile[j]))                                                # get bayesian stuff -- mzone
+      } else {
+        load(paste0(outpDir,'/',unitFile[1]))                                                # get bayesian stuff -- state        
+      }
+      if(j == 1){
+        if(h == 1){
+          dat <- dat1stZerosCore[[numUnit]]                                                  # get orig data
+        } else {
+          dat <- dat1stZerosCore[[9]][dat1stZerosCore[[9]]$State == theUnit,]                # get state data          
+        }
+        runType <- 'Core'                                                                    # assign run type
+      } else if(j == 2){
+        if(h == 1){
+          dat <- dat1stZerosNoco[[numUnit]]                                                  # get orig data   
+        } else {
+          dat <- dat1stZerosNoco[[9]][dat1stZerosNoco[[9]]$State == theUnit,]                # get state data          
+        }
+        runType <- 'Non-Core'                                                                # assign run type      
+      } else {
+        if(h == 1){
+          dat <- dat1stZerosLeks[[numUnit]]                                                  # get mzone data
+        } else { 
+          dat <- dat1stZerosLeks[[9]][dat1stZerosLeks[[9]]$State == theUnit,]                # get state data
+        }
+        runType <- 'All Leks'                                                                # assign run type      
+      }
+      
+      dat$mZone_num <- as.numeric(as.roman(unlist(strsplit(as.character(droplevels(dat$Mgmt_zone))," ",fixed=TRUE))[c(FALSE,TRUE)]))
+      
+      # make a folder where needed, for files in tracDir, if it doesn't already exist.
+      if(h == 1){
+        file <- substr(unitFile[j],1,nchar(unitFile[j]) - 6)                                        # get name of new folder                
+      } else {
+        file <- substr(unitFile[1],1,nchar(unitFile[1]) - 6)                                        # get name of new folder        
+      }
+
+      ifelse(!dir.exists(file.path(outpDir,file)), dir.create(file.path(outpDir,file)), FALSE)      # make new folder
+      file.copy(paste0(outpDir,"/",file,".RData"),paste0(outpDir,"/",file))                         # copy bayes output to new folder
+      ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Trace Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Trace Plots'))), FALSE)        # make new trace plots folder
+      ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Posterior Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Posterior Plots'))), FALSE)# make new posterior plots folder
+      ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Trend Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Trend Plots'))), FALSE)        # make new mzone trend plots folder
+      
+      # make trace & posterior plots
+#       nParms <- dim(bayes$sims.array)[3]
+#       parmList <- dimnames(bayes$sims.array)[[3]]
+#       makeTracePlots(nParms,parmList,paste0(outpDir,'/',file,'/Trace Plots'),file,bayes)    
+#       makePosteriorPlots(nParms,parmList,paste0(outpDir,'/',file,'/Posterior Plots'),file,bayes)
+#       
+#       # make bayes summary file of estimates
+#       write.csv(bayes$summary,paste0(outpDir,'/',file,'/bayesSummary - ',file,'.csv'))
+      
+      # make trend plots
+      makeTrendPlots(dat,runType,paste0(" - ",string," ",theUnit),1,paste0(outpDir,'/',file,'/Trend Plots'),file,bayes)
+  
+      rm(nParms,parmList)
     }
-    
-    dat$mZone_num <- as.numeric(as.roman(unlist(strsplit(as.character(droplevels(dat$Mgmt_zone))," ",fixed=TRUE))[c(FALSE,TRUE)]))
-    
-    # make a folder where needed, for files in tracDir, if it doesn't already exist.
-    file <- substr(MZoneFile[j],1,nchar(MZoneFile[j]) - 6)
-    ifelse(!dir.exists(file.path(tracDir,file)), dir.create(file.path(tracDir,file)), FALSE)
-    
-    # make trace plots
-    nParms <- dim(bayes$sims.array)[3]
-    parmList <- dimnames(bayes$sims.array)[[3]]
-    makeTracePlots(nParms,parmList,tracDir,bayes$sims.array,bayes$summary)
-    
-    
-    # make posterior plots
-    
-    
-    
-    
-    
-    
-    
-    
-    rm(nParms,parmList)
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # load in data for sample means 
@@ -88,58 +144,56 @@ dat <- dat1stZerosCore[[9]]    # loop over cores?
 
 
 
-
-# Create trace plots from simulation effort.
-nParms <- dim(bayes$sims.array)[3]
-parmList <- dimnames(bayes$sims.array)[[3]]
-
-png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 1-196 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-
-  lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-  layout.show(lay)
-  for(i in 1:196){
-    plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
-  }
-
-dev.off()
-
-png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 197-392 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-
-  lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-  layout.show(lay)
-  for(i in 197:392){
-    plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
-  }
-
-dev.off()
-
-png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 393-588 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-
-  lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-  layout.show(lay)
-  for(i in 393:588){
-    plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
-  }
-
-dev.off()
-
-png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 589-784 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-
-  lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-  layout.show(lay)
-  for(i in 589:nParms){
-    plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
-  }
-
-dev.off()
-
-
-
-
-
-
-
-
+# 
+# # Create trace plots from simulation effort.
+# nParms <- dim(bayes$sims.array)[3]
+# parmList <- dimnames(bayes$sims.array)[[3]]
+# 
+# png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 1-196 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+# 
+#   lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+#   layout.show(lay)
+#   for(i in 1:196){
+#     plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
+#   }
+# 
+# dev.off()
+# 
+# png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 197-392 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+# 
+#   lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+#   layout.show(lay)
+#   for(i in 197:392){
+#     plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
+#   }
+# 
+# dev.off()
+# 
+# png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 393-588 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+# 
+#   lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+#   layout.show(lay)
+#   for(i in 393:588){
+#     plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
+#   }
+# 
+# dev.off()
+# 
+# png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 589-784 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+# 
+#   lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+#   layout.show(lay)
+#   for(i in 589:nParms){
+#     plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
+#   }
+# 
+# dev.off()
+# 
+# 
+# 
+# 
+# 
+# 
 
 
 
@@ -147,65 +201,67 @@ dev.off()
 
 
 
-# Create histograms from simulation effort.
-nParms <- dim(bayes$sims.array)[3]
-parmList <- dimnames(bayes$sims.array)[[3]]
-
-png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 1-196 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-
-lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-layout.show(lay)
-for(i in 1:196){
-  hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=100)
-  abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
-  abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
-}
-
-dev.off()
-
-png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 197-392 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-
-lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-layout.show(lay)
-for(i in 197:392){
-  hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
-  abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
-  abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
-}
-
-dev.off()
-
-png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 393-588 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-
-lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-layout.show(lay)
-for(i in 393:588){
-  hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
-  abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
-  abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
-}
-
-dev.off()
-
-png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 589-784 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-
-lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-layout.show(lay)
-for(i in 589:nParms){
-  hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
-  abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
-  abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
-}
-
-dev.off()
-
-
-
-
-
-
-
-
+# 
+# 
+# # Create histograms from simulation effort.
+# nParms <- dim(bayes$sims.array)[3]
+# parmList <- dimnames(bayes$sims.array)[[3]]
+# 
+# png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 1-196 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+# 
+# lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+# layout.show(lay)
+# for(i in 1:196){
+#   hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=100)
+#   abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
+#   abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
+# }
+# 
+# dev.off()
+# 
+# png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 197-392 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+# 
+# lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+# layout.show(lay)
+# for(i in 197:392){
+#   hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
+#   abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
+#   abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
+# }
+# 
+# dev.off()
+# 
+# png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 393-588 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+# 
+# lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+# layout.show(lay)
+# for(i in 393:588){
+#   hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
+#   abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
+#   abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
+# }
+# 
+# dev.off()
+# 
+# png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 589-784 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
+# 
+# lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
+# layout.show(lay)
+# for(i in 589:nParms){
+#   hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
+#   abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
+#   abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
+# }
+# 
+# dev.off()
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
 
 
 

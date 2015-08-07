@@ -1,24 +1,13 @@
-runMD <- function(dat,progDir,BUGSDir,thisRun,z){
+runMZ <- function(dat,progDir,BUGSDir,thisRun,z){
   
   #dat <- dat1stZerosCore[[1]]
   
-  # check if there are any years missing data -- affects B matrix calculations if missing
-  if(dim(data.frame(table(dat$Year)))[1] != 51){
-    look <- merge(data.frame(Year=seq(1965,2015,1)),data.frame(Year=unique(dat$Year),Here=rep(1,length(unique(dat$Year)))),by=c('Year'),all.x=TRUE)
-    miss <- look[is.na(look$Here),]$Year                                           # extract the missing years
-    miss.index <- miss - 1964                                                      # scale them to the factor index
-    temp <- as.numeric(as.factor(c(miss,dat$Year)))                                # do the factor
-    dat$yearCls = temp[-c(miss.index)]                                             # remove the fake years
-  } else {                                                                       
-    dat$yearCls = as.numeric(as.factor(dat$Year))                                  # the year    
-  }
-  
-  # Add indices for model variables
-  dat$lekCls = as.numeric(as.factor(droplevels(dat$Lek_ID)))                       # lek
+  dat$yearCls = as.numeric(as.factor(dat$yearCls))                                 # the year    
+  dat$lekCls = as.numeric(as.factor(droplevels(dat$lekCls)))                       # lek
   
   data <- list(nCounts = length(dat$Peak_Males),                                   # number of peak_male counts
-               nZones = length(unique(dat$Mgmt_zone)),                             # number of management zones - set to 1?
-               nLeks = length(unique(dat$Lek_ID)),                                 # number of leks 
+               nZones = 1,                                                         # number of management zones - set to 1?
+               nLeks = length(unique(dat$lekCls)),                                 # number of leks 
                nYears = 51,                                                        # number of years
                pMales = dat$Peak_Males,                                            # count outcome
                medYear = 26,                                                       # median year index (constant) [1990]
@@ -58,7 +47,7 @@ runMD <- function(dat,progDir,BUGSDir,thisRun,z){
                 inits=inits,                                                       # start chain with these
                 parameters.to.save=parameters,                                     # monitor these
                 model.file=paste0(progDir,"/CorrRandSlopesIntsBMat.R"),            # winbugs code
-               #debug=TRUE,
+                debug=TRUE,
                 bugs.directory=BUGSDir,
                 n.chains=1,                                                        # n chains >= 3
                 n.burnin=76000,
@@ -71,7 +60,7 @@ runMD <- function(dat,progDir,BUGSDir,thisRun,z){
   freqs <- "Hello." #glmer(Peak_Males ~ 1 + CYear + (1 + CYear | Lek_ID),data=dat,family="poisson")
   
   # output results
-  save(data,inits,parameters,bayes,CYear,freqs,time,file=paste0(outpDir,"/Model D MZone ",z," ",thisRun,".RData"))
+  save(data,inits,parameters,bayes,CYear,freqs,time,file=paste0(outpDir,"/Model Z MZone ",z," ",thisRun,".RData"))
   list(data,inits,parameters,bayes,CYear,freqs,time)
 
 }

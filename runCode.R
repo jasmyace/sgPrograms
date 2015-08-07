@@ -1,6 +1,6 @@
 
-packDir <- "C:/Program Files/R/R-3.2.1/library"
-install.packages(c("R2WinBUGS","lme4","sp","rgdal","rgeos","raster","maptools","Cairo","RColorBrewer"),packDir,repos="http://cran.us.r-project.org")
+# packDir <- "C:/Program Files/R/R-3.2.1/library"
+# install.packages(c("R2WinBUGS","lme4","sp","rgdal","rgeos","raster","maptools","Cairo","RColorBrewer"),packDir,repos="http://cran.us.r-project.org")
 
 require(R2WinBUGS)      # run WinBUGS
 require(lme4)           # glmm for poisson
@@ -57,6 +57,7 @@ source(paste0(progDir,"/runMF.R"))
 #source(paste0(progDir,"/runMT.R"))
 #source(paste0(progDir,"/runMU.R"))
 source(paste0(progDir,"/runMV.R"))
+source(paste0(progDir,"/runMZ.R"))
 
 sg <- read.csv(paste0(origDir,"/allStatesFinal2015.csv"))
 
@@ -112,6 +113,7 @@ resultsF <- vector("list",8)
 #resultsT <- vector("list",1)
 #resultsU <- vector("list",1)
 resultsV <- vector("list",8)
+resultsZ <- vector("list",1)
 
 for(i in 1:6){
 
@@ -212,6 +214,9 @@ for(i in 1:6){
 #    #resultsU[[1]] <- runMU(dat1stZerosNoco[[9]],progDir,BUGSDir,'All MZones Non-Core, Adj M,Try 1',9)# 1st zeros, non-core, all 2015 data, Sauer-Link model with B-matrices, model adj M 
 #   }
 }
+
+resultsZ[[1]] <- runMZ(fakeData,progDir,BUGSDir,'Fake Data Test',99)            # fake data test
+
 
 
 

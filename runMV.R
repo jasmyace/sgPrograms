@@ -27,24 +27,26 @@ runMV <- function(dat,progDir,BUGSDir,thisRun,z){
  
   # the use of a f'n that pulls random numbers ensures each chain starts at a diff value
   inits <- function(){                                                             # initialize the gibbs sampler
-    list(B=array(rnorm(2*data$nLeks),c(data$nLeks,2)),                             # pull from multivariate normal 
+    list(a=rnorm(length(unique(dat$Lek_ID))), b=rnorm(length(unique(dat$Lek_ID))),
+         #B=array(rnorm(2*data$nLeks),c(data$nLeks,2)),                             # pull from multivariate normal 
          taunoise=rlnorm(1),                                                     # pull from rand uni [0,1], positive
          mu.a=rnorm(1),                                                            # pull from normal of 1x1
          sigma.a=runif(1),                                                         # pull from rand uni [0,1], positive
          mu.b=rnorm(1),                                                            # pull from normal of 1x1
          sigma.b=runif(1),                                                         # pull from rand uni [0,1], positive
-         rho=runif(1,-0.2,0.2),                                                    # pull from rand uni [-0.2,0.2]
-         noise=runif(length(data$pMales),min=0,max=0.5),                           # noise
-         psi=runif(1),
-         w=rep(1,length(data$pMales))
+#          rho=runif(1,-0.2,0.2),                                                    # pull from rand uni [-0.2,0.2]
+         noise=runif(length(data$pMales),min=0,max=0.5)                            # noise
+#          psi=runif(1),
+#          w=rep(1,length(data$pMales))
     )
   }
   
   parameters <- c("a","b",
                   "taunoise","sdnoise",
-                  "mu.a","sigma.a","mu.b","sigma.b","rho",
-                  "N","beta",
-                  "lambda","w","psi","R.lpsi",
+                  "mu.a","sigma.a","mu.b","sigma.b",#"rho",
+                  "N",#"O","P",
+                  "beta",
+                  #"lambda","w","psi","R.lpsi",
                   "B10.05.15","B10.04.14","B10.03.13","B10.02.12","B10.01.11",
                   "B10.00.10","B10.99.09","B10.98.08","B10.97.07","B10.96.06",
                   "B10.95.05","B10.94.04","B10.93.03","B10.92.02","B10.91.01",
@@ -61,11 +63,11 @@ runMV <- function(dat,progDir,BUGSDir,thisRun,z){
                 inits=inits,                                                       # start chain with these
                 parameters.to.save=parameters,                                     # monitor these
                 model.file=paste0(progDir,"/CorrRandSlopesIntsBMatZInf.R"),            # winbugs code
-                #debug=TRUE,
+                debug=TRUE,
                 bugs.directory=BUGSDir,
                 n.chains=1,                                                        # n chains >= 3
-                n.burnin=76000,
-                n.iter=80000,
+                n.burnin=36000,
+                n.iter=40000,
                 n.thin=1)                                                          # default burn-in tosses half  
   end <- Sys.time()
   time <- end - start

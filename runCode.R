@@ -34,6 +34,8 @@ source(paste0(progDir,"/makeTracePlots.R"))                 # make trace plots
 source(paste0(progDir,"/makePosteriorPlots.R"))             # make posterior plots
 source(paste0(progDir,"/makeTrendPlots.R"))                 # make trend plots
 source(paste0(progDir,"/makeHistogramPlots.R"))             # make histogram plots
+source(paste0(progDir,"/make90pCredInt.R"))                 # calculate 5% 95% percentiles
+source(paste0(progDir,"/makeRangeWide.R"))                  # make rangewide
 
 #source(paste0(progDir,"/runMA.R"))
 #source(paste0(progDir,"/runMB.R"))
@@ -85,8 +87,8 @@ mZones <- unique(datList[[1]]$mZoneNum)
 mZones <- mZones[order(mZones)]
 
 datAllZerosCore <- vector("list",9)
-#datAllZerosNoco <- vector("list",9) 
-#datAllZerosLeks <- vector("list",9) 
+datAllZerosNoco <- vector("list",9) 
+datAllZerosLeks <- vector("list",9) 
 dat1stZerosCore <- vector("list",9) 
 dat1stZerosNoco <- vector("list",9) 
 dat1stZerosLeks <- vector("list",9)
@@ -217,7 +219,7 @@ for(i in 1:6){
 
 resultsZ[[1]] <- runMZ(fakeData,progDir,BUGSDir,'Fake Data Test',99)            # fake data test
 
-
+load(paste0(outpDir,"/Model Z MZone 99 Fake Data Test",".RData"))
 
 
 source(paste0(progDir,"/summarizeModels.R"))

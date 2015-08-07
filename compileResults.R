@@ -53,6 +53,7 @@ for(h in 1:2){
       # get data for analysis
       if(h == 1){
         load(paste0(outpDir,'/',unitFile[j]))                                                # get bayesian stuff -- mzone
+        #load(paste0(outpDir,"/Model V MZone 6 ZInf All Leks Try 2",".RData"))
       } else {
         load(paste0(outpDir,'/',unitFile[1]))                                                # get bayesian stuff -- state        
       }
@@ -73,6 +74,7 @@ for(h in 1:2){
       } else {
         if(h == 1){
           dat <- dat1stZerosLeks[[numUnit]]                                                  # get mzone data
+          #dat <- datAllZerosLeks[[6]]
         } else { 
           dat <- dat1stZerosLeks[[9]][dat1stZerosLeks[[9]]$State == theUnit,]                # get state data
         }
@@ -93,23 +95,172 @@ for(h in 1:2){
       ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Trace Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Trace Plots'))), FALSE)        # make new trace plots folder
       ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Posterior Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Posterior Plots'))), FALSE)# make new posterior plots folder
       ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Trend Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Trend Plots'))), FALSE)        # make new mzone trend plots folder
+      ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Zeros Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Zeros Plots'))), FALSE)        # make new mzone trend plots folder
       
-      # make trace & posterior plots
-#       nParms <- dim(bayes$sims.array)[3]
-#       parmList <- dimnames(bayes$sims.array)[[3]]
+      # make trace, posterior, histogram plots
+      nParms <- dim(bayes$sims.array)[3]
+      parmList <- dimnames(bayes$sims.array)[[3]]
 #       makeTracePlots(nParms,parmList,paste0(outpDir,'/',file,'/Trace Plots'),file,bayes)    
 #       makePosteriorPlots(nParms,parmList,paste0(outpDir,'/',file,'/Posterior Plots'),file,bayes)
-#       
-#       # make bayes summary file of estimates
-#       write.csv(bayes$summary,paste0(outpDir,'/',file,'/bayesSummary - ',file,'.csv'))
+#       makeHistogramPlots(dat,paste0(" - ",string," ",theUnit),paste0(outpDir,'/',file,'/Zeros Plots'))
+      
+      
+      bsums90 <- make90pCredInt(bayes)
+      
+      
+      # make bayes summary file of estimates
+      write.csv(bsums90,paste0(outpDir,'/',file,'/bayesSummary - ',file,'.csv'))
       
       # make trend plots
-      makeTrendPlots(dat,runType,paste0(" - ",string," ",theUnit),1,paste0(outpDir,'/',file,'/Trend Plots'),file,bayes)
+#       makeTrendPlots(dat,runType,paste0(" - ",string," ",theUnit),1,paste0(outpDir,'/',file,'/Trend Plots'),file,bayes)
   
       rm(nParms,parmList)
+      
+      
+#       if(j == 3){
+#         ifelse(!dir.exists(file.path(outpDir,'Rangewide')), dir.create(file.path(outpDir,'Rangewide')), FALSE)      # make new folder
+#         ifelse(!dir.exists(file.path(paste0(outpDir,'/','Rangewide','/Trend Plots'))), dir.create(file.path(paste0(outpDir,'/','Rangewide','/Trend Plots'))), FALSE)        # make new mzone trend plots folder
+#         
+#         # make rangewide estimates
+#         makeRangeWide("Model D",units,dat1stZerosCore,"Core",paste0(outpDir,'/Rangewide/Trend Plots'))
+#         makeRangeWide("Model E",units,dat1stZerosNoco,"Non-Core",paste0(outpDir,'/Rangewide/Trend Plots'))
+#         makeRangeWide("Model F",units,dat1stZerosLeks,"All Leks",paste0(outpDir,'/Rangewide/Trend Plots'))
+#         # make core + non-core + all lek plot
+#       } 
     }
   }
 }
+
+
+
+
+# make a big table of results
+
+theSumms <- NULL
+# make table
+for(h in 1:1){
+  if(h == 1){
+    units <- mZones
+    nUnits <- nMZones
+    start <- 1
+    string <- 'Management Zone'
+  } else {
+    units <- states
+    nUnits <- nStates
+    start <- 3
+    string <- 'State'
+  }
+  
+  # loop over mZone files in theFiles
+  for(i in 1:nUnits){
+    
+    theUnit <- units[i]
+    numUnit <- as.numeric(substr(theUnit,7,7))                                               # applicable only to mZone?
+    unitFile <- theFiles[grepl(units[i],theFiles)]
+    
+    for(j in start:3){
+      
+      # get data for analysis
+      if(h == 1){
+        load(paste0(outpDir,'/',unitFile[j]))                                                # get bayesian stuff -- mzone
+        #load(paste0(outpDir,"/Model V MZone 6 ZInf All Leks Try 2",".RData"))
+      } else {
+        load(paste0(outpDir,'/',unitFile[1]))                                                # get bayesian stuff -- state        
+      }
+      if(j == 1){
+        if(h == 1){
+          dat <- dat1stZerosCore[[numUnit]]                                                  # get orig data
+        } else {
+          dat <- dat1stZerosCore[[9]][dat1stZerosCore[[9]]$State == theUnit,]                # get state data          
+        }
+        runType <- 'Core'                                                                    # assign run type
+      } else if(j == 2){
+        if(h == 1){
+          dat <- dat1stZerosNoco[[numUnit]]                                                  # get orig data   
+        } else {
+          dat <- dat1stZerosNoco[[9]][dat1stZerosNoco[[9]]$State == theUnit,]                # get state data          
+        }
+        runType <- 'Non-Core'                                                                # assign run type      
+      } else {
+        if(h == 1){
+          dat <- dat1stZerosLeks[[numUnit]]                                                  # get mzone data
+          #dat <- datAllZerosLeks[[6]]
+        } else { 
+          dat <- dat1stZerosLeks[[9]][dat1stZerosLeks[[9]]$State == theUnit,]                # get state data
+        }
+        runType <- 'All Leks'                                                                # assign run type      
+      }
+      
+      dat$mZone_num <- as.numeric(as.roman(unlist(strsplit(as.character(droplevels(dat$Mgmt_zone))," ",fixed=TRUE))[c(FALSE,TRUE)]))
+      
+      # make a folder where needed, for files in tracDir, if it doesn't already exist.
+      if(h == 1){
+        file <- substr(unitFile[j],1,nchar(unitFile[j]) - 6)                                        # get name of new folder                
+      } else {
+        file <- substr(unitFile[1],1,nchar(unitFile[1]) - 6)                                        # get name of new folder        
+      }
+      
+      thisOne <- read.csv(paste0(outpDir,'/',file,'/bayesSummary - ',file,'.csv'))
+      mu.a    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='mu.a'   ,mean=thisOne[thisOne$X == 'mu.a'   ,]$mean,X5.=thisOne[thisOne$X == 'mu.a'   ,]$X5.,X95.=thisOne[thisOne$X == 'mu.a'   ,]$X95.)
+      mu.b    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='mu.b'   ,mean=thisOne[thisOne$X == 'mu.b'   ,]$mean,X5.=thisOne[thisOne$X == 'mu.b'   ,]$X5.,X95.=thisOne[thisOne$X == 'mu.b'   ,]$X95.)
+      beta    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='beta'   ,mean=thisOne[thisOne$X == 'beta[1]',]$mean,X5.=thisOne[thisOne$X == 'beta[1]',]$X5.,X95.=thisOne[thisOne$X == 'beta[1]',]$X95.)
+      sdnoise <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='sdnoise',mean=thisOne[thisOne$X == 'sdnoise',]$mean,X5.=thisOne[thisOne$X == 'sdnoise',]$X5.,X95.=thisOne[thisOne$X == 'sdnoise',]$X95.)
+      rho     <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='rho'    ,mean=thisOne[thisOne$X == 'rho'    ,]$mean,X5.=thisOne[thisOne$X == 'rho'    ,]$X5.,X95.=thisOne[thisOne$X == 'rho'    ,]$X95.)
+      sigma.a <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='sigma.a',mean=thisOne[thisOne$X == 'sigma.a',]$mean,X5.=thisOne[thisOne$X == 'sigma.a',]$X5.,X95.=thisOne[thisOne$X == 'sigma.a',]$X95.)
+      sigma.b <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='sigma.b',mean=thisOne[thisOne$X == 'sigma.b',]$mean,X5.=thisOne[thisOne$X == 'sigma.b',]$X5.,X95.=thisOne[thisOne$X == 'sigma.b',]$X95.)
+      
+      summs <- rbind(mu.a,mu.b,beta,sdnoise,rho,sigma.a,sigma.b)
+      
+      theSumms <- rbind(theSumms,summs)
+       
+    }
+  }
+}
+
+theSumms <- theSumms[order(theSumms$focus,theSumms$stat,theSumms$group),]
+theSumms$mean <- ifelse(theSumms$stat %in% c('mu.a','mu.b'),print(formatC(signif(exp(theSumms$mean),digits=3), digits=3,format="fg", flag="#")),print(formatC(signif(theSumms$mean,digits=3), digits=3,format="fg", flag="#")))
+theSumms$X5.  <- ifelse(theSumms$stat %in% c('mu.a','mu.b'),print(formatC(signif(exp(theSumms$X5.) ,digits=3), digits=3,format="fg", flag="#")),print(formatC(signif(theSumms$X5. ,digits=3), digits=3,format="fg", flag="#")))
+theSumms$X95. <- ifelse(theSumms$stat %in% c('mu.a','mu.b'),print(formatC(signif(exp(theSumms$X95.),digits=3), digits=3,format="fg", flag="#")),print(formatC(signif(theSumms$X95.,digits=3), digits=3,format="fg", flag="#")))
+
+
+coreSumms <- theSumms[theSumms$cut == 'Core',]
+names(coreSumms)[names(coreSumms) == 'mean'] <- 'Coremean'
+names(coreSumms)[names(coreSumms) == 'X5.'] <- 'CoreX5.'
+names(coreSumms)[names(coreSumms) == 'X95.'] <- 'CoreX95.'
+names(coreSumms)[names(coreSumms) == 'Nleks'] <- 'CoreNleks'
+coreSumms$cut <- NULL
+
+nocoSumms <- theSumms[theSumms$cut == 'Non-Core',]
+names(nocoSumms)[names(nocoSumms) == 'mean'] <- 'Nocomean'
+names(nocoSumms)[names(nocoSumms) == 'X5.'] <- 'NocoX5.'
+names(nocoSumms)[names(nocoSumms) == 'X95.'] <- 'NocoX95.'
+names(nocoSumms)[names(nocoSumms) == 'Nleks'] <- 'NocoNleks'
+nocoSumms$stat <- NULL
+nocoSumms$cut <- NULL
+nocoSumms$focus <- NULL
+nocoSumms$group <- NULL
+
+leksSumms <- theSumms[theSumms$cut == 'All Leks',]
+names(leksSumms)[names(leksSumms) == 'mean'] <- 'Leksmean'
+names(leksSumms)[names(leksSumms) == 'X5.'] <- 'LeksX5.'
+names(leksSumms)[names(leksSumms) == 'X95.'] <- 'LeksX95.'
+names(leksSumms)[names(leksSumms) == 'Nleks'] <- 'LeksNleks'
+leksSumms$stat <- NULL
+leksSumms$cut <- NULL
+leksSumms$focus <- NULL
+leksSumms$group <- NULL
+
+table1 <- cbind(coreSumms,nocoSumms,leksSumms)
+table1 <- table1[,c('focus','group','stat','CoreNleks','Coremean','CoreX5.','CoreX95.','NocoNleks','Nocomean','NocoX5.','NocoX95.','LeksNleks','Leksmean','LeksX5.','LeksX95.')]
+
+
+# make plot of B51 trend with 90% cred int (core, non-core, all leks) for each mzone & state
+# make plot of all states together
+# make plot of all mzones together (core, non-core, all leks)
+# make B10 plots
+
+# compare of B51s to betas
+# time elapsed analysis
 
 
 
@@ -142,126 +293,6 @@ dat <- dat1stZerosCore[[9]]    # loop over cores?
 
 
 
-
-
-# 
-# # Create trace plots from simulation effort.
-# nParms <- dim(bayes$sims.array)[3]
-# parmList <- dimnames(bayes$sims.array)[[3]]
-# 
-# png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 1-196 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-# 
-#   lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-#   layout.show(lay)
-#   for(i in 1:196){
-#     plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
-#   }
-# 
-# dev.off()
-# 
-# png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 197-392 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-# 
-#   lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-#   layout.show(lay)
-#   for(i in 197:392){
-#     plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
-#   }
-# 
-# dev.off()
-# 
-# png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 393-588 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-# 
-#   lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-#   layout.show(lay)
-#   for(i in 393:588){
-#     plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
-#   }
-# 
-# dev.off()
-# 
-# png(filename=paste0(outpDir,'/Trace Plots/',loadThis,'/Trace Plots - 589-784 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-# 
-#   lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-#   layout.show(lay)
-#   for(i in 589:nParms){
-#     plot(c(1:4000),bayes$sims.array[1:4000,1,i],type='l',lwd=0.5,col='red',main=dimnames(bayes$sims.array)[[3]][i])
-#   }
-# 
-# dev.off()
-# 
-# 
-# 
-# 
-# 
-# 
-
-
-
-
-
-
-
-# 
-# 
-# # Create histograms from simulation effort.
-# nParms <- dim(bayes$sims.array)[3]
-# parmList <- dimnames(bayes$sims.array)[[3]]
-# 
-# png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 1-196 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-# 
-# lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-# layout.show(lay)
-# for(i in 1:196){
-#   hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=100)
-#   abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
-#   abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
-# }
-# 
-# dev.off()
-# 
-# png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 197-392 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-# 
-# lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-# layout.show(lay)
-# for(i in 197:392){
-#   hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
-#   abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
-#   abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
-# }
-# 
-# dev.off()
-# 
-# png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 393-588 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-# 
-# lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-# layout.show(lay)
-# for(i in 393:588){
-#   hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
-#   abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
-#   abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
-# }
-# 
-# dev.off()
-# 
-# png(filename=paste0(outpDir,'/Posterior Plots/',loadThis,'/Posterior Plots - 589-784 ',loadThis,'.png'),width=40,height=40,units="in",res=300,pointsize=12)
-# 
-# lay <- layout(matrix(seq(1,196,1),14,14,byrow=TRUE),rep(1/14,14),rep(1/14,14))
-# layout.show(lay)
-# for(i in 589:nParms){
-#   hist(bayes$sims.array[1:4000,1,i],col='blue',border='blue',main=dimnames(bayes$sims.array)[[3]][i],breaks=50)
-#   abline(v = mean(bayes$sims.array[1:4000,1,i]), lwd=2, col='red')
-#   abline(v = median(bayes$sims.array[1:4000,1,i]), lwd=2, col='green')
-# }
-# 
-# dev.off()
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
 
 
 

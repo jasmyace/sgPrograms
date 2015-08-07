@@ -33,8 +33,9 @@ makeTrendPlots <- function(dat,runType,theUnit,nZones,tracDir,files,bayes){
   obsMeans$Year <- rownames(obsMeans)
     
   plotYears <- merge(obsMeans,theN,by=c('Year'),all.x=TRUE)
-  plotYears$runType <- runType
+  plotYears$runType <- ''
   plotYears$numMZone <- theUnit 
+  plotYears$dataCut <- runType
   plotYears$Nhat <- exp(mu.a + mu.b*(as.numeric(plotYears$Year) - 1964 - 26) + 0.5*sdnoise*sdnoise)
     
   x  <- plotYears$Year

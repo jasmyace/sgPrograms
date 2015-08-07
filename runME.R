@@ -15,7 +15,7 @@ runME <- function(dat,progDir,BUGSDir,thisRun,z){
   dat$lekCls = as.numeric(as.factor(droplevels(dat$Lek_ID)))                       # lek
   
   data <- list(nCounts = length(dat$Peak_Males),                                   # number of peak_male counts
-               nZones = length(unique(dat$Mgmt_zone)),                             # number of management zones
+               nZones = 1,                                                         # number of management zones
                nLeks = length(unique(dat$Lek_ID)),                                 # number of leks 
                nYears = 51,                                                        # number of years
                pMales = dat$Peak_Males,                                            # count outcome

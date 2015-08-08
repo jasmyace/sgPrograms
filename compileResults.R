@@ -101,9 +101,9 @@ for(h in 1:2){
       # make trace, posterior, histogram plots
       nParms <- dim(bayes$sims.array)[3]
       parmList <- dimnames(bayes$sims.array)[[3]]
-#       makeTracePlots(nParms,parmList,paste0(outpDir,'/',file,'/Trace Plots'),file,bayes)    
-#       makePosteriorPlots(nParms,parmList,paste0(outpDir,'/',file,'/Posterior Plots'),file,bayes)
-#       makeHistogramPlots(dat,paste0(" - ",string," ",theUnit),paste0(outpDir,'/',file,'/Zeros Plots'))
+      makeTracePlots(nParms,parmList,paste0(outpDir,'/',file,'/Trace Plots'),file,bayes)    
+      makePosteriorPlots(nParms,parmList,paste0(outpDir,'/',file,'/Posterior Plots'),file,bayes)
+      makeHistogramPlots(dat,paste0(" - ",string," ",theUnit),paste0(outpDir,'/',file,'/Zeros Plots'))
       makeLekTrendPlots(dat,paste0(outpDir,'/',file,'/Lek Plots'),bayes)
       
       bsums90 <- make90pCredInt(bayes)

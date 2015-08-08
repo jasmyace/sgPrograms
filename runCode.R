@@ -35,7 +35,9 @@ source(paste0(progDir,"/makePosteriorPlots.R"))             # make posterior plo
 source(paste0(progDir,"/makeTrendPlots.R"))                 # make trend plots
 source(paste0(progDir,"/makeHistogramPlots.R"))             # make histogram plots
 source(paste0(progDir,"/make90pCredInt.R"))                 # calculate 5% 95% percentiles
+source(paste0(progDir,"/makeLekTrendPlots.R"))              # make lek plots
 source(paste0(progDir,"/makeRangeWide.R"))                  # make rangewide
+
 
 #source(paste0(progDir,"/runMA.R"))
 #source(paste0(progDir,"/runMB.R"))

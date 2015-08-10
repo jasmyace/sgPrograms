@@ -109,7 +109,9 @@ makeRangeWide <- function(runType,units,datList,runType2,tracDir){
   mu.a0 <- getSampleNotN("mu.a",bsimsList)
   mu.b0 <- getSampleNotN("mu.b",bsimsList)
   sdnoise0 <- getSampleNotN("sdnoise",bsimsList)
-  
+  rho0 <- getSampleNotN("rho",bsimsList)
+  sigma.a0 <- getSampleNotN("sigma.a",bsimsList)
+  sigma.b0 <- getSampleNotN("sigma.b",bsimsList)  
   theNforB <- getSampleN("N",bsimsList)[[2]]
   
   # function for making posterior of Bs
@@ -165,7 +167,7 @@ makeRangeWide <- function(runType,units,datList,runType2,tracDir){
   B0.10.75.65 <- makeB(theNforB,11, 1,'B0.10.75.65')
 
   # put all the estimates together
-  rangewide <- rbind(N0,mu.a0,mu.b0,beta0,sdnoise0,
+  rangewide <- rbind(N0,mu.a0,mu.b0,beta0,sdnoise0,rho0,sigma.a0,sigma.b0,
                      B0.10.15.05,B0.10.14.04,B0.10.13.03,B0.10.12.02,B0.10.11.01,B0.10.10.00,B0.10.09.99,B0.10.08.98,B0.10.07.97,B0.10.06.96,
                      B0.10.05.95,B0.10.04.94,B0.10.03.93,B0.10.02.92,B0.10.01.91,B0.10.00.90,B0.10.99.89,B0.10.98.88,B0.10.97.87,B0.10.96.86,
                      B0.10.95.85,B0.10.94.84,B0.10.93.83,B0.10.92.82,B0.10.91.81,B0.10.90.80,B0.10.89.79,B0.10.88.78,B0.10.87.77,B0.10.86.76,
@@ -226,6 +228,7 @@ makeRangeWide <- function(runType,units,datList,runType2,tracDir){
   dev.off()
   
   write.csv(plotYears,paste0(tracDir,'/plotYears - Rangewide - ',runType2,'.csv'))
+  write.csv(rangewide,paste0(tracDir,'/bayesSummary - ',runType,'.csv'))
   rm(plotYears,x,y1,y2)
   
 }

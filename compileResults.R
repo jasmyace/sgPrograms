@@ -113,12 +113,12 @@ for(h in 1:2){
       write.csv(bsums90,paste0(outpDir,'/',file,'/bayesSummary - ',file,'.csv'))
       
       # make trend plots
-#       makeTrendPlots(dat,runType,paste0(" - ",string," ",theUnit),1,paste0(outpDir,'/',file,'/Trend Plots'),file,bayes)
+      makeTrendPlots(dat,runType,paste0(" - ",string," ",theUnit),1,paste0(outpDir,'/',file,'/Trend Plots'),file,bayes)
   
       rm(nParms,parmList)
       
-      
-#       if(j == 3){
+      # make sure h == 1 and j == 3!  don't run over states -- won't work!
+#       if(h == 1 & j == 3){
 #         ifelse(!dir.exists(file.path(outpDir,'Rangewide')), dir.create(file.path(outpDir,'Rangewide')), FALSE)      # make new folder
 #         ifelse(!dir.exists(file.path(paste0(outpDir,'/','Rangewide','/Trend Plots'))), dir.create(file.path(paste0(outpDir,'/','Rangewide','/Trend Plots'))), FALSE)        # make new mzone trend plots folder
 #         
@@ -139,17 +139,22 @@ for(h in 1:2){
 
 theSumms <- NULL
 # make table
-for(h in 1:1){
+for(h in 1:3){
   if(h == 1){
     units <- mZones
     nUnits <- nMZones
     start <- 1
     string <- 'Management Zone'
-  } else {
+  } else if(h == 2){
     units <- states
     nUnits <- nStates
     start <- 3
     string <- 'State'
+  } else {
+    units <- 'Rangewide'
+    nUnits <- 1
+    start <- 1
+    string <- units
   }
   
   # loop over mZone files in theFiles
@@ -165,9 +170,12 @@ for(h in 1:1){
       if(h == 1){
         load(paste0(outpDir,'/',unitFile[j]))                                                # get bayesian stuff -- mzone
         #load(paste0(outpDir,"/Model V MZone 6 ZInf All Leks Try 2",".RData"))
-      } else {
+      } else if(h == 2){
         load(paste0(outpDir,'/',unitFile[1]))                                                # get bayesian stuff -- state        
       }
+#       } else {
+#         load(paste0(outpDir,'/',))
+#       }
       if(j == 1){
         if(h == 1){
           dat <- dat1stZerosCore[[numUnit]]                                                  # get orig data
@@ -175,13 +183,17 @@ for(h in 1:1){
           dat <- dat1stZerosCore[[9]][dat1stZerosCore[[9]]$State == theUnit,]                # get state data          
         }
         runType <- 'Core'                                                                    # assign run type
+        allNLeks <- length(unique(dat1stZerosCore[[9]]$Lek_ID))
+        file2 <- 'D'
       } else if(j == 2){
         if(h == 1){
           dat <- dat1stZerosNoco[[numUnit]]                                                  # get orig data   
         } else {
           dat <- dat1stZerosNoco[[9]][dat1stZerosNoco[[9]]$State == theUnit,]                # get state data          
         }
-        runType <- 'Non-Core'                                                                # assign run type      
+        runType <- 'Non-Core'                                                                # assign run type  
+        allNLeks <- length(unique(dat1stZerosNoco[[9]]$Lek_ID))
+        file2 <- 'E'
       } else {
         if(h == 1){
           dat <- dat1stZerosLeks[[numUnit]]                                                  # get mzone data
@@ -189,27 +201,46 @@ for(h in 1:1){
         } else { 
           dat <- dat1stZerosLeks[[9]][dat1stZerosLeks[[9]]$State == theUnit,]                # get state data
         }
-        runType <- 'All Leks'                                                                # assign run type      
+        runType <- 'All Leks'                                                                # assign run type   
+        allNLeks <- length(unique(dat1stZerosLeks[[9]]$Lek_ID))
+        file2 <- 'F'
       }
       
-      dat$mZone_num <- as.numeric(as.roman(unlist(strsplit(as.character(droplevels(dat$Mgmt_zone))," ",fixed=TRUE))[c(FALSE,TRUE)]))
-      
+      if(h == 1 | h == 2){
+        dat$mZone_num <- as.numeric(as.roman(unlist(strsplit(as.character(droplevels(dat$Mgmt_zone))," ",fixed=TRUE))[c(FALSE,TRUE)]))
+        
+      }
+
       # make a folder where needed, for files in tracDir, if it doesn't already exist.
       if(h == 1){
         file <- substr(unitFile[j],1,nchar(unitFile[j]) - 6)                                        # get name of new folder                
-      } else {
+      } else if(h == 2){
         file <- substr(unitFile[1],1,nchar(unitFile[1]) - 6)                                        # get name of new folder        
+      } else {
+        file <- 'Rangewide/Trend Plots'                                                             # get name of new folder 
       }
-      
-      thisOne <- read.csv(paste0(outpDir,'/',file,'/bayesSummary - ',file,'.csv'))
-      mu.a    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='mu.a'   ,mean=thisOne[thisOne$X == 'mu.a'   ,]$mean,X5.=thisOne[thisOne$X == 'mu.a'   ,]$X5.,X95.=thisOne[thisOne$X == 'mu.a'   ,]$X95.)
-      mu.b    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='mu.b'   ,mean=thisOne[thisOne$X == 'mu.b'   ,]$mean,X5.=thisOne[thisOne$X == 'mu.b'   ,]$X5.,X95.=thisOne[thisOne$X == 'mu.b'   ,]$X95.)
-      beta    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='beta'   ,mean=thisOne[thisOne$X == 'beta[1]',]$mean,X5.=thisOne[thisOne$X == 'beta[1]',]$X5.,X95.=thisOne[thisOne$X == 'beta[1]',]$X95.)
-      sdnoise <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='sdnoise',mean=thisOne[thisOne$X == 'sdnoise',]$mean,X5.=thisOne[thisOne$X == 'sdnoise',]$X5.,X95.=thisOne[thisOne$X == 'sdnoise',]$X95.)
-      rho     <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='rho'    ,mean=thisOne[thisOne$X == 'rho'    ,]$mean,X5.=thisOne[thisOne$X == 'rho'    ,]$X5.,X95.=thisOne[thisOne$X == 'rho'    ,]$X95.)
-      sigma.a <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='sigma.a',mean=thisOne[thisOne$X == 'sigma.a',]$mean,X5.=thisOne[thisOne$X == 'sigma.a',]$X5.,X95.=thisOne[thisOne$X == 'sigma.a',]$X95.)
-      sigma.b <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='sigma.b',mean=thisOne[thisOne$X == 'sigma.b',]$mean,X5.=thisOne[thisOne$X == 'sigma.b',]$X5.,X95.=thisOne[thisOne$X == 'sigma.b',]$X95.)
-      
+
+      if(h == 1 | h == 2){
+        thisOne <- read.csv(paste0(outpDir,'/',file,'/bayesSummary - ',file,'.csv'))
+        mu.a    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='mu.a'   ,mean=thisOne[thisOne$X == 'mu.a'   ,]$mean,X5.=thisOne[thisOne$X == 'mu.a'   ,]$X5.,X95.=thisOne[thisOne$X == 'mu.a'   ,]$X95.)
+        mu.b    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='mu.b'   ,mean=thisOne[thisOne$X == 'mu.b'   ,]$mean,X5.=thisOne[thisOne$X == 'mu.b'   ,]$X5.,X95.=thisOne[thisOne$X == 'mu.b'   ,]$X95.)
+        beta    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='beta'   ,mean=thisOne[thisOne$X == 'beta[1]',]$mean,X5.=thisOne[thisOne$X == 'beta[1]',]$X5.,X95.=thisOne[thisOne$X == 'beta[1]',]$X95.)
+        sdnoise <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='sdnoise',mean=thisOne[thisOne$X == 'sdnoise',]$mean,X5.=thisOne[thisOne$X == 'sdnoise',]$X5.,X95.=thisOne[thisOne$X == 'sdnoise',]$X95.)
+        rho     <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='rho'    ,mean=thisOne[thisOne$X == 'rho'    ,]$mean,X5.=thisOne[thisOne$X == 'rho'    ,]$X5.,X95.=thisOne[thisOne$X == 'rho'    ,]$X95.)
+        sigma.a <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='sigma.a',mean=thisOne[thisOne$X == 'sigma.a',]$mean,X5.=thisOne[thisOne$X == 'sigma.a',]$X5.,X95.=thisOne[thisOne$X == 'sigma.a',]$X95.)
+        sigma.b <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=nrow(thisOne[substr(thisOne$X,1,1) == 'a',]),stat='sigma.b',mean=thisOne[thisOne$X == 'sigma.b',]$mean,X5.=thisOne[thisOne$X == 'sigma.b',]$X5.,X95.=thisOne[thisOne$X == 'sigma.b',]$X95.)
+      } else if (h == 3){
+        thisOne <- read.csv(paste0(outpDir,'/',file,'/bayesSummary - Model ',file2,'.csv'))
+        mu.a    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=allNLeks,stat='mu.a0'   ,mean=thisOne[thisOne$X == 'mu.a0'   ,]$mean,X5.=thisOne[thisOne$X == 'mu.a0'   ,]$X5.,X95.=thisOne[thisOne$X == 'mu.a0'   ,]$X95.)
+        mu.b    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=allNLeks,stat='mu.b0'   ,mean=thisOne[thisOne$X == 'mu.b0'   ,]$mean,X5.=thisOne[thisOne$X == 'mu.b0'   ,]$X5.,X95.=thisOne[thisOne$X == 'mu.b0'   ,]$X95.)
+        beta    <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=allNLeks,stat='beta0'   ,mean=thisOne[thisOne$X == 'beta0'   ,]$mean,X5.=thisOne[thisOne$X == 'beta0'   ,]$X5.,X95.=thisOne[thisOne$X == 'beta0'   ,]$X95.)
+        sdnoise <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=allNLeks,stat='sdnoise0',mean=thisOne[thisOne$X == 'sdnoise0',]$mean,X5.=thisOne[thisOne$X == 'sdnoise0',]$X5.,X95.=thisOne[thisOne$X == 'sdnoise0',]$X95.)
+        rho     <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=allNLeks,stat='rho0'    ,mean=thisOne[thisOne$X == 'rho0'    ,]$mean,X5.=thisOne[thisOne$X == 'rho0'    ,]$X5.,X95.=thisOne[thisOne$X == 'rho0'    ,]$X95.)
+        sigma.a <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=allNLeks,stat='sigma.a0',mean=thisOne[thisOne$X == 'sigma.a0',]$mean,X5.=thisOne[thisOne$X == 'sigma.a0',]$X5.,X95.=thisOne[thisOne$X == 'sigma.a0',]$X95.)
+        sigma.b <- data.frame(focus=string,group=theUnit,cut=runType,Nleks=allNLeks,stat='sigma.b0',mean=thisOne[thisOne$X == 'sigma.b0',]$mean,X5.=thisOne[thisOne$X == 'sigma.b0',]$X5.,X95.=thisOne[thisOne$X == 'sigma.b0',]$X95.)
+        
+      }
+
       summs <- rbind(mu.a,mu.b,beta,sdnoise,rho,sigma.a,sigma.b)
       
       theSumms <- rbind(theSumms,summs)
@@ -219,9 +250,9 @@ for(h in 1:1){
 }
 
 theSumms <- theSumms[order(theSumms$focus,theSumms$stat,theSumms$group),]
-theSumms$mean <- ifelse(theSumms$stat %in% c('mu.a','mu.b'),print(formatC(signif(exp(theSumms$mean),digits=3), digits=3,format="fg", flag="#")),print(formatC(signif(theSumms$mean,digits=3), digits=3,format="fg", flag="#")))
-theSumms$X5.  <- ifelse(theSumms$stat %in% c('mu.a','mu.b'),print(formatC(signif(exp(theSumms$X5.) ,digits=3), digits=3,format="fg", flag="#")),print(formatC(signif(theSumms$X5. ,digits=3), digits=3,format="fg", flag="#")))
-theSumms$X95. <- ifelse(theSumms$stat %in% c('mu.a','mu.b'),print(formatC(signif(exp(theSumms$X95.),digits=3), digits=3,format="fg", flag="#")),print(formatC(signif(theSumms$X95.,digits=3), digits=3,format="fg", flag="#")))
+theSumms$mean <- ifelse(theSumms$stat %in% c('mu.a','mu.b','mu.a0','mu.b0'),print(formatC(signif(exp(as.numeric(theSumms$mean)),digits=3), digits=3,format="fg", flag="#")),print(formatC(signif(as.numeric(theSumms$mean),digits=3), digits=3,format="fg", flag="#")))
+theSumms$X5.  <- ifelse(theSumms$stat %in% c('mu.a','mu.b','mu.a0','mu.b0'),print(formatC(signif(exp(as.numeric(theSumms$X5.)) ,digits=3), digits=3,format="fg", flag="#")),print(formatC(signif(as.numeric(theSumms$X5. ),digits=3), digits=3,format="fg", flag="#")))
+theSumms$X95. <- ifelse(theSumms$stat %in% c('mu.a','mu.b','mu.a0','mu.b0'),print(formatC(signif(exp(as.numeric(theSumms$X95.)),digits=3), digits=3,format="fg", flag="#")),print(formatC(signif(as.numeric(theSumms$X95.),digits=3), digits=3,format="fg", flag="#")))
 
 
 coreSumms <- theSumms[theSumms$cut == 'Core',]
@@ -236,32 +267,1246 @@ names(nocoSumms)[names(nocoSumms) == 'mean'] <- 'Nocomean'
 names(nocoSumms)[names(nocoSumms) == 'X5.'] <- 'NocoX5.'
 names(nocoSumms)[names(nocoSumms) == 'X95.'] <- 'NocoX95.'
 names(nocoSumms)[names(nocoSumms) == 'Nleks'] <- 'NocoNleks'
-nocoSumms$stat <- NULL
 nocoSumms$cut <- NULL
 nocoSumms$focus <- NULL
-nocoSumms$group <- NULL
 
 leksSumms <- theSumms[theSumms$cut == 'All Leks',]
 names(leksSumms)[names(leksSumms) == 'mean'] <- 'Leksmean'
 names(leksSumms)[names(leksSumms) == 'X5.'] <- 'LeksX5.'
 names(leksSumms)[names(leksSumms) == 'X95.'] <- 'LeksX95.'
 names(leksSumms)[names(leksSumms) == 'Nleks'] <- 'LeksNleks'
-leksSumms$stat <- NULL
-leksSumms$cut <- NULL
-leksSumms$focus <- NULL
-leksSumms$group <- NULL
 
-table1 <- cbind(coreSumms,nocoSumms,leksSumms)
-table1 <- table1[,c('focus','group','stat','CoreNleks','Coremean','CoreX5.','CoreX95.','NocoNleks','Nocomean','NocoX5.','NocoX95.','LeksNleks','Leksmean','LeksX5.','LeksX95.')]
+preTable1 <- merge(nocoSumms,coreSumms,by=c('group','stat'),all.x=TRUE)
+preTable2 <- merge(preTable1,leksSumms,by=c('group','stat'),all.y=TRUE)
+preTable2$focus.y <- NULL
+preTable2$cut <- NULL
+preTable2$focus.x <- ifelse(is.na(preTable2$focus.x),'State',preTable2$focus.x)   # should probably fix above.  eh.
+preTable2$focus.x <- ifelse(preTable2$focus.x == 3,'Rangewide',preTable2$focus.x)
+  
+preTable3 <- preTable2[order(preTable2$focus.x,preTable2$stat,preTable2$group),]
+table1 <- preTable3[,c('focus.x','group','stat','LeksNleks','Leksmean','LeksX5.','LeksX95.','CoreNleks','Coremean','CoreX5.','CoreX95.','NocoNleks','Nocomean','NocoX5.','NocoX95.')]
+write.csv(table1,paste0(manuDir,'/table1.csv'))
 
 
-# make plot of B51 trend with 90% cred int (core, non-core, all leks) for each mzone & state
-# make plot of all states together
-# make plot of all mzones together (core, non-core, all leks)
-# make B10 plots
 
-# compare of B51s to betas
-# time elapsed analysis
+
+# make plot, for each mzone, of core, non-core, all leks together
+manuDir <- '//LAR-FILE-SRV/Data/Jason/sage grouse/Results/Manuscript 2015.08.12'
+
+bsums.core.CSV <- vector("list",6)
+bsums.noco.CSV <- vector("list",6)
+bsums.leks.CSV <- vector("list",6)
+for(i in 1:6){
+  units <- mZones
+  nUnits <- nMZones
+  bsums.core.CSV[[i]] <- read.csv(paste0(outpDir,'/Model D ',units[i],' Try 1/bayesSummary - Model D ',units[i],' Try 1.csv'))
+  bsums.noco.CSV[[i]] <- read.csv(paste0(outpDir,'/Model E ',units[i],' Try 1/bayesSummary - Model E ',units[i],' Try 1.csv'))
+  bsums.leks.CSV[[i]] <- read.csv(paste0(outpDir,'/Model F ',units[i],' Try 1/bayesSummary - Model F ',units[i],' Try 1.csv'))
+  Rcore.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model D.csv'))
+  Rnoco.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model E.csv'))
+  Rleks.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model F.csv'))
+  
+  coreBeta51 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$mean
+  nocoBeta51 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$mean
+  leksBeta51 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$mean
+  RcoreBeta51 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$mean
+  RnocoBeta51 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$mean
+  RleksBeta51 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$mean  
+
+#   coreBeta51.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X5.
+#   nocoBeta51.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X5.
+#   leksBeta51.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X5.
+#   RcoreBeta51.X5 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X5.
+#   RnocoBeta51.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X5.
+#   RleksBeta51.X5 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X5. 
+#   
+#   coreBeta51.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X95.
+#   nocoBeta51.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X95.
+#   leksBeta51.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X95.
+#   RcoreBeta51.X95 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X95.
+#   RnocoBeta51.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X95.
+#   RleksBeta51.X95 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X95. 
+  
+  coreMu.a <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$mean
+  nocoMu.a <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$mean
+  leksMu.a <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$mean
+  RcoreMu.a <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$mean
+  RnocoMu.a <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$mean
+  RleksMu.a <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$mean 
+
+  coreMu.a.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X5.
+  nocoMu.a.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X5.
+  leksMu.a.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X5.
+  RcoreMu.a.X5 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X5.
+  RnocoMu.a.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X5.
+  RleksMu.a.X5 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X5. 
+  
+  coreMu.a.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X95.
+  nocoMu.a.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X95.
+  leksMu.a.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X95.
+  RcoreMu.a.X95 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X95.
+  RnocoMu.a.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X95.
+  RleksMu.a.X95 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X95.
+
+
+  
+  Year <- data.frame(Year=seq(1965,2015,1))
+  YearC <- Year - 1964 - 26
+  
+  Y.core      <- exp(coreMu.a)*(coreBeta51^YearC)
+  Y.core.X5   <- exp(coreMu.a.X5)*(coreBeta51^YearC)
+  Y.core.X95  <- exp(coreMu.a.X95)*(coreBeta51^YearC)
+  Y.noco      <- exp(nocoMu.a)*(nocoBeta51^YearC)
+  Y.noco.X5   <- exp(nocoMu.a.X5)*(nocoBeta51^YearC)
+  Y.noco.X95  <- exp(nocoMu.a.X95)*(nocoBeta51^YearC)
+  Y.leks      <- exp(leksMu.a)*(leksBeta51^YearC)
+  Y.leks.X5   <- exp(leksMu.a.X5)*(leksBeta51^YearC)
+  Y.leks.X95  <- exp(leksMu.a.X95)*(leksBeta51^YearC)
+  Y.Rcore     <- exp(RcoreMu.a)*(RcoreBeta51^YearC)
+  Y.Rcore.X5  <- exp(RcoreMu.a.X5)*(RcoreBeta51^YearC)
+  Y.Rcore.X95 <- exp(RcoreMu.a.X95)*(RcoreBeta51^YearC)
+  Y.Rnoco     <- exp(RnocoMu.a)*(RnocoBeta51^YearC)
+  Y.Rnoco.X5  <- exp(RnocoMu.a.X5)*(RnocoBeta51^YearC)
+  Y.Rnoco.X95 <- exp(RnocoMu.a.X95)*(RnocoBeta51^YearC)
+  Y.Rleks     <- exp(RleksMu.a)*(RleksBeta51^YearC)
+  Y.Rleks.X5  <- exp(RleksMu.a.X5)*(RleksBeta51^YearC)
+  Y.Rleks.X95 <- exp(RleksMu.a.X95)*(RleksBeta51^YearC)
+  
+  plotYears <- data.frame(Year=Year,YearC=YearC, Y.core=Y.core , Y.core.X5=Y.core.X5 , Y.core.X95=Y.core.X95,
+                                                 Y.noco=Y.noco , Y.noco.X5=Y.noco.X5 , Y.noco.X95=Y.noco.X95,
+                                                 Y.leks=Y.leks , Y.leks.X5=Y.leks.X5 , Y.leks.X95=Y.leks.X95,
+                                                Y.Rcore=Y.Rcore,Y.Rcore.X5=Y.Rcore.X5,Y.Rcore.X95=Y.Rcore.X95,
+                                                Y.Rnoco=Y.Rnoco,Y.Rnoco.X5=Y.Rnoco.X5,Y.Rnoco.X95=Y.Rnoco.X95,
+                                                Y.Rleks=Y.Rleks,Y.Rleks.X5=Y.Rleks.X5,Y.Rleks.X95=Y.Rleks.X95)
+  names(plotYears) <- c('Year','YearC','Y.core','Y.core.X5','Y.core.X95',
+                                       'Y.noco','Y.noco.X5','Y.noco.X95',
+                                       'Y.leks','Y.leks.X5','Y.leks.X95',
+                                       'Y.Rcore','Y.Rcore.X5','Y.Rcore.X95',
+                                       'Y.Rnoco','Y.Rnoco.X5','Y.Rnoco.X95',
+                                       'Y.Rleks','Y.Rleks.X5','Y.Rleks.X95')
+  
+  
+    x <- plotYears$Year
+  yA1 <- plotYears$Y.core
+  yA2 <- plotYears$Y.core.X5
+  yA3 <- plotYears$Y.core.X95
+  yB1 <- plotYears$Y.noco
+  yB2 <- plotYears$Y.noco.X5
+  yB3 <- plotYears$Y.noco.X95
+  yC1 <- plotYears$Y.leks
+  yC2 <- plotYears$Y.leks.X5
+  yC3 <- plotYears$Y.leks.X95
+
+  yRA1 <- plotYears$Y.Rcore
+  yRA2 <- plotYears$Y.Rcore.X5
+  yRA3 <- plotYears$Y.Rcore.X95
+  yRB1 <- plotYears$Y.Rnoco
+  yRB2 <- plotYears$Y.Rnoco.X5
+  yRB3 <- plotYears$Y.Rnoco.X95
+  yRC1 <- plotYears$Y.Rleks
+  yRC2 <- plotYears$Y.Rleks.X5
+  yRC3 <- plotYears$Y.Rleks.X95
+  
+  yMax <- 30
+  
+  png(filename=paste0(manuDir,'/Trend Plot of C, NC, AL - ',units[i],'.png'),width=8,height=6,units="in",res=300,pointsize=12)
+  
+  # management zone specific
+  plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
+  par(new=TRUE)
+  plot(x,yA2,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  par(new=TRUE)
+  plot(x,yA3,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+   
+  par(new=TRUE)
+  plot(x,yB1,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  par(new=TRUE)
+  plot(x,yB2,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  par(new=TRUE) 
+  plot(x,yB3,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  par(new=TRUE)
+  plot(x,yC1,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  par(new=TRUE)
+  plot(x,yC2,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  par(new=TRUE) 
+  plot(x,yC3,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+
+  # rangewide specific
+  par(new=TRUE)
+  plot(x,yRA1,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  par(new=TRUE)
+  plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  par(new=TRUE)
+  plot(x,yRA3,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  par(new=TRUE)
+  plot(x,yRB1,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  par(new=TRUE)
+  plot(x,yRB2,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  par(new=TRUE) 
+  plot(x,yRB3,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  par(new=TRUE)
+  plot(x,yRC1,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  par(new=TRUE)
+  plot(x,yRC2,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  par(new=TRUE) 
+  plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  axis(side=1,labels=TRUE,seq(1965,2015,5))
+  axis(side=2,labels=TRUE,seq(0,yMax,10))
+
+  dev.off()
+  
+}
+
+
+
+
+# make plot, for each state, of all leks together
+manuDir <- '//LAR-FILE-SRV/Data/Jason/sage grouse/Results/Manuscript 2015.08.12'
+
+bsums.core.CSV <- vector("list",6)
+bsums.noco.CSV <- vector("list",6)
+bsums.leks.CSV <- vector("list",6)
+for(i in 1:11){
+  units <- paste0("MZone ",states)
+  nUnits <- nStates
+#   bsums.core.CSV[[i]] <- read.csv(paste0(outpDir,'/Model D ',units[i],' Try 1/bayesSummary - Model D ',units[i],' Try 1.csv'))
+#   bsums.noco.CSV[[i]] <- read.csv(paste0(outpDir,'/Model E ',units[i],' Try 1/bayesSummary - Model E ',units[i],' Try 1.csv'))
+  bsums.leks.CSV[[i]] <- read.csv(paste0(outpDir,'/Model F ',units[i],' Try 1/bayesSummary - Model F ',units[i],' Try 1.csv'))
+#   Rcore.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model D.csv'))
+#   Rnoco.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model E.csv'))
+  Rleks.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model F.csv'))
+  
+#   coreBeta51 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$mean
+#   nocoBeta51 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$mean
+  leksBeta51 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$mean
+#   RcoreBeta51 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$mean
+#   RnocoBeta51 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$mean
+  RleksBeta51 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$mean  
+  
+  #   coreBeta51.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   nocoBeta51.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   leksBeta51.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   RcoreBeta51.X5 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X5.
+  #   RnocoBeta51.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X5.
+  #   RleksBeta51.X5 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X5. 
+  #   
+  #   coreBeta51.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   nocoBeta51.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   leksBeta51.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   RcoreBeta51.X95 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X95.
+  #   RnocoBeta51.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X95.
+  #   RleksBeta51.X95 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X95. 
+  
+#   coreMu.a <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$mean
+#   nocoMu.a <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$mean
+  leksMu.a <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$mean
+#   RcoreMu.a <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$mean
+#   RnocoMu.a <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$mean
+  RleksMu.a <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$mean 
+  
+#   coreMu.a.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X5.
+#   nocoMu.a.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X5.
+  leksMu.a.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X5.
+#   RcoreMu.a.X5 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X5.
+#   RnocoMu.a.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X5.
+  RleksMu.a.X5 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X5. 
+  
+#   coreMu.a.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X95.
+#   nocoMu.a.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X95.
+  leksMu.a.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X95.
+#   RcoreMu.a.X95 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X95.
+#   RnocoMu.a.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X95.
+  RleksMu.a.X95 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X95.
+  
+  
+  
+  Year <- data.frame(Year=seq(1965,2015,1))
+  YearC <- Year - 1964 - 26
+  
+#   Y.core      <- exp(coreMu.a)*(coreBeta51^YearC)
+#   Y.core.X5   <- exp(coreMu.a.X5)*(coreBeta51^YearC)
+#   Y.core.X95  <- exp(coreMu.a.X95)*(coreBeta51^YearC)
+#   Y.noco      <- exp(nocoMu.a)*(nocoBeta51^YearC)
+#   Y.noco.X5   <- exp(nocoMu.a.X5)*(nocoBeta51^YearC)
+#   Y.noco.X95  <- exp(nocoMu.a.X95)*(nocoBeta51^YearC)
+  Y.leks      <- exp(leksMu.a)*(leksBeta51^YearC)
+  Y.leks.X5   <- exp(leksMu.a.X5)*(leksBeta51^YearC)
+  Y.leks.X95  <- exp(leksMu.a.X95)*(leksBeta51^YearC)
+#   Y.Rcore     <- exp(RcoreMu.a)*(RcoreBeta51^YearC)
+#   Y.Rcore.X5  <- exp(RcoreMu.a.X5)*(RcoreBeta51^YearC)
+#   Y.Rcore.X95 <- exp(RcoreMu.a.X95)*(RcoreBeta51^YearC)
+#   Y.Rnoco     <- exp(RnocoMu.a)*(RnocoBeta51^YearC)
+#   Y.Rnoco.X5  <- exp(RnocoMu.a.X5)*(RnocoBeta51^YearC)
+#   Y.Rnoco.X95 <- exp(RnocoMu.a.X95)*(RnocoBeta51^YearC)
+  Y.Rleks     <- exp(RleksMu.a)*(RleksBeta51^YearC)
+  Y.Rleks.X5  <- exp(RleksMu.a.X5)*(RleksBeta51^YearC)
+  Y.Rleks.X95 <- exp(RleksMu.a.X95)*(RleksBeta51^YearC)
+  
+  plotYears <- data.frame(Year=Year,YearC=YearC, 
+#                           Y.core=Y.core , Y.core.X5=Y.core.X5 , Y.core.X95=Y.core.X95,
+#                           Y.noco=Y.noco , Y.noco.X5=Y.noco.X5 , Y.noco.X95=Y.noco.X95,
+                          Y.leks=Y.leks , Y.leks.X5=Y.leks.X5 , Y.leks.X95=Y.leks.X95,
+#                           Y.Rcore=Y.Rcore,Y.Rcore.X5=Y.Rcore.X5,Y.Rcore.X95=Y.Rcore.X95,
+#                           Y.Rnoco=Y.Rnoco,Y.Rnoco.X5=Y.Rnoco.X5,Y.Rnoco.X95=Y.Rnoco.X95,
+                          Y.Rleks=Y.Rleks,Y.Rleks.X5=Y.Rleks.X5,Y.Rleks.X95=Y.Rleks.X95)
+  names(plotYears) <- c('Year','YearC',
+#                         'Y.core','Y.core.X5','Y.core.X95',
+#                         'Y.noco','Y.noco.X5','Y.noco.X95',
+                        'Y.leks','Y.leks.X5','Y.leks.X95',
+#                         'Y.Rcore','Y.Rcore.X5','Y.Rcore.X95',
+#                         'Y.Rnoco','Y.Rnoco.X5','Y.Rnoco.X95',
+                        'Y.Rleks','Y.Rleks.X5','Y.Rleks.X95')
+  
+  
+  x <- plotYears$Year
+#   yA1 <- plotYears$Y.core
+#   yA2 <- plotYears$Y.core.X5
+#   yA3 <- plotYears$Y.core.X95
+#   yB1 <- plotYears$Y.noco
+#   yB2 <- plotYears$Y.noco.X5
+#   yB3 <- plotYears$Y.noco.X95
+  yC1 <- plotYears$Y.leks
+  yC2 <- plotYears$Y.leks.X5
+  yC3 <- plotYears$Y.leks.X95
+  
+#   yRA1 <- plotYears$Y.Rcore
+#   yRA2 <- plotYears$Y.Rcore.X5
+#   yRA3 <- plotYears$Y.Rcore.X95
+#   yRB1 <- plotYears$Y.Rnoco
+#   yRB2 <- plotYears$Y.Rnoco.X5
+#   yRB3 <- plotYears$Y.Rnoco.X95
+  yRC1 <- plotYears$Y.Rleks
+  yRC2 <- plotYears$Y.Rleks.X5
+  yRC3 <- plotYears$Y.Rleks.X95
+  
+  yMax <- 30
+  
+  png(filename=paste0(manuDir,'/Trend Plot of C, NC, AL - ',units[i],'.png'),width=8,height=6,units="in",res=300,pointsize=12)
+  
+  # state specific
+#   plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
+#   par(new=TRUE)
+#   plot(x,yA2,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+#   par(new=TRUE)
+#   plot(x,yA3,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+#   
+#   par(new=TRUE)
+#   plot(x,yB1,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+#   par(new=TRUE)
+#   plot(x,yB2,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+#   par(new=TRUE) 
+#   plot(x,yB3,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  plot(x,yC1,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
+  par(new=TRUE)
+  plot(x,yC2,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  par(new=TRUE) 
+  plot(x,yC3,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  # rangewide specific
+#   par(new=TRUE)
+#   plot(x,yRA1,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+#   par(new=TRUE)
+#   plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+#   par(new=TRUE)
+#   plot(x,yRA3,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+#   
+#   par(new=TRUE)
+#   plot(x,yRB1,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+#   par(new=TRUE)
+#   plot(x,yRB2,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+#   par(new=TRUE) 
+#   plot(x,yRB3,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  par(new=TRUE)
+  plot(x,yRC1,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  par(new=TRUE)
+  plot(x,yRC2,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  par(new=TRUE) 
+  plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  axis(side=1,labels=TRUE,seq(1965,2015,5))
+  axis(side=2,labels=TRUE,seq(0,yMax,10))
+  
+  dev.off()
+  
+}
+
+
+
+
+
+
+# make the B10 plots
+Rcore.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model D.csv'))
+Rnoco.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model E.csv'))
+Rleks.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model F.csv'))
+
+Year <- seq(1965,2015,1)
+YearC <- Year - 1964 - 26
+
+RcoreBeta51 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$mean
+RnocoBeta51 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$mean
+RleksBeta51 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$mean
+
+RcoreMu.a <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$mean
+RnocoMu.a <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$mean
+RleksMu.a <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$mean
+
+RYcore <- exp(RcoreMu.a)*RcoreBeta51^YearC
+RYnoco <- exp(RnocoMu.a)*RnocoBeta51^YearC
+RYleks <- exp(RleksMu.a)*RleksBeta51^YearC
+
+yMin <- 0
+yMax <- 20
+
+
+# all leks
+png(filename=paste0(manuDir,'/B10 Plot of All Leks - Rangewide.png'),width=8,height=6,units="in",res=600,pointsize=12)
+plot(Year,RYleks,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(yMin,yMax),xlab='',ylab='',lwd=2)
+
+for(i in 1:41){
+  x <- Year[i:(i + 10)]                      # restrict to years of interest
+  B10 <- Rleks.CSV[100 - i,2]                # this is the slope term for this 10-year stretch
+  mid <- median(x)                           # calculate temporal median of this B10 stretch
+  B10.mu.a <- RYleks[mid - 1964]             # this is the intercept to use for this 10-year stretch
+  B10.trend <- B10.mu.a*B10^seq(-5,5,1)      # estimate N sage grouse based on B10 parameters
+   
+  par(new=TRUE)
+  plot(x,B10.trend,axes=FALSE,type='l',frame.plot=TRUE,xlim=c(1965,2015),ylim=c(yMin,yMax),xlab='',ylab='',lwd=2)
+}
+
+axis(side=1,labels=TRUE,seq(1965,2015,5))
+axis(side=2,labels=TRUE,seq(yMin,yMax,1))
+dev.off()
+
+
+# core
+png(filename=paste0(manuDir,'/B10 Plot of Core - Rangewide.png'),width=8,height=6,units="in",res=600,pointsize=12)
+plot(Year,RYcore,type='l',col='darkgreen' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(yMin,yMax),xlab='',ylab='',lwd=2)
+
+for(i in 1:41){
+  x <- Year[i:(i + 10)]                      # restrict to years of interest
+  B10 <- Rcore.CSV[100 - i,2]                # this is the slope term for this 10-year stretch
+  mid <- median(x)                           # calculate temporal median of this B10 stretch
+  B10.mu.a <- RYcore[mid - 1964]             # this is the intercept to use for this 10-year stretch
+  B10.trend <- B10.mu.a*B10^seq(-5,5,1)      # estimate N sage grouse based on B10 parameters
+  
+  par(new=TRUE)
+  plot(x,B10.trend,axes=FALSE,type='l',frame.plot=TRUE,xlim=c(1965,2015),ylim=c(yMin,yMax),xlab='',ylab='',lwd=2)
+}
+
+axis(side=1,labels=TRUE,seq(1965,2015,5))
+axis(side=2,labels=TRUE,seq(yMin,yMax,1))
+dev.off()
+
+
+# non-core
+png(filename=paste0(manuDir,'/B10 Plot of Non-Core - Rangewide.png'),width=8,height=6,units="in",res=600,pointsize=12)
+plot(Year,RYnoco,type='l',col='darkred' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(yMin,yMax),xlab='',ylab='',lwd=2)
+
+for(i in 1:41){
+  x <- Year[i:(i + 10)]                      # restrict to years of interest
+  B10 <- Rnoco.CSV[100 - i,2]                # this is the slope term for this 10-year stretch
+  mid <- median(x)                           # calculate temporal median of this B10 stretch
+  B10.mu.a <- RYnoco[mid - 1964]             # this is the intercept to use for this 10-year stretch
+  B10.trend <- B10.mu.a*B10^seq(-5,5,1)      # estimate N sage grouse based on B10 parameters
+  
+  par(new=TRUE)
+  plot(x,B10.trend,axes=FALSE,type='l',frame.plot=TRUE,xlim=c(1965,2015),ylim=c(yMin,yMax),xlab='',ylab='',lwd=2)
+}
+
+axis(side=1,labels=TRUE,seq(1965,2015,5))
+axis(side=2,labels=TRUE,seq(yMin,yMax,1))
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
+# make plot of all mzone-core, mzone-non-core, mzone-all leks, states-all leks
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# make plot of all states - all leks together
+manuDir <- '//LAR-FILE-SRV/Data/Jason/sage grouse/Results/Manuscript 2015.08.12'
+
+bsums.core.CSV <- vector("list",6)
+bsums.noco.CSV <- vector("list",6)
+bsums.leks.CSV <- vector("list",6)
+png(filename=paste0(manuDir,'/Trend Plot of AL - All States.png'),width=8,height=6,units="in",res=300,pointsize=12)
+
+for(i in 1:11){
+  units <- paste0("MZone ",states)
+  nUnits <- nStates
+  #   bsums.core.CSV[[i]] <- read.csv(paste0(outpDir,'/Model D ',units[i],' Try 1/bayesSummary - Model D ',units[i],' Try 1.csv'))
+  #   bsums.noco.CSV[[i]] <- read.csv(paste0(outpDir,'/Model E ',units[i],' Try 1/bayesSummary - Model E ',units[i],' Try 1.csv'))
+  bsums.leks.CSV[[i]] <- read.csv(paste0(outpDir,'/Model F ',units[i],' Try 1/bayesSummary - Model F ',units[i],' Try 1.csv'))
+  #   Rcore.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model D.csv'))
+  #   Rnoco.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model E.csv'))
+  Rleks.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model F.csv'))
+  
+  #   coreBeta51 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$mean
+  #   nocoBeta51 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$mean
+  leksBeta51 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$mean
+  #   RcoreBeta51 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$mean
+  #   RnocoBeta51 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$mean
+  RleksBeta51 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$mean  
+  
+  #   coreBeta51.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   nocoBeta51.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   leksBeta51.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   RcoreBeta51.X5 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X5.
+  #   RnocoBeta51.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X5.
+  #   RleksBeta51.X5 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X5. 
+  #   
+  #   coreBeta51.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   nocoBeta51.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   leksBeta51.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   RcoreBeta51.X95 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X95.
+  #   RnocoBeta51.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X95.
+  #   RleksBeta51.X95 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X95. 
+  
+  #   coreMu.a <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$mean
+  #   nocoMu.a <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$mean
+  leksMu.a <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$mean
+  #   RcoreMu.a <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$mean
+  #   RnocoMu.a <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$mean
+  RleksMu.a <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$mean 
+  
+  #   coreMu.a.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X5.
+  #   nocoMu.a.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X5.
+  leksMu.a.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X5.
+  #   RcoreMu.a.X5 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X5.
+  #   RnocoMu.a.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X5.
+  RleksMu.a.X5 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X5. 
+  
+  #   coreMu.a.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X95.
+  #   nocoMu.a.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X95.
+  leksMu.a.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X95.
+  #   RcoreMu.a.X95 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X95.
+  #   RnocoMu.a.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X95.
+  RleksMu.a.X95 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X95.
+  
+  
+  
+  Year <- data.frame(Year=seq(1965,2015,1))
+  YearC <- Year - 1964 - 26
+  
+  #   Y.core      <- exp(coreMu.a)*(coreBeta51^YearC)
+  #   Y.core.X5   <- exp(coreMu.a.X5)*(coreBeta51^YearC)
+  #   Y.core.X95  <- exp(coreMu.a.X95)*(coreBeta51^YearC)
+  #   Y.noco      <- exp(nocoMu.a)*(nocoBeta51^YearC)
+  #   Y.noco.X5   <- exp(nocoMu.a.X5)*(nocoBeta51^YearC)
+  #   Y.noco.X95  <- exp(nocoMu.a.X95)*(nocoBeta51^YearC)
+  Y.leks      <- exp(leksMu.a)*(leksBeta51^YearC)
+  Y.leks.X5   <- exp(leksMu.a.X5)*(leksBeta51^YearC)
+  Y.leks.X95  <- exp(leksMu.a.X95)*(leksBeta51^YearC)
+  #   Y.Rcore     <- exp(RcoreMu.a)*(RcoreBeta51^YearC)
+  #   Y.Rcore.X5  <- exp(RcoreMu.a.X5)*(RcoreBeta51^YearC)
+  #   Y.Rcore.X95 <- exp(RcoreMu.a.X95)*(RcoreBeta51^YearC)
+  #   Y.Rnoco     <- exp(RnocoMu.a)*(RnocoBeta51^YearC)
+  #   Y.Rnoco.X5  <- exp(RnocoMu.a.X5)*(RnocoBeta51^YearC)
+  #   Y.Rnoco.X95 <- exp(RnocoMu.a.X95)*(RnocoBeta51^YearC)
+  Y.Rleks     <- exp(RleksMu.a)*(RleksBeta51^YearC)
+  Y.Rleks.X5  <- exp(RleksMu.a.X5)*(RleksBeta51^YearC)
+  Y.Rleks.X95 <- exp(RleksMu.a.X95)*(RleksBeta51^YearC)
+  
+  plotYears <- data.frame(Year=Year,YearC=YearC, 
+                          #                           Y.core=Y.core , Y.core.X5=Y.core.X5 , Y.core.X95=Y.core.X95,
+                          #                           Y.noco=Y.noco , Y.noco.X5=Y.noco.X5 , Y.noco.X95=Y.noco.X95,
+                          Y.leks=Y.leks , Y.leks.X5=Y.leks.X5 , Y.leks.X95=Y.leks.X95,
+                          #                           Y.Rcore=Y.Rcore,Y.Rcore.X5=Y.Rcore.X5,Y.Rcore.X95=Y.Rcore.X95,
+                          #                           Y.Rnoco=Y.Rnoco,Y.Rnoco.X5=Y.Rnoco.X5,Y.Rnoco.X95=Y.Rnoco.X95,
+                          Y.Rleks=Y.Rleks,Y.Rleks.X5=Y.Rleks.X5,Y.Rleks.X95=Y.Rleks.X95)
+  names(plotYears) <- c('Year','YearC',
+                        #                         'Y.core','Y.core.X5','Y.core.X95',
+                        #                         'Y.noco','Y.noco.X5','Y.noco.X95',
+                        'Y.leks','Y.leks.X5','Y.leks.X95',
+                        #                         'Y.Rcore','Y.Rcore.X5','Y.Rcore.X95',
+                        #                         'Y.Rnoco','Y.Rnoco.X5','Y.Rnoco.X95',
+                        'Y.Rleks','Y.Rleks.X5','Y.Rleks.X95')
+  
+  
+  x <- plotYears$Year
+  #   yA1 <- plotYears$Y.core
+  #   yA2 <- plotYears$Y.core.X5
+  #   yA3 <- plotYears$Y.core.X95
+  #   yB1 <- plotYears$Y.noco
+  #   yB2 <- plotYears$Y.noco.X5
+  #   yB3 <- plotYears$Y.noco.X95
+  yC1 <- plotYears$Y.leks
+  yC2 <- plotYears$Y.leks.X5
+  yC3 <- plotYears$Y.leks.X95
+  
+  #   yRA1 <- plotYears$Y.Rcore
+  #   yRA2 <- plotYears$Y.Rcore.X5
+  #   yRA3 <- plotYears$Y.Rcore.X95
+  #   yRB1 <- plotYears$Y.Rnoco
+  #   yRB2 <- plotYears$Y.Rnoco.X5
+  #   yRB3 <- plotYears$Y.Rnoco.X95
+  yRC1 <- plotYears$Y.Rleks
+  yRC2 <- plotYears$Y.Rleks.X5
+  yRC3 <- plotYears$Y.Rleks.X95
+  
+  yMax <- 30
+    
+  # state specific
+  #   plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
+  #   par(new=TRUE)
+  #   plot(x,yA2,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE)
+  #   plot(x,yA3,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   
+  #   par(new=TRUE)
+  #   plot(x,yB1,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yB2,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yB3,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  if(i > 1){
+    par(new=TRUE)
+  }
+  plot(x,yC1,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)#,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% All States"))
+#   par(new=TRUE)
+#   plot(x,yC2,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+#   par(new=TRUE) 
+#   plot(x,yC3,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  # rangewide specific
+  #   par(new=TRUE)
+  #   plot(x,yRA1,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE)
+  #   plot(x,yRA3,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   
+  #   par(new=TRUE)
+  #   plot(x,yRB1,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yRB2,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yRB3,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  par(new=TRUE)
+  plot(x,yRC1,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+#   par(new=TRUE)
+#   plot(x,yRC2,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+#   par(new=TRUE) 
+#   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+}
+axis(side=1,labels=TRUE,seq(1965,2015,5))
+axis(side=2,labels=TRUE,seq(0,yMax,10))
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# make plot of all mzones - all leks together
+manuDir <- '//LAR-FILE-SRV/Data/Jason/sage grouse/Results/Manuscript 2015.08.12'
+
+bsums.core.CSV <- vector("list",6)
+bsums.noco.CSV <- vector("list",6)
+bsums.leks.CSV <- vector("list",6)
+png(filename=paste0(manuDir,'/Trend Plot of AL - All MZones.png'),width=8,height=6,units="in",res=300,pointsize=12)
+
+for(i in 1:6){
+  units <- mZones
+  nUnits <- nMZones
+  #   bsums.core.CSV[[i]] <- read.csv(paste0(outpDir,'/Model D ',units[i],' Try 1/bayesSummary - Model D ',units[i],' Try 1.csv'))
+  #   bsums.noco.CSV[[i]] <- read.csv(paste0(outpDir,'/Model E ',units[i],' Try 1/bayesSummary - Model E ',units[i],' Try 1.csv'))
+  bsums.leks.CSV[[i]] <- read.csv(paste0(outpDir,'/Model F ',units[i],' Try 1/bayesSummary - Model F ',units[i],' Try 1.csv'))
+  #   Rcore.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model D.csv'))
+  #   Rnoco.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model E.csv'))
+  Rleks.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model F.csv'))
+  
+  #   coreBeta51 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$mean
+  #   nocoBeta51 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$mean
+  leksBeta51 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$mean
+  #   RcoreBeta51 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$mean
+  #   RnocoBeta51 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$mean
+  RleksBeta51 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$mean  
+  
+  #   coreBeta51.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   nocoBeta51.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   leksBeta51.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   RcoreBeta51.X5 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X5.
+  #   RnocoBeta51.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X5.
+  #   RleksBeta51.X5 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X5. 
+  #   
+  #   coreBeta51.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   nocoBeta51.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   leksBeta51.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   RcoreBeta51.X95 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X95.
+  #   RnocoBeta51.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X95.
+  #   RleksBeta51.X95 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X95. 
+  
+  #   coreMu.a <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$mean
+  #   nocoMu.a <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$mean
+  leksMu.a <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$mean
+  #   RcoreMu.a <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$mean
+  #   RnocoMu.a <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$mean
+  RleksMu.a <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$mean 
+  
+  #   coreMu.a.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X5.
+  #   nocoMu.a.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X5.
+  leksMu.a.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X5.
+  #   RcoreMu.a.X5 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X5.
+  #   RnocoMu.a.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X5.
+  RleksMu.a.X5 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X5. 
+  
+  #   coreMu.a.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X95.
+  #   nocoMu.a.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X95.
+  leksMu.a.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X95.
+  #   RcoreMu.a.X95 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X95.
+  #   RnocoMu.a.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X95.
+  RleksMu.a.X95 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X95.
+  
+  
+  
+  Year <- data.frame(Year=seq(1965,2015,1))
+  YearC <- Year - 1964 - 26
+  
+  #   Y.core      <- exp(coreMu.a)*(coreBeta51^YearC)
+  #   Y.core.X5   <- exp(coreMu.a.X5)*(coreBeta51^YearC)
+  #   Y.core.X95  <- exp(coreMu.a.X95)*(coreBeta51^YearC)
+  #   Y.noco      <- exp(nocoMu.a)*(nocoBeta51^YearC)
+  #   Y.noco.X5   <- exp(nocoMu.a.X5)*(nocoBeta51^YearC)
+  #   Y.noco.X95  <- exp(nocoMu.a.X95)*(nocoBeta51^YearC)
+  Y.leks      <- exp(leksMu.a)*(leksBeta51^YearC)
+  Y.leks.X5   <- exp(leksMu.a.X5)*(leksBeta51^YearC)
+  Y.leks.X95  <- exp(leksMu.a.X95)*(leksBeta51^YearC)
+  #   Y.Rcore     <- exp(RcoreMu.a)*(RcoreBeta51^YearC)
+  #   Y.Rcore.X5  <- exp(RcoreMu.a.X5)*(RcoreBeta51^YearC)
+  #   Y.Rcore.X95 <- exp(RcoreMu.a.X95)*(RcoreBeta51^YearC)
+  #   Y.Rnoco     <- exp(RnocoMu.a)*(RnocoBeta51^YearC)
+  #   Y.Rnoco.X5  <- exp(RnocoMu.a.X5)*(RnocoBeta51^YearC)
+  #   Y.Rnoco.X95 <- exp(RnocoMu.a.X95)*(RnocoBeta51^YearC)
+  Y.Rleks     <- exp(RleksMu.a)*(RleksBeta51^YearC)
+  Y.Rleks.X5  <- exp(RleksMu.a.X5)*(RleksBeta51^YearC)
+  Y.Rleks.X95 <- exp(RleksMu.a.X95)*(RleksBeta51^YearC)
+  
+  plotYears <- data.frame(Year=Year,YearC=YearC, 
+                          #                           Y.core=Y.core , Y.core.X5=Y.core.X5 , Y.core.X95=Y.core.X95,
+                          #                           Y.noco=Y.noco , Y.noco.X5=Y.noco.X5 , Y.noco.X95=Y.noco.X95,
+                          Y.leks=Y.leks , Y.leks.X5=Y.leks.X5 , Y.leks.X95=Y.leks.X95,
+                          #                           Y.Rcore=Y.Rcore,Y.Rcore.X5=Y.Rcore.X5,Y.Rcore.X95=Y.Rcore.X95,
+                          #                           Y.Rnoco=Y.Rnoco,Y.Rnoco.X5=Y.Rnoco.X5,Y.Rnoco.X95=Y.Rnoco.X95,
+                          Y.Rleks=Y.Rleks,Y.Rleks.X5=Y.Rleks.X5,Y.Rleks.X95=Y.Rleks.X95)
+  names(plotYears) <- c('Year','YearC',
+                        #                         'Y.core','Y.core.X5','Y.core.X95',
+                        #                         'Y.noco','Y.noco.X5','Y.noco.X95',
+                        'Y.leks','Y.leks.X5','Y.leks.X95',
+                        #                         'Y.Rcore','Y.Rcore.X5','Y.Rcore.X95',
+                        #                         'Y.Rnoco','Y.Rnoco.X5','Y.Rnoco.X95',
+                        'Y.Rleks','Y.Rleks.X5','Y.Rleks.X95')
+  
+  
+  x <- plotYears$Year
+  #   yA1 <- plotYears$Y.core
+  #   yA2 <- plotYears$Y.core.X5
+  #   yA3 <- plotYears$Y.core.X95
+  #   yB1 <- plotYears$Y.noco
+  #   yB2 <- plotYears$Y.noco.X5
+  #   yB3 <- plotYears$Y.noco.X95
+  yC1 <- plotYears$Y.leks
+  yC2 <- plotYears$Y.leks.X5
+  yC3 <- plotYears$Y.leks.X95
+  
+  #   yRA1 <- plotYears$Y.Rcore
+  #   yRA2 <- plotYears$Y.Rcore.X5
+  #   yRA3 <- plotYears$Y.Rcore.X95
+  #   yRB1 <- plotYears$Y.Rnoco
+  #   yRB2 <- plotYears$Y.Rnoco.X5
+  #   yRB3 <- plotYears$Y.Rnoco.X95
+  yRC1 <- plotYears$Y.Rleks
+  yRC2 <- plotYears$Y.Rleks.X5
+  yRC3 <- plotYears$Y.Rleks.X95
+  
+  yMax <- 30
+  
+  # state specific
+  #   plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
+  #   par(new=TRUE)
+  #   plot(x,yA2,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE)
+  #   plot(x,yA3,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   
+  #   par(new=TRUE)
+  #   plot(x,yB1,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yB2,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yB3,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  if(i > 1){
+    par(new=TRUE)
+  }
+  plot(x,yC1,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)#,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% All States"))
+  #   par(new=TRUE)
+  #   plot(x,yC2,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yC3,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  # rangewide specific
+  #   par(new=TRUE)
+  #   plot(x,yRA1,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE)
+  #   plot(x,yRA3,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   
+  #   par(new=TRUE)
+  #   plot(x,yRB1,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yRB2,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yRB3,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  par(new=TRUE)
+  plot(x,yRC1,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yRC2,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+}
+axis(side=1,labels=TRUE,seq(1965,2015,5))
+axis(side=2,labels=TRUE,seq(0,yMax,10))
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# make plot of all mzones - core together
+manuDir <- '//LAR-FILE-SRV/Data/Jason/sage grouse/Results/Manuscript 2015.08.12'
+
+bsums.core.CSV <- vector("list",6)
+bsums.noco.CSV <- vector("list",6)
+bsums.leks.CSV <- vector("list",6)
+png(filename=paste0(manuDir,'/Trend Plot of C - All MZones.png'),width=8,height=6,units="in",res=300,pointsize=12)
+
+for(i in 1:6){
+  units <- mZones
+  nUnits <- nMZones
+    bsums.core.CSV[[i]] <- read.csv(paste0(outpDir,'/Model D ',units[i],' Try 1/bayesSummary - Model D ',units[i],' Try 1.csv'))
+  #   bsums.noco.CSV[[i]] <- read.csv(paste0(outpDir,'/Model E ',units[i],' Try 1/bayesSummary - Model E ',units[i],' Try 1.csv'))
+  #   bsums.leks.CSV[[i]] <- read.csv(paste0(outpDir,'/Model F ',units[i],' Try 1/bayesSummary - Model F ',units[i],' Try 1.csv'))
+    Rcore.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model D.csv'))
+  #   Rnoco.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model E.csv'))
+  #   Rleks.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model F.csv'))
+  
+    coreBeta51 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$mean
+  #   nocoBeta51 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$mean
+  #   leksBeta51 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$mean
+    RcoreBeta51 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$mean
+  #   RnocoBeta51 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$mean
+  #   RleksBeta51 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$mean  
+  
+  #     coreBeta51.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   nocoBeta51.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   leksBeta51.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   RcoreBeta51.X5 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X5.
+  #   RnocoBeta51.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X5.
+  #   RleksBeta51.X5 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X5. 
+  #   
+  #   coreBeta51.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   nocoBeta51.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   leksBeta51.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   RcoreBeta51.X95 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X95.
+  #   RnocoBeta51.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X95.
+  #   RleksBeta51.X95 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X95. 
+  
+    coreMu.a <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$mean
+  #   nocoMu.a <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$mean
+  #   leksMu.a <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$mean
+    RcoreMu.a <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$mean
+  #   RnocoMu.a <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$mean
+  #   RleksMu.a <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$mean 
+  
+    coreMu.a.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X5.
+  #   nocoMu.a.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X5.
+  #   leksMu.a.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X5.
+    RcoreMu.a.X5 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X5.
+  #   RnocoMu.a.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X5.
+  #   RleksMu.a.X5 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X5. 
+  
+    coreMu.a.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X95.
+  #   nocoMu.a.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X95.
+  #   leksMu.a.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X95.
+    RcoreMu.a.X95 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X95.
+  #   RnocoMu.a.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X95.
+  #   RleksMu.a.X95 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X95.
+  
+  
+  
+  Year <- data.frame(Year=seq(1965,2015,1))
+  YearC <- Year - 1964 - 26
+  
+    Y.core      <- exp(coreMu.a)*(coreBeta51^YearC)
+    Y.core.X5   <- exp(coreMu.a.X5)*(coreBeta51^YearC)
+    Y.core.X95  <- exp(coreMu.a.X95)*(coreBeta51^YearC)
+  #   Y.noco      <- exp(nocoMu.a)*(nocoBeta51^YearC)
+  #   Y.noco.X5   <- exp(nocoMu.a.X5)*(nocoBeta51^YearC)
+  #   Y.noco.X95  <- exp(nocoMu.a.X95)*(nocoBeta51^YearC)
+  #   Y.leks      <- exp(leksMu.a)*(leksBeta51^YearC)
+  #   Y.leks.X5   <- exp(leksMu.a.X5)*(leksBeta51^YearC)
+  #   Y.leks.X95  <- exp(leksMu.a.X95)*(leksBeta51^YearC)
+    Y.Rcore     <- exp(RcoreMu.a)*(RcoreBeta51^YearC)
+    Y.Rcore.X5  <- exp(RcoreMu.a.X5)*(RcoreBeta51^YearC)
+    Y.Rcore.X95 <- exp(RcoreMu.a.X95)*(RcoreBeta51^YearC)
+  #   Y.Rnoco     <- exp(RnocoMu.a)*(RnocoBeta51^YearC)
+  #   Y.Rnoco.X5  <- exp(RnocoMu.a.X5)*(RnocoBeta51^YearC)
+  #   Y.Rnoco.X95 <- exp(RnocoMu.a.X95)*(RnocoBeta51^YearC)
+  #   Y.Rleks     <- exp(RleksMu.a)*(RleksBeta51^YearC)
+  #   Y.Rleks.X5  <- exp(RleksMu.a.X5)*(RleksBeta51^YearC)
+  #   Y.Rleks.X95 <- exp(RleksMu.a.X95)*(RleksBeta51^YearC)
+  
+  plotYears <- data.frame(Year=Year,YearC=YearC, 
+                                                    Y.core=Y.core , Y.core.X5=Y.core.X5 , Y.core.X95=Y.core.X95,
+                          #                           Y.noco=Y.noco , Y.noco.X5=Y.noco.X5 , Y.noco.X95=Y.noco.X95,
+                          #                           Y.leks=Y.leks , Y.leks.X5=Y.leks.X5 , Y.leks.X95=Y.leks.X95,
+                                                    Y.Rcore=Y.Rcore,Y.Rcore.X5=Y.Rcore.X5,Y.Rcore.X95=Y.Rcore.X95)
+                          #                           Y.Rnoco=Y.Rnoco,Y.Rnoco.X5=Y.Rnoco.X5,Y.Rnoco.X95=Y.Rnoco.X95,
+                          #                           Y.Rleks=Y.Rleks,Y.Rleks.X5=Y.Rleks.X5,Y.Rleks.X95=Y.Rleks.X95)
+  names(plotYears) <- c('Year','YearC',
+                                                'Y.core','Y.core.X5','Y.core.X95',
+                        #                         'Y.noco','Y.noco.X5','Y.noco.X95',
+                        #                       'Y.leks','Y.leks.X5','Y.leks.X95',
+                                                'Y.Rcore','Y.Rcore.X5','Y.Rcore.X95')
+                        #                         'Y.Rnoco','Y.Rnoco.X5','Y.Rnoco.X95',
+                        #                        'Y.Rleks','Y.Rleks.X5','Y.Rleks.X95'
+  
+  
+  x <- plotYears$Year
+    yA1 <- plotYears$Y.core
+    yA2 <- plotYears$Y.core.X5
+    yA3 <- plotYears$Y.core.X95
+  #   yB1 <- plotYears$Y.noco
+  #   yB2 <- plotYears$Y.noco.X5
+  #   yB3 <- plotYears$Y.noco.X95
+  #   yC1 <- plotYears$Y.leks
+  #   yC2 <- plotYears$Y.leks.X5
+  #   yC3 <- plotYears$Y.leks.X95
+  
+    yRA1 <- plotYears$Y.Rcore
+    yRA2 <- plotYears$Y.Rcore.X5
+    yRA3 <- plotYears$Y.Rcore.X95
+  #   yRB1 <- plotYears$Y.Rnoco
+  #   yRB2 <- plotYears$Y.Rnoco.X5
+  #   yRB3 <- plotYears$Y.Rnoco.X95
+  #   yRC1 <- plotYears$Y.Rleks
+  #   yRC2 <- plotYears$Y.Rleks.X5
+  #   yRC3 <- plotYears$Y.Rleks.X95
+  
+  yMax <- 30
+  
+  if(i > 1){
+    par(new=TRUE)
+  }
+    plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)#,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
+  #     par(new=TRUE)
+  #     plot(x,yA2,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #     par(new=TRUE)
+  #     plot(x,yA3,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   
+  #   par(new=TRUE)
+  #   plot(x,yB1,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yB2,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yB3,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+
+  #   plot(x,yC1,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)#,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% All States"))
+  #   par(new=TRUE)
+  #   plot(x,yC2,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yC3,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  # rangewide specific
+    par(new=TRUE)
+    plot(x,yRA1,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #     par(new=TRUE)
+  #     plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #     par(new=TRUE)
+  #     plot(x,yRA3,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   
+  #   par(new=TRUE)
+  #   plot(x,yRB1,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yRB2,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yRB3,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  #   par(new=TRUE)
+  #   plot(x,yRC1,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yRC2,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+}
+axis(side=1,labels=TRUE,seq(1965,2015,5))
+axis(side=2,labels=TRUE,seq(0,yMax,10))
+dev.off()
+
+
+
+
+
+
+
+
+
+
+# make plot of all mzones - non-core together
+manuDir <- '//LAR-FILE-SRV/Data/Jason/sage grouse/Results/Manuscript 2015.08.12'
+
+bsums.core.CSV <- vector("list",6)
+bsums.noco.CSV <- vector("list",6)
+bsums.leks.CSV <- vector("list",6)
+png(filename=paste0(manuDir,'/Trend Plot of NC - All MZones.png'),width=8,height=6,units="in",res=300,pointsize=12)
+
+for(i in 1:6){
+  units <- mZones
+  nUnits <- nMZones
+  #   bsums.core.CSV[[i]] <- read.csv(paste0(outpDir,'/Model D ',units[i],' Try 1/bayesSummary - Model D ',units[i],' Try 1.csv'))
+  bsums.noco.CSV[[i]] <- read.csv(paste0(outpDir,'/Model E ',units[i],' Try 1/bayesSummary - Model E ',units[i],' Try 1.csv'))
+  #   bsums.leks.CSV[[i]] <- read.csv(paste0(outpDir,'/Model F ',units[i],' Try 1/bayesSummary - Model F ',units[i],' Try 1.csv'))
+  #   Rcore.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model D.csv'))
+  Rnoco.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model E.csv'))
+  #   Rleks.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model F.csv'))
+  
+  #   coreBeta51 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$mean
+  nocoBeta51 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$mean
+  #   leksBeta51 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$mean
+  #   RcoreBeta51 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$mean
+  RnocoBeta51 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$mean
+  #   RleksBeta51 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$mean  
+  
+  #   coreBeta51.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   nocoBeta51.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   leksBeta51.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X5.
+  #   RcoreBeta51.X5 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X5.
+  #   RnocoBeta51.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X5.
+  #   RleksBeta51.X5 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X5. 
+  #   
+  #   coreBeta51.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   nocoBeta51.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   leksBeta51.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X95.
+  #   RcoreBeta51.X95 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X95.
+  #   RnocoBeta51.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X95.
+  #   RleksBeta51.X95 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X95. 
+  
+  #   coreMu.a <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$mean
+  nocoMu.a <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$mean
+  #   leksMu.a <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$mean
+  #   RcoreMu.a <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$mean
+  RnocoMu.a <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$mean
+  #   RleksMu.a <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$mean 
+  
+  #   coreMu.a.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X5.
+  nocoMu.a.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X5.
+  #   leksMu.a.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X5.
+  #   RcoreMu.a.X5 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X5.
+  RnocoMu.a.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X5.
+  #   RleksMu.a.X5 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X5. 
+  
+  #   coreMu.a.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X95.
+  nocoMu.a.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X95.
+  #   leksMu.a.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X95.
+  #   RcoreMu.a.X95 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X95.
+  RnocoMu.a.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X95.
+  #   RleksMu.a.X95 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X95.
+  
+  
+  
+  Year <- data.frame(Year=seq(1965,2015,1))
+  YearC <- Year - 1964 - 26
+  
+  #   Y.core      <- exp(coreMu.a)*(coreBeta51^YearC)
+  #   Y.core.X5   <- exp(coreMu.a.X5)*(coreBeta51^YearC)
+  #   Y.core.X95  <- exp(coreMu.a.X95)*(coreBeta51^YearC)
+  Y.noco      <- exp(nocoMu.a)*(nocoBeta51^YearC)
+  Y.noco.X5   <- exp(nocoMu.a.X5)*(nocoBeta51^YearC)
+  Y.noco.X95  <- exp(nocoMu.a.X95)*(nocoBeta51^YearC)
+  #   Y.leks      <- exp(leksMu.a)*(leksBeta51^YearC)
+  #   Y.leks.X5   <- exp(leksMu.a.X5)*(leksBeta51^YearC)
+  #   Y.leks.X95  <- exp(leksMu.a.X95)*(leksBeta51^YearC)
+  #   Y.Rcore     <- exp(RcoreMu.a)*(RcoreBeta51^YearC)
+  #   Y.Rcore.X5  <- exp(RcoreMu.a.X5)*(RcoreBeta51^YearC)
+  #   Y.Rcore.X95 <- exp(RcoreMu.a.X95)*(RcoreBeta51^YearC)
+  Y.Rnoco     <- exp(RnocoMu.a)*(RnocoBeta51^YearC)
+  Y.Rnoco.X5  <- exp(RnocoMu.a.X5)*(RnocoBeta51^YearC)
+  Y.Rnoco.X95 <- exp(RnocoMu.a.X95)*(RnocoBeta51^YearC)
+  #   Y.Rleks     <- exp(RleksMu.a)*(RleksBeta51^YearC)
+  #   Y.Rleks.X5  <- exp(RleksMu.a.X5)*(RleksBeta51^YearC)
+  #   Y.Rleks.X95 <- exp(RleksMu.a.X95)*(RleksBeta51^YearC)
+  
+  plotYears <- data.frame(Year=Year,YearC=YearC, 
+                          #                           Y.core=Y.core , Y.core.X5=Y.core.X5 , Y.core.X95=Y.core.X95,
+                                                     Y.noco=Y.noco , Y.noco.X5=Y.noco.X5 , Y.noco.X95=Y.noco.X95,
+                          #                           Y.leks=Y.leks , Y.leks.X5=Y.leks.X5 , Y.leks.X95=Y.leks.X95,
+                          #   Y.Rcore=Y.Rcore,Y.Rcore.X5=Y.Rcore.X5,Y.Rcore.X95=Y.Rcore.X95)
+                              Y.Rnoco=Y.Rnoco,Y.Rnoco.X5=Y.Rnoco.X5,Y.Rnoco.X95=Y.Rnoco.X95)
+  #                           Y.Rleks=Y.Rleks,Y.Rleks.X5=Y.Rleks.X5,Y.Rleks.X95=Y.Rleks.X95)
+  names(plotYears) <- c('Year','YearC',
+                        #'Y.core','Y.core.X5','Y.core.X95',
+                                                 'Y.noco','Y.noco.X5','Y.noco.X95',
+                        #                       'Y.leks','Y.leks.X5','Y.leks.X95',
+                        #'Y.Rcore','Y.Rcore.X5','Y.Rcore.X95')
+                           'Y.Rnoco','Y.Rnoco.X5','Y.Rnoco.X95')
+  #                        'Y.Rleks','Y.Rleks.X5','Y.Rleks.X95'
+  
+  
+  x <- plotYears$Year
+  #   yA1 <- plotYears$Y.core
+  #   yA2 <- plotYears$Y.core.X5
+  #   yA3 <- plotYears$Y.core.X95
+  yB1 <- plotYears$Y.noco
+  yB2 <- plotYears$Y.noco.X5
+  yB3 <- plotYears$Y.noco.X95
+  #   yC1 <- plotYears$Y.leks
+  #   yC2 <- plotYears$Y.leks.X5
+  #   yC3 <- plotYears$Y.leks.X95
+  
+  #   yRA1 <- plotYears$Y.Rcore
+  #   yRA2 <- plotYears$Y.Rcore.X5
+  #   yRA3 <- plotYears$Y.Rcore.X95
+  yRB1 <- plotYears$Y.Rnoco
+  yRB2 <- plotYears$Y.Rnoco.X5
+  yRB3 <- plotYears$Y.Rnoco.X95
+  #   yRC1 <- plotYears$Y.Rleks
+  #   yRC2 <- plotYears$Y.Rleks.X5
+  #   yRC3 <- plotYears$Y.Rleks.X95
+  
+  yMax <- 30
+  
+  if(i > 1){
+    par(new=TRUE)
+  }
+  #     plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)#,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
+  #     par(new=TRUE)
+  #     plot(x,yA2,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #     par(new=TRUE)
+  #     plot(x,yA3,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   
+  #   par(new=TRUE)
+    plot(x,yB1,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+    par(new=TRUE)
+#     plot(x,yB2,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+#     par(new=TRUE) 
+#     plot(x,yB3,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  
+  #   plot(x,yC1,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)#,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% All States"))
+  #   par(new=TRUE)
+  #   plot(x,yC2,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yC3,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  # rangewide specific
+  #   par(new=TRUE)
+  #   plot(x,yRA1,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #     par(new=TRUE)
+  #     plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #     par(new=TRUE)
+  #     plot(x,yRA3,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   
+    par(new=TRUE)
+    plot(x,yRB1,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+#     par(new=TRUE)
+#     plot(x,yRB2,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+#     par(new=TRUE) 
+#     plot(x,yRB3,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+  #   par(new=TRUE)
+  #   plot(x,yRC1,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+  #   par(new=TRUE)
+  #   plot(x,yRC2,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  #   par(new=TRUE) 
+  #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
+  
+}
+axis(side=1,labels=TRUE,seq(1965,2015,5))
+axis(side=2,labels=TRUE,seq(0,yMax,10))
+dev.off()
+
+
+
+
+
+
 
 
 

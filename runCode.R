@@ -38,6 +38,12 @@ source(paste0(progDir,"/make90pCredInt.R"))                 # calculate 5% 95% p
 source(paste0(progDir,"/makeLekTrendPlots.R"))              # make lek plots
 source(paste0(progDir,"/makeRangeWide.R"))                  # make rangewide
 
+datAllZerosCore <- vector("list",9)
+datAllZerosNoco <- vector("list",9) 
+datAllZerosLeks <- vector("list",9) 
+dat1stZerosCore <- vector("list",9) 
+dat1stZerosNoco <- vector("list",9) 
+dat1stZerosLeks <- vector("list",9)
 
 #source(paste0(progDir,"/runMA.R"))
 #source(paste0(progDir,"/runMB.R"))
@@ -88,12 +94,7 @@ rm(sg)
 mZones <- unique(datList[[1]]$mZoneNum)
 mZones <- mZones[order(mZones)]
 
-datAllZerosCore <- vector("list",9)
-datAllZerosNoco <- vector("list",9) 
-datAllZerosLeks <- vector("list",9) 
-dat1stZerosCore <- vector("list",9) 
-dat1stZerosNoco <- vector("list",9) 
-dat1stZerosLeks <- vector("list",9)
+
 
 #resultsA <- vector("list",8)
 #resultsB <- vector("list",8)

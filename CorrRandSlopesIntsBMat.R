@@ -39,8 +39,7 @@
   # make the B-matrices
   for (i in 1:nZones){
     for (j in 1:nYears) {
-      N[i,j] <- exp(mu.a +                             # mean intercept for mzone 
-                    mu.b*(yearCls[j] - medYear) +      # mean slope for mzone
+      N[i,j] <- exp(2.474 - .02748*(yearCls[j] - medYear) +       # mean slope for mzone # mean intercept for mzone 
                     0.5*sdnoise*sdnoise)               # log-normal adjustment
     }
   }

@@ -58,7 +58,7 @@ runMD <- function(dat,progDir,BUGSDir,thisRun,z){
                 inits=inits,                                                       # start chain with these
                 parameters.to.save=parameters,                                     # monitor these
                 model.file=paste0(progDir,"/CorrRandSlopesIntsBMat.R"),            # winbugs code
-               #debug=TRUE,
+                debug=TRUE,
                 bugs.directory=BUGSDir,
                 n.chains=1,                                                        # n chains >= 3
                 n.burnin=76000,

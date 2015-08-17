@@ -1,4 +1,6 @@
 
+mZSpDir <- '//LAR-FILE-SRV/Data/Jason/sage grouse/Data/Spatial/Management Zones/SG_MgmtZones_ver2_20061018'
+USSpDir <- '//LAR-FILE-SRV/Data/Jason/sage grouse/Data/Spatial/US States'
 
 sg075Shp <- readOGR(polyDir,'MZone_9_the75')# get 75% core
 sg100Shp <- readOGR(polyDir,'MZone_9_the100')# get 100% core
@@ -23,7 +25,7 @@ plot(mzShp,add=TRUE,lwd=2)
 plot(sg100Shp,col="gray95",border="gray95",add=TRUE)
 plot(sg075Shp,col="pink" ,border="pink",add=TRUE)
 text(mzCents@coords[,1],mzCents@coords[,2],mzNames,cex=1.5)
-legend("bottomright",c("Management Zone Boundary","US State","100% Countour","75% Countour 'Core'"),cex=0.8,col=c("black","lightblue","gray95","pink"),bty="n",pch=c(NA,15,15,15),lwd=c(2,NA,NA,NA))
+legend("bottomright",c("Management Zone Boundary","US State","100% Contour","75% Contour 'Core'"),cex=0.8,col=c("black","lightblue","gray95","pink"),bty="n",pch=c(NA,15,15,15),lwd=c(2,NA,NA,NA))
 dev.off()
 
 

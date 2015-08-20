@@ -70,6 +70,16 @@ source(paste0(progDir,"/runMF.R"))
 source(paste0(progDir,"/runMV.R"))
 source(paste0(progDir,"/runMZ.R"))
 
+# testing-for-discontinuity programs
+
+source(paste0(progDir,"/runTestAn.R"))
+source(paste0(progDir,"/runTestBn.R"))
+source(paste0(progDir,"/runTestCn.R"))
+source(paste0(progDir,"/runTestDn.R"))
+source(paste0(progDir,"/runTestEn.R"))
+source(paste0(progDir,"/runTestFn.R"))
+
+
 sg <- read.csv(paste0(origDir,"/allStatesFinal2015.csv"))
 
 datList <- prepareForAnalysis(sg)
@@ -121,6 +131,20 @@ resultsF <- vector("list",8)
 resultsV <- vector("list",8)
 resultsZ <- vector("list",1)
 
+resultsAllAn <- vector("list",8)
+resultsAllBn <- vector("list",8)
+resultsAllCn <- vector("list",8)
+resultsAllDn <- vector("list",8)
+resultsAllEn <- vector("list",8)
+resultsAllFn <- vector("list",8)
+
+results1stAn <- vector("list",8)
+results1stBn <- vector("list",8)
+results1stCn <- vector("list",8)
+results1stDn <- vector("list",8)
+results1stEn <- vector("list",8)
+results1stFn <- vector("list",8)
+
 for(i in 1:6){
 
   if(i == 1){mZone <- 1}
@@ -135,9 +159,9 @@ for(i in 1:6){
  #datAllZerosNoco[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Non-Core-75 - All Zero'))@data    # read in all zeros, non-core data, ith mzone
  #datAllZerosLeks[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Both-75 - All Zero'))@data        # read in all zeros, all data, ith mzone
  
-  dat1stZerosCore[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Core-75 - 1st Zero'))@data        # read in 1st zeros, core data, ith mzone
-  dat1stZerosNoco[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Non-Core-75 - 1st Zero'))@data    # read in 1st zeros, non-core data, ith mzone
-  dat1stZerosLeks[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Both-75 - 1st Zero'))@data        # read in 1st zeros, all data, ith mzone
+   dat1stZerosCore[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Core-75 - 1st Zero'))@data        # read in 1st zeros, core data, ith mzone
+  #dat1stZerosNoco[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Non-Core-75 - 1st Zero'))@data    # read in 1st zeros, non-core data, ith mzone
+  #dat1stZerosLeks[[mZone]] <- readOGR(analDir,paste0('Zone ',mZone,' Both-75 - 1st Zero'))@data        # read in 1st zeros, all data, ith mzone
   
  #BUGSDir <- 'C:/Program Files/WinBUGS14'                                                              # my machine  
  #BUGSDir <- 'C:/Users/jmitchell/WinBUGS_14/winbugs14/WinBUGS14'                                       # sonic 1
@@ -145,16 +169,59 @@ for(i in 1:6){
 
   if(mZone <= 8){   
     
-   #resultsA[[mZone]] <- runMA(datAllZerosCore[[mZone]],progDir,BUGSDir,mZone)                         # all zeros, core,     no mzone effect
-   #resultsB[[mZone]] <- runMB(datAllZerosNoco[[mZone]],progDir,BUGSDir,mZone)                         # all zeros, non-core, no mzone effect
-   #resultsC[[mZone]] <- runMC(datAllZerosLeks[[mZone]],progDir,BUGSDir,mZone)                         # all zeros, all leks, no mzone effect
+   #resultsD[[mZone]] <- runMD(datAllZerosCore[[mZone]],progDir,BUGSDir,'All Zeros 1',mZone)                         # all zeros, core,     no mzone effect
+   #resultsE[[mZone]] <- runME(datAllZerosNoco[[mZone]],progDir,BUGSDir,'All Zeros 1',mZone)                         # all zeros, non-core, no mzone effect
+   #resultsF[[mZone]] <- runMF(datAllZerosLeks[[mZone]],progDir,BUGSDir,'All Zeros 1',mZone)                         # all zeros, all leks, no mzone effect
   
-    resultsD[[mZone]] <- runMD(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Try 1',mZone)                 # 1st zeros, core,     ind mzone, B mat
-    resultsE[[mZone]] <- runME(dat1stZerosNoco[[mZone]],progDir,BUGSDir,'Try 1',mZone)                 # 1st zeros, non-core, ind mzone, B mat
-    resultsF[[mZone]] <- runMF(dat1stZerosLeks[[mZone]],progDir,BUGSDir,'Try 1',mZone)                 # 1st zeros, all leks, no mzone effect     
+   #resultsD[[mZone]] <- runMD(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Try constant mu.a+mu.b',mZone)                 # 1st zeros, core,     ind mzone, B mat
+   #resultsE[[mZone]] <- runME(dat1stZerosNoco[[mZone]],progDir,BUGSDir,'Try 1',mZone)                 # 1st zeros, non-core, ind mzone, B mat
+   #resultsF[[mZone]] <- runMF(dat1stZerosLeks[[mZone]],progDir,BUGSDir,'Try 1',mZone)                 # 1st zeros, all leks, no mzone effect     
     
-    resultsV[[mZone]] <- runMV(datAllZerosCore[[mZone]],progDir,BUGSDir,'ZInf Try 2',mZone)            # ALL zeros, core,     ind mzone, B mat, zero inf
+   #resultsV[[mZone]] <- runMV(datAllZerosCore[[mZone]],progDir,BUGSDir,'ZInf Try 2',mZone)            # ALL zeros, core,     ind mzone, B mat, zero inf
+   
+   # TESTING TESTING TESTING
+   runTestAn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-An-4k-76k-1',mZone,76000,80000,1)   # all zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Bn-4k-76k-1',mZone,76000,80000,1)   # all zeros - fix mu_a
+   runTestCn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Cn-4k-76k-1',mZone,76000,80000,1)   # all zeros - fix mu_b
+   runTestDn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Dn-4k-76k-1',mZone,76000,80000,1)   # all zeros - drop mu_a, mu_b correlation
+   runTestEn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-En-4k-76k-1',mZone,76000,80000,1)   # all zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Fn-4k-76k-1',mZone,76000,80000,1)   # all zeros - fix 0.5*sigma^2_{\epsilon}
+   
+   runTestAn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-An-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Bn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - fix mu_a
+   runTestCn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Cn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - fix mu_b
+   runTestDn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Dn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - drop mu_a, mu_b correlation
+   runTestEn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-En-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Fn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+   
+   runTestAn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-An-4k-304k-4',mZone,304000,320000,4)   # all zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Bn-4k-304k-4',mZone,304000,320000,4)   # all zeros - fix mu_a
+   runTestCn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Cn-4k-304k-4',mZone,304000,320000,4)   # all zeros - fix mu_b
+   runTestDn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Dn-4k-304k-4',mZone,304000,320000,4)   # all zeros - drop mu_a, mu_b correlation
+   runTestEn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-En-4k-304k-4',mZone,304000,320000,4)   # all zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Fn-4k-304k-4',mZone,304000,320000,4)   # all zeros - fix 0.5*sigma^2_{\epsilon}
+   
+   runTestAn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-An-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Bn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - fix mu_a
+   runTestCn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Cn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - fix mu_b
+   runTestDn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Dn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - drop mu_a, mu_b correlation
+   runTestEn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-En-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Fn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
     
+   runTestAn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-An-4k-316k-1',mZone,316000,320000,1)   # all zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Bn-4k-316k-1',mZone,316000,320000,1)   # all zeros - fix mu_a
+   runTestCn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Cn-4k-316k-1',mZone,316000,320000,1)   # all zeros - fix mu_b
+   runTestDn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Dn-4k-316k-1',mZone,316000,320000,1)   # all zeros - drop mu_a, mu_b correlation
+   runTestEn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-En-4k-316k-1',mZone,316000,320000,1)   # all zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(datAllZerosCore[[mZone]],progDir,BUGSDir,'Test All-Fn-4k-316k-1',mZone,316000,320000,1)   # all zeros - fix 0.5*sigma^2_{\epsilon}
+   
+   runTestAn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-An-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Bn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - fix mu_a
+   runTestCn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Cn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - fix mu_b
+   runTestDn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Dn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - drop mu_a, mu_b correlation
+   runTestEn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-En-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Fn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+   
    } #else if(mZone == 9){
 #     
 #     # run models based on cutting up mZone 9, or all the data, into constituent states

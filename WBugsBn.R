@@ -1,7 +1,7 @@
 
-  # random slopes & intercepts model
-  # always specify dist'ns and formulas separately.
-  
+# random slopes & intercepts model
+# always specify dist'ns and formulas separately.
+
 {
   for(k in 1:nCounts) {                                # specify model for each obs in the df
     pMales[k] ~ dpois(lambda[k])                       # count (number of peak males) distribution
@@ -14,7 +14,7 @@
   }
   taunoise ~ dgamma(0.001,0.001)                       # variation of residual error distribution
   sdnoise <- 1 / pow(taunoise, 0.5)                    # sd
-
+  
   for(j in 1:nLeks){                                   # loop over leks
     a[j] <- B[j,1]                                     # put random intercepts in 1st col of B matrix
     b[j] <- B[j,2]                                     # put random slopes in 2nd col of B matrix
@@ -22,7 +22,7 @@
     B.hat[j,1] <- mu.a                                 # make a vector of overall intercept
     B.hat[j,2] <- mu.b                                 # make a vector of overall slope
   }
-
+  
   mu.a ~ dnorm(0,.0001)                                # like an overall intercept -- uninformative prior
   mu.b ~ dnorm(0,.0001)                                # like an overall slope -- uninformative prior
   Tau.B[1:2,1:2] <- inverse(Sigma.B[,])                # take inverse of covariance matrix to get precision matrix
@@ -35,35 +35,35 @@
   Sigma.B[1,2] <- rho*sigma.a*sigma.b                  # calculate covariance of intercepts and slopes and place in [1,2]
   Sigma.B[2,1] <- Sigma.B[1,2]                         # and in [2,1] of covariance matrix of Sigma.B
   rho ~ dunif(-1,1)                                    # uninformative prior on correlation
-
+  
   # make the B-matrices
   for (i in 1:nZones){
     for (j in 1:nYears) {
-      N[i,j] <- exp(mu.a +                             # mean intercept for mzone 
-                    mu.b*(yearCls[j] - medYear)        # mean slope for mzone
+      N[i,j] <- exp(2.45 +                             # mean intercept for mzone 
+                    mu.b*(yearCls[j] - medYear) +      # mean slope for mzone
                     0.5*sdnoise*sdnoise)               # log-normal adjustment
     }
   }
-
+  
   # all-year estimates.
   for (i in 1:nZones) {
     beta[i] <- pow(N[i,nYears] / N[i,1], 1/(nYears-1))
   }
   
-#   # weight the expected Ns, for all mzones and time periods -- build up to wgt average
-#   for(i in 1:nZones){
-#     for(j in 1:nYears){
-#       preN0[i,j] <- nLeksMat[i,j] * N[i,j]
-#     }
-#   }
+  #   # weight the expected Ns, for all mzones and time periods -- build up to wgt average
+  #   for(i in 1:nZones){
+  #     for(j in 1:nYears){
+  #       preN0[i,j] <- nLeksMat[i,j] * N[i,j]
+  #     }
+  #   }
   
-#   # sum over each time period, and divide by total number of leks -- gets wgt average
-#   for(j in 1:nYears){
-#     N0[j] <- sum(preN0[1:nZones,j]) / nLeksVec[1,j]
-#   }
+  #   # sum over each time period, and divide by total number of leks -- gets wgt average
+  #   for(j in 1:nYears){
+  #     N0[j] <- sum(preN0[1:nZones,j]) / nLeksVec[1,j]
+  #   }
   
-#   # calculate grand weighted-mean slope
-#   beta0 <- pow(N0[nYears] / N0[1], 1/(nYears-1)) 
+  #   # calculate grand weighted-mean slope
+  #   beta0 <- pow(N0[nYears] / N0[1], 1/(nYears-1)) 
   
   # 10-year Bs
   for (i in 1:nZones) {
@@ -110,21 +110,3 @@
     B10.65.75[i] <- pow(N[i,11] / N[i,1], 1/(11-1))
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

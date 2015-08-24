@@ -1,9 +1,9 @@
 makeLekTrendPlots <- function(dat,tracDir,bayes){
   
-  #   runType <- 'Core'
-  #   theUnit <- 'MZone 1'
-  #   nZones <- 1
-  #   tracDir <- paste0(outpDir,'/',file,'/Trend Plots')
+#   dat <- dat
+#   tracDir <- paste0(outpDir,'/',file,'/Lek Plots')
+#   bayes <- bayes
+
   
   bsums <- bayes$summary  
   bsums.a <- bsums[substr(rownames(bsums),1,2) == 'a[',]
@@ -36,7 +36,7 @@ makeLekTrendPlots <- function(dat,tracDir,bayes){
     
     plot(X,y1,type='p',pch=19,col='darkgray',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\nLek ID: ",lek_ID,' - Cluster: ',cluster))
     par(new=TRUE)
-    plot(X,y2,type='l',col=colVec[i],axes=FALSE, frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+    plot(X,y2,type='l',col=colVec[1],axes=FALSE, frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
     axis(side=1,labels=TRUE,seq(1965,2015,5))
     axis(side=2,labels=TRUE,seq(0,yMax,10))
     

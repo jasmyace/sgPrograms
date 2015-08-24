@@ -10,7 +10,7 @@
       a[lekCls[k]] +                                   # random lek intercept
       b[lekCls[k]]*(yearCls[k] - medYear) +            # random lek slope
       noise[k]                                         # residual error         
-    noise[k] ~ dnorm(0.0, taunoise)                    # residual error distribution -- non-informative prior?
+    noise[k] ~ dnorm(0.001, taunoise)                    # residual error distribution -- non-informative prior?
   }
   taunoise ~ dgamma(0.001,0.001)                       # variation of residual error distribution
   sdnoise <- 1 / pow(taunoise, 0.5)                    # sd
@@ -22,12 +22,12 @@
     b.hat[j] <- mu.b
   }
   
-  mu.a ~ dnorm(0,.0001)                                # like an overall intercept -- uninformative prior
-  mu.b ~ dnorm(0,.0001)                                # like an overall slope -- uninformative prior
+  mu.a ~ dnorm(0.001,.0001)                                # like an overall intercept -- uninformative prior
+  mu.b ~ dnorm(0.001,.0001)                                # like an overall slope -- uninformative prior
   tau.a <- pow(sigma.a,-2)
-  sigma.a ~ dunif(0,100)
+  sigma.a ~ dunif(0.001,100)
   tau.b <- pow(sigma.b,-2)
-  sigma.b ~ dunif(0,100)
+  sigma.b ~ dunif(0.001,100)
   
   # make the B-matrices
   for (i in 1:nZones){

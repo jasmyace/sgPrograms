@@ -222,6 +222,114 @@ for(i in 1:6){
    runTestEn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-En-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - drop mu_a altogether (regression through the origin)
    runTestFn(dat1stZerosCore[[mZone]],progDir,BUGSDir,'Test 1st-Fn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
    
+   
+   
+   
+
+   
+   runTestAn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-An-4k-76k-1',mZone,76000,80000,1)   # all zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Bn-4k-76k-1',mZone,76000,80000,1)   # all zeros - fix mu_a
+   runTestCn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Cn-4k-76k-1',mZone,76000,80000,1)   # all zeros - fix mu_b
+   runTestDn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Dn-4k-76k-1',mZone,76000,80000,1)   # all zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-En-4k-76k-1',mZone,76000,80000,1)   # all zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Fn-4k-76k-1',mZone,76000,80000,1)   # all zeros - fix 0.5*sigma^2_{\epsilon}
+   
+   runTestAn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-An-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Bn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - fix mu_a
+   runTestCn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Cn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - fix mu_b
+   runTestDn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Dn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-En-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Fn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+   
+   runTestAn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-An-4k-76k-1',mZone,76000,80000,1)   # all zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Bn-4k-76k-1',mZone,76000,80000,1)   # all zeros - fix mu_a
+   runTestCn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Cn-4k-76k-1',mZone,76000,80000,1)   # all zeros - fix mu_b
+   runTestDn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Dn-4k-76k-1',mZone,76000,80000,1)   # all zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-En-4k-76k-1',mZone,76000,80000,1)   # all zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Fn-4k-76k-1',mZone,76000,80000,1)   # all zeros - fix 0.5*sigma^2_{\epsilon}
+   
+   runTestAn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-An-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Bn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - fix mu_a
+   runTestCn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Cn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - fix mu_b
+   runTestDn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Dn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-En-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Fn-4k-76k-1',mZone,76000,80000,1)   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+   
+   
+   
+   
+
+   
+   
+   
+   
+   runTestAn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-An-4k-304k-4',mZone,304000,320000,4)   # all zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Bn-4k-304k-4',mZone,304000,320000,4)   # all zeros - fix mu_a
+   runTestCn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Cn-4k-304k-4',mZone,304000,320000,4)   # all zeros - fix mu_b
+   runTestDn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Dn-4k-304k-4',mZone,304000,320000,4)   # all zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-En-4k-304k-4',mZone,304000,320000,4)   # all zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Fn-4k-304k-4',mZone,304000,320000,4)   # all zeros - fix 0.5*sigma^2_{\epsilon}
+   
+   runTestAn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-An-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Bn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - fix mu_a
+   runTestCn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Cn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - fix mu_b
+   runTestDn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Dn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-En-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Fn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+   
+   runTestAn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-An-4k-304k-4',mZone,304000,320000,4)   # all zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Bn-4k-304k-4',mZone,304000,320000,4)   # all zeros - fix mu_a
+   runTestCn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Cn-4k-304k-4',mZone,304000,320000,4)   # all zeros - fix mu_b
+   runTestDn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Dn-4k-304k-4',mZone,304000,320000,4)   # all zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-En-4k-304k-4',mZone,304000,320000,4)   # all zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Fn-4k-304k-4',mZone,304000,320000,4)   # all zeros - fix 0.5*sigma^2_{\epsilon}
+   
+   runTestAn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-An-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Bn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - fix mu_a
+   runTestCn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Cn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - fix mu_b
+   runTestDn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Dn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-En-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Fn-4k-304k-4',mZone,304000,320000,4)   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   runTestAn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-An-4k-316k-1',mZone,316000,320000,1)   # all zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Bn-4k-316k-1',mZone,316000,320000,1)   # all zeros - fix mu_a
+   runTestCn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Cn-4k-316k-1',mZone,316000,320000,1)   # all zeros - fix mu_b
+   runTestDn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Dn-4k-316k-1',mZone,316000,320000,1)   # all zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-En-4k-316k-1',mZone,316000,320000,1)   # all zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefCorrData31Leks,progDir,BUGSDir,'Test simCorr31Lek-Fn-4k-316k-1',mZone,316000,320000,1)   # all zeros - fix 0.5*sigma^2_{\epsilon}
+   
+   runTestAn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-An-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Bn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - fix mu_a
+   runTestCn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Cn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - fix mu_b
+   runTestDn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Dn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-En-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefCorrData5Leks,progDir,BUGSDir,'Test simCorr5Lek-Fn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+   
+   runTestAn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-An-4k-316k-1',mZone,316000,320000,1)   # all zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Bn-4k-316k-1',mZone,316000,320000,1)   # all zeros - fix mu_a
+   runTestCn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Cn-4k-316k-1',mZone,316000,320000,1)   # all zeros - fix mu_b
+   runTestDn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Dn-4k-316k-1',mZone,316000,320000,1)   # all zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-En-4k-316k-1',mZone,316000,320000,1)   # all zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefUncorrData31Leks,progDir,BUGSDir,'Test simUncorr31Lek-Fn-4k-316k-1',mZone,316000,320000,1)   # all zeros - fix 0.5*sigma^2_{\epsilon}
+   
+   runTestAn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-An-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
+   runTestBn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Bn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - fix mu_a
+   runTestCn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Cn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - fix mu_b
+   runTestDn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Dn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - drop mu_a, mu_b correlation
+   runTestEn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-En-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - drop mu_a altogether (regression through the origin)
+   runTestFn(simPoisRandCoefUncorrData5Leks,progDir,BUGSDir,'Test simUncorr5Lek-Fn-4k-316k-1',mZone,316000,320000,1)   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+   
+   
+   
    } #else if(mZone == 9){
 #     
 #     # run models based on cutting up mZone 9, or all the data, into constituent states

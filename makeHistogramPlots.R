@@ -1,4 +1,4 @@
-makeHistogramPlots <- function(dat,theUnit,tracDir){
+makeHistogramPlots <- function(dat,theUnit,tracDir,file){
   
 #   dat <- dat
 #   theUnit <- 'WY'
@@ -11,7 +11,7 @@ makeHistogramPlots <- function(dat,theUnit,tracDir){
   nYears <- length(unique(dat$Year))
   years <- unique(dat$Year)
   
-  png(filename=paste0(tracDir,'/Zeros Plots - 1st - ',file,'.png'),width=5,height=80,units="in",res=300,pointsize=12)
+  png(filename=paste0(tracDir,'/Zeros Plots - ',file,'.png'),width=5,height=80,units="in",res=300,pointsize=12)
   
   lay <- layout(matrix(seq(1,51,1),51,1,byrow=TRUE),1,rep(1/51,51))
   layout.show(lay)
@@ -20,7 +20,7 @@ makeHistogramPlots <- function(dat,theUnit,tracDir){
     if(z <= nYears){
       thisYear <- years[z]
       yearDat <- dat[dat$Year == thisYear & dat$Peak_Males <= 100,]
-      hist(yearDat$Peak_Males,breaks=100,main=paste0('Histogram',theUnit,' - First Zeros - Year ',thisYear))
+      hist(yearDat$Peak_Males,breaks=100,main=paste0('Histogram',theUnit,' - ',file,' - Year ',thisYear))
     } else {
       plot.new()
     }

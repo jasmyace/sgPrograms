@@ -45,7 +45,7 @@ makeTrendPlots <- function(dat,runType,theUnit,nZones,tracDir,files,bayes){
     
   yMax <- 100
     
-  png(filename=paste0(tracDir,'/Trend Plot - ',file,' - ',runType,'.png'),width=8,height=6,units="in",res=300,pointsize=12)
+  png(filename=paste0(tracDir,'/Trend Plot - ',files,' - ',runType,'.png'),width=8,height=6,units="in",res=300,pointsize=12)
   
   plot(x,y1,type='p',pch=19,col='darkgray',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",runType,theUnit))
   par(new=TRUE)
@@ -57,6 +57,6 @@ makeTrendPlots <- function(dat,runType,theUnit,nZones,tracDir,files,bayes){
     
   dev.off()
   
-  write.csv(plotYears,paste0(tracDir,'/plotYears - ',file,' - ',runType,'.csv'))
+  write.csv(plotYears,paste0(tracDir,'/plotYears - ',files,' - ',runType,'.csv'))
   rm(plotYears,x,y1,y2)
 }

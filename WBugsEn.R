@@ -10,7 +10,7 @@
       a[lekCls[k]] +                                   # random lek intercept
       b[lekCls[k]]*(yearCls[k] - medYear) +            # random lek slope
       noise[k]                                         # residual error         
-    noise[k] ~ dnorm(0.0, taunoise)                    # residual error distribution -- non-informative prior?
+    noise[k] ~ dnorm(0.001, taunoise)                    # residual error distribution -- non-informative prior?
   }
   taunoise ~ dgamma(0.001,0.001)                       # variation of residual error distribution
   sdnoise <- 1 / pow(taunoise, 0.5)                    # sd
@@ -23,13 +23,13 @@
     B.hat[j,2] <- mu.b                                 # make a vector of overall slope
   }
   
-  mu.a ~ dnorm(0,.0001)                                # like an overall intercept -- uninformative prior
-  mu.b ~ dnorm(0,.0001)                                # like an overall slope -- uninformative prior
+  mu.a ~ dnorm(0.001,.0001)                                # like an overall intercept -- uninformative prior
+  mu.b ~ dnorm(0.001,.0001)                                # like an overall slope -- uninformative prior
   Tau.B[1:2,1:2] <- inverse(Sigma.B[,])                # take inverse of covariance matrix to get precision matrix
   Sigma.B[1,1]<-pow(sigma.a,2)                         # square estimate of sd(int) and put in [1,1] spot in Sigma.B matrix
-  sigma.a ~ dunif(0,100)                               # positive uninformative prior for estimate of sigma.a
+  sigma.a ~ dunif(0.001,100)                               # positive uninformative prior for estimate of sigma.a
   Sigma.B[2,2] <- pow(sigma.b,2)                       # square estimate of sd(slope) and put in [2,2] spot in Sigma.B matrix
-  sigma.b ~ dunif(0,100)                               # positive uninformative prior for estimate of sigma.b
+  sigma.b ~ dunif(0.001,100)                               # positive uninformative prior for estimate of sigma.b
   
   #correlation
   Sigma.B[1,2] <- rho*sigma.a*sigma.b                  # calculate covariance of intercepts and slopes and place in [1,2]

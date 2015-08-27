@@ -13,6 +13,9 @@ makeLekTrendPlots <- function(dat,tracDir,bayes){
   dat$lekCls = as.numeric(as.factor(droplevels(dat$Lek_ID)))                       # lek
   nLeks <- max(dat$lekCls)
   
+  if(min(dat$Year) == 1){
+    dat$Year <- dat$Year + 1964
+  }
   
   for(x in 1:nLeks){
     
@@ -20,7 +23,16 @@ makeLekTrendPlots <- function(dat,tracDir,bayes){
     cluster <- dat[dat$lekCls == x,]$Cluster[1]
     int.lek <- bsums.a[x,1]
     slp.lek <- bsums.b[x,1]
-    Nest <- data.frame(Nest=exp(int.lek + slp.lek*(seq(1965,2015,1) - 1964 - 26)))
+    
+    if(length(unique(dat$Year)) == 11){
+      minYear <- min(dat$Year)
+      medYear <- quantile(dat$Year,0.5) - minYear
+    } else {
+      minYear <- 1965
+      medYear <- 26
+    }
+    
+    Nest <- data.frame(Nest=exp(int.lek + slp.lek*(seq(1965,2015,1) - (minYear - 1) - medYear)))
     Nest$Year <- as.numeric(rownames(Nest)) + 1964
     Nobs <- dat[dat$lekCls == x,c('Year','yearCls','Peak_Males')]
     
@@ -34,7 +46,7 @@ makeLekTrendPlots <- function(dat,tracDir,bayes){
     
     png(filename=paste0(tracDir,'/Lek Plot - ',lek_ID,'.png'),width=8,height=6,units="in",res=300,pointsize=12)
     
-    plot(X,y1,type='p',pch=19,col='darkgray',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\nLek ID: ",lek_ID,' - Cluster: ',cluster))
+    plot(X,y1,type='p',pch=19,col='darkgray',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years ",minYear,"-",maxYear,"\nLek ID: ",lek_ID,' - Cluster: ',cluster))
     par(new=TRUE)
     plot(X,y2,type='l',col=colVec[1],axes=FALSE, frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
     axis(side=1,labels=TRUE,seq(1965,2015,5))

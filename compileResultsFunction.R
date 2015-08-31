@@ -218,12 +218,47 @@ compileResults("Model F MZone 8 All Zeros 1",datAllZerosLeks[[8]],'Management Zo
     
 
 # 10 years analysis
+compileResults("Model D MZone 1 All Zeros 2005-2015",datAllZerosCore[[1]][datAllZerosCore[[1]]$Year %in% seq(2005,2015),],'Management Zone','mZone 1','Core')
+compileResults("Model E MZone 1 All Zeros 2005-2015",datAllZerosNoco[[1]][datAllZerosNoco[[1]]$Year %in% seq(2005,2015),],'Management Zone','mZone 1','Periphery')
+compileResults("Model F MZone 1 All Zeros 2005-2015",datAllZerosLeks[[1]][datAllZerosLeks[[1]]$Year %in% seq(2005,2015),],'Management Zone','mZone 1','All Leks')
+compileResults("Model D MZone 1 1st Zeros 2005-2015",dat1stZerosCore[[1]][dat1stZerosCore[[1]]$Year %in% seq(2005,2015),],'Management Zone','mZone 1','Core')
+compileResults("Model E MZone 1 1st Zeros 2005-2015",dat1stZerosNoco[[1]][dat1stZerosNoco[[1]]$Year %in% seq(2005,2015),],'Management Zone','mZone 1','Periphery')
+compileResults("Model F MZone 1 1st Zeros 2005-2015",dat1stZerosLeks[[1]][dat1stZerosLeks[[1]]$Year %in% seq(2005,2015),],'Management Zone','mZone 1','All Leks')    
+
+compileResults("Model D MZone 3 All Zeros 2005-2015",datAllZerosCore[[3]][datAllZerosCore[[3]]$Year %in% seq(2005,2015),],'Management Zone','mZone 3','Core')
+compileResults("Model E MZone 3 All Zeros 2005-2015",datAllZerosNoco[[3]][datAllZerosNoco[[3]]$Year %in% seq(2005,2015),],'Management Zone','mZone 3','Periphery')
+compileResults("Model F MZone 3 All Zeros 2005-2015",datAllZerosLeks[[3]][datAllZerosLeks[[3]]$Year %in% seq(2005,2015),],'Management Zone','mZone 3','All Leks')
+compileResults("Model D MZone 3 1st Zeros 2005-2015",dat1stZerosCore[[3]][dat1stZerosCore[[3]]$Year %in% seq(2005,2015),],'Management Zone','mZone 3','Core')
+compileResults("Model E MZone 3 1st Zeros 2005-2015",dat1stZerosNoco[[3]][dat1stZerosNoco[[3]]$Year %in% seq(2005,2015),],'Management Zone','mZone 3','Periphery')
+compileResults("Model F MZone 3 1st Zeros 2005-2015",dat1stZerosLeks[[3]][dat1stZerosLeks[[3]]$Year %in% seq(2005,2015),],'Management Zone','mZone 3','All Leks')    
+
+compileResults("Model D MZone 4 All Zeros 2005-2015",datAllZerosCore[[4]][datAllZerosCore[[4]]$Year %in% seq(2005,2015),],'Management Zone','mZone 4','Core')
+compileResults("Model E MZone 4 All Zeros 2005-2015",datAllZerosNoco[[4]][datAllZerosNoco[[4]]$Year %in% seq(2005,2015),],'Management Zone','mZone 4','Periphery')
+compileResults("Model F MZone 4 All Zeros 2005-2015",datAllZerosLeks[[4]][datAllZerosLeks[[4]]$Year %in% seq(2005,2015),],'Management Zone','mZone 4','All Leks')
+compileResults("Model D MZone 4 1st Zeros 2005-2015",dat1stZerosCore[[4]][dat1stZerosCore[[4]]$Year %in% seq(2005,2015),],'Management Zone','mZone 4','Core')
+compileResults("Model E MZone 4 1st Zeros 2005-2015",dat1stZerosNoco[[4]][dat1stZerosNoco[[4]]$Year %in% seq(2005,2015),],'Management Zone','mZone 4','Periphery')
+compileResults("Model F MZone 4 1st Zeros 2005-2015",dat1stZerosLeks[[4]][dat1stZerosLeks[[4]]$Year %in% seq(2005,2015),],'Management Zone','mZone 4','All Leks')    
+
+compileResults("Model D MZone 5 All Zeros 2005-2015",datAllZerosCore[[5]][datAllZerosCore[[5]]$Year %in% seq(2005,2015),],'Management Zone','mZone 5','Core')
+compileResults("Model E MZone 5 All Zeros 2005-2015",datAllZerosNoco[[5]][datAllZerosNoco[[5]]$Year %in% seq(2005,2015),],'Management Zone','mZone 5','Periphery')
+compileResults("Model F MZone 5 All Zeros 2005-2015",datAllZerosLeks[[5]][datAllZerosLeks[[5]]$Year %in% seq(2005,2015),],'Management Zone','mZone 5','All Leks')
+compileResults("Model D MZone 5 1st Zeros 2005-2015",dat1stZerosCore[[5]][dat1stZerosCore[[5]]$Year %in% seq(2005,2015),],'Management Zone','mZone 5','Core')
+compileResults("Model E MZone 5 1st Zeros 2005-2015",dat1stZerosNoco[[5]][dat1stZerosNoco[[5]]$Year %in% seq(2005,2015),],'Management Zone','mZone 5','Periphery')
+compileResults("Model F MZone 5 1st Zeros 2005-2015",dat1stZerosLeks[[5]][dat1stZerosLeks[[5]]$Year %in% seq(2005,2015),],'Management Zone','mZone 5','All Leks')    
+
 compileResults("Model D MZone 6 All Zeros 2005-2015",datAllZerosCore[[6]][datAllZerosCore[[6]]$Year %in% seq(2005,2015),],'Management Zone','mZone 6','Core')
-compileResults("Model E MZone 6 All Zeros 2005-2015",datAllZerosNoco[[6]],'Management Zone','mZone 6','Periphery')
-compileResults("Model F MZone 6 All Zeros 2005-2015",datAllZerosLeks[[6]],'Management Zone','mZone 6','All Leks')
-compileResults("Model D MZone 6 1st Zeros 2005-2015",dat1stZerosCore[[6]],'Management Zone','mZone 6','Core')
-compileResults("Model E MZone 6 1st Zeros 2005-2015",dat1stZerosNoco[[6]],'Management Zone','mZone 6','Periphery')
-compileResults("Model F MZone 6 1st Zeros 2005-2015",dat1stZerosLeks[[6]],'Management Zone','mZone 6','All Leks')    
+compileResults("Model E MZone 6 All Zeros 2005-2015",datAllZerosNoco[[6]][datAllZerosNoco[[6]]$Year %in% seq(2005,2015),],'Management Zone','mZone 6','Periphery')
+compileResults("Model F MZone 6 All Zeros 2005-2015",datAllZerosLeks[[6]][datAllZerosLeks[[6]]$Year %in% seq(2005,2015),],'Management Zone','mZone 6','All Leks')
+compileResults("Model D MZone 6 1st Zeros 2005-2015",dat1stZerosCore[[6]][dat1stZerosCore[[6]]$Year %in% seq(2005,2015),],'Management Zone','mZone 6','Core')
+compileResults("Model E MZone 6 1st Zeros 2005-2015",dat1stZerosNoco[[6]][dat1stZerosNoco[[6]]$Year %in% seq(2005,2015),],'Management Zone','mZone 6','Periphery')
+compileResults("Model F MZone 6 1st Zeros 2005-2015",dat1stZerosLeks[[6]][dat1stZerosLeks[[6]]$Year %in% seq(2005,2015),],'Management Zone','mZone 6','All Leks')    
+    
+compileResults("Model D MZone 8 All Zeros 2005-2015",datAllZerosCore[[8]][datAllZerosCore[[8]]$Year %in% seq(2005,2015),],'Management Zone','mZone 8','Core')
+compileResults("Model E MZone 8 All Zeros 2005-2015",datAllZerosNoco[[8]][datAllZerosNoco[[8]]$Year %in% seq(2005,2015),],'Management Zone','mZone 8','Periphery')
+compileResults("Model F MZone 8 All Zeros 2005-2015",datAllZerosLeks[[8]][datAllZerosLeks[[8]]$Year %in% seq(2005,2015),],'Management Zone','mZone 8','All Leks')
+compileResults("Model D MZone 8 1st Zeros 2005-2015",dat1stZerosCore[[8]][dat1stZerosCore[[8]]$Year %in% seq(2005,2015),],'Management Zone','mZone 8','Core')
+compileResults("Model E MZone 8 1st Zeros 2005-2015",dat1stZerosNoco[[8]][dat1stZerosNoco[[8]]$Year %in% seq(2005,2015),],'Management Zone','mZone 8','Periphery')
+compileResults("Model F MZone 8 1st Zeros 2005-2015",dat1stZerosLeks[[8]][dat1stZerosLeks[[8]]$Year %in% seq(2005,2015),],'Management Zone','mZone 8','All Leks')    
 
     
     

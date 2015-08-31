@@ -275,16 +275,15 @@ makeHistogramPlots(datAllZerosCore[[1]],theUnit='Management Zone mZone 1',tracDi
     
     compileResults <- function(file,dat,string,theUnit,runType){
       
-#       file <- "Model D MZone 6 All Zeros 2005-2015"
-#       dat <- datAllZerosCore[[6]][datAllZerosCore[[6]]$Year %in% seq(2005,2015),]
-#       string <- 'mZone 6'
-#       theUnit <- "mZone 6"
+#       file <- "Model D MZone 1 All Zeros 1"
+#       dat <- datAllZerosCore[[1]]   #[datAllZerosCore[[1]]$Year %in% seq(2005,2015),]
+#       string <- 'mZone 1'
+#       theUnit <- "mZone 1"
 #       runType <- 'Core'
       
       
      
-      
-      
+
       load(paste0(outpDir,'/',file,".RData"))  
       
       
@@ -296,17 +295,21 @@ makeHistogramPlots(datAllZerosCore[[1]],theUnit='Management Zone mZone 1',tracDi
       ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Trend Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Trend Plots'))), FALSE)        # make new mzone trend plots folder
       ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Zeros Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Zeros Plots'))), FALSE)        # make new mzone trend plots folder
       ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Lek Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Lek Plots'))), FALSE)            # make new mzone lek plots folder
+      ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Random Lek Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Random Lek Plots'))), FALSE)            # make new mzone lek plots folder
       
-      # make trace, posterior, histogram plots
+      
+      
+      
+      # make trace, posterior, histogram, lek-trend, random-lek plots
       nParms <- dim(bayes$sims.array)[3]
       parmList <- dimnames(bayes$sims.array)[[3]]
       makeTracePlots(nParms,parmList,paste0(outpDir,'/',file,'/Trace Plots'),file,bayes)    
       makePosteriorPlots(nParms,parmList,paste0(outpDir,'/',file,'/Posterior Plots'),file,bayes)
       makeHistogramPlots(dat,paste0(" - ",string," ",theUnit),paste0(outpDir,'/',file,'/Zeros Plots'),file)
       makeLekTrendPlots(dat,paste0(outpDir,'/',file,'/Lek Plots'),bayes)
-      
+
       bsums90 <- make90pCredInt(bayes)
-      
+      makeRandomLekPlots(dat,paste0(outpDir,'/',file,'/Random Lek Plots'),file,bayes,bsums90)     
       
       # make bayes summary file of estimates
       write.csv(bsums90,paste0(outpDir,'/',file,'/bayesSummary - ',file,'.csv'))

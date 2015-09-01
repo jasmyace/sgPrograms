@@ -31,12 +31,12 @@ compileResults("Model D MZone 6 Test All-Dn-4k-76k-1" ,datAllZerosCore[[6]],'Man
 compileResults("Model D MZone 6 Test All-En-4k-76k-1" ,datAllZerosCore[[6]],'Management Zone','mZone 6',"Core")   # all zeros - drop mu_a altogether (regression through the origin)
 compileResults("Model D MZone 6 Test All-Fn-4k-76k-1" ,datAllZerosCore[[6]],'Management Zone','mZone 6',"Core")   # all zeros - fix 0.5*sigma^2_{\epsilon}
 
-compileResults("Model D MZone 6 Test 1st-An-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
-compileResults("Model D MZone 6 Test 1st-Bn-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_a
-compileResults("Model D MZone 6 Test 1st-Cn-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_b
-compileResults("Model D MZone 6 Test 1st-Dn-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a, mu_b correlation
-compileResults("Model D MZone 6 Test 1st-En-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a altogether (regression through the origin)
-compileResults("Model D MZone 6 Test 1st-Fn-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+compileResults("Model D MZone 6 Test 1st-An-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - drop 0.5*sigma^2_{\epsilon}
+compileResults("Model D MZone 6 Test 1st-Bn-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - fix mu_a
+compileResults("Model D MZone 6 Test 1st-Cn-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - fix mu_b
+compileResults("Model D MZone 6 Test 1st-Dn-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - drop mu_a, mu_b correlation
+compileResults("Model D MZone 6 Test 1st-En-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - drop mu_a altogether (regression through the origin)
+compileResults("Model D MZone 6 Test 1st-Fn-4k-76k-1" ,dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - fix 0.5*sigma^2_{\epsilon} 
 
 compileResults("Model D MZone 6 Test All-An-4k-304k-4",datAllZerosCore[[6]],'Management Zone','mZone 6',"Core")   # all zeros - drop 0.5*sigma^2_{\epsilon}
 compileResults("Model D MZone 6 Test All-Bn-4k-304k-4",datAllZerosCore[[6]],'Management Zone','mZone 6',"Core")   # all zeros - fix mu_a
@@ -45,12 +45,12 @@ compileResults("Model D MZone 6 Test All-Dn-4k-304k-4",datAllZerosCore[[6]],'Man
 compileResults("Model D MZone 6 Test All-En-4k-304k-4",datAllZerosCore[[6]],'Management Zone','mZone 6',"Core")   # all zeros - drop mu_a altogether (regression through the origin)
 compileResults("Model D MZone 6 Test All-Fn-4k-304k-4",datAllZerosCore[[6]],'Management Zone','mZone 6',"Core")   # all zeros - fix 0.5*sigma^2_{\epsilon}
 
-compileResults("Model D MZone 6 Test 1st-An-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
-compileResults("Model D MZone 6 Test 1st-Bn-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_a
-compileResults("Model D MZone 6 Test 1st-Cn-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_b
-compileResults("Model D MZone 6 Test 1st-Dn-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a, mu_b correlation
-compileResults("Model D MZone 6 Test 1st-En-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a altogether (regression through the origin)
-compileResults("Model D MZone 6 Test 1st-Fn-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+compileResults("Model D MZone 6 Test 1st-An-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - drop 0.5*sigma^2_{\epsilon}
+compileResults("Model D MZone 6 Test 1st-Bn-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - fix mu_a
+compileResults("Model D MZone 6 Test 1st-Cn-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - fix mu_b
+compileResults("Model D MZone 6 Test 1st-Dn-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - drop mu_a, mu_b correlation
+compileResults("Model D MZone 6 Test 1st-En-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - drop mu_a altogether (regression through the origin)
+compileResults("Model D MZone 6 Test 1st-Fn-4k-304k-4",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - fix 0.5*sigma^2_{\epsilon} 
 
 compileResults("Model D MZone 6 Test All-An-4k-316k-1",datAllZerosCore[[6]],'Management Zone','mZone 6',"Core")   # all zeros - drop 0.5*sigma^2_{\epsilon}
 compileResults("Model D MZone 6 Test All-Bn-4k-316k-1",datAllZerosCore[[6]],'Management Zone','mZone 6',"Core")   # all zeros - fix mu_a
@@ -59,12 +59,12 @@ compileResults("Model D MZone 6 Test All-Dn-4k-316k-1",datAllZerosCore[[6]],'Man
 compileResults("Model D MZone 6 Test All-En-4k-316k-1",datAllZerosCore[[6]],'Management Zone','mZone 6',"Core")   # all zeros - drop mu_a altogether (regression through the origin)
 compileResults("Model D MZone 6 Test All-Fn-4k-316k-1",datAllZerosCore[[6]],'Management Zone','mZone 6',"Core")   # all zeros - fix 0.5*sigma^2_{\epsilon}
 
-compileResults("Model D MZone 6 Test 1st-An-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
-compileResults("Model D MZone 6 Test 1st-Bn-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_a
-compileResults("Model D MZone 6 Test 1st-Cn-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_b
-compileResults("Model D MZone 6 Test 1st-Dn-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a, mu_b correlation
-compileResults("Model D MZone 6 Test 1st-En-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a altogether (regression through the origin)
-compileResults("Model D MZone 6 Test 1st-Fn-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+compileResults("Model D MZone 6 Test 1st-An-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - drop 0.5*sigma^2_{\epsilon}
+compileResults("Model D MZone 6 Test 1st-Bn-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - fix mu_a
+compileResults("Model D MZone 6 Test 1st-Cn-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - fix mu_b
+compileResults("Model D MZone 6 Test 1st-Dn-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - drop mu_a, mu_b correlation
+compileResults("Model D MZone 6 Test 1st-En-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - drop mu_a altogether (regression through the origin)
+compileResults("Model D MZone 6 Test 1st-Fn-4k-316k-1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")   # Try - fix 0.5*sigma^2_{\epsilon} 
     
     
     
@@ -82,12 +82,12 @@ compileResults("Model D MZone 6 Test simCorr31Lek-Dn-4k-76k-1",simPoisRandCoefCo
 compileResults("Model D MZone 6 Test simCorr31Lek-En-4k-76k-1",simPoisRandCoefCorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - drop mu_a altogether (regression through the origin)
 compileResults("Model D MZone 6 Test simCorr31Lek-Fn-4k-76k-1",simPoisRandCoefCorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - fix 0.5*sigma^2_{\epsilon}
     
-compileResults("Model D MZone 6 Test simCorr5Lek-An-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
-compileResults("Model D MZone 6 Test simCorr5Lek-Bn-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_a
-compileResults("Model D MZone 6 Test simCorr5Lek-Cn-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_b
-compileResults("Model D MZone 6 Test simCorr5Lek-Dn-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a, mu_b correlation
-compileResults("Model D MZone 6 Test simCorr5Lek-En-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a altogether (regression through the origin)
-compileResults("Model D MZone 6 Test simCorr5Lek-Fn-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+compileResults("Model D MZone 6 Test simCorr5Lek-An-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop 0.5*sigma^2_{\epsilon}
+compileResults("Model D MZone 6 Test simCorr5Lek-Bn-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_a
+compileResults("Model D MZone 6 Test simCorr5Lek-Cn-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_b
+compileResults("Model D MZone 6 Test simCorr5Lek-Dn-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a, mu_b correlation
+compileResults("Model D MZone 6 Test simCorr5Lek-En-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a altogether (regression through the origin)
+compileResults("Model D MZone 6 Test simCorr5Lek-Fn-4k-76k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix 0.5*sigma^2_{\epsilon} 
     
 compileResults("Model D MZone 6 Test simUncorr31Lek-An-4k-76k-1",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - drop 0.5*sigma^2_{\epsilon}
 compileResults("Model D MZone 6 Test simUncorr31Lek-Bn-4k-76k-1",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - fix mu_a
@@ -96,12 +96,12 @@ compileResults("Model D MZone 6 Test simUncorr31Lek-Dn-4k-76k-1",simPoisRandCoef
 compileResults("Model D MZone 6 Test simUncorr31Lek-En-4k-76k-1",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - drop mu_a altogether (regression through the origin)
 compileResults("Model D MZone 6 Test simUncorr31Lek-Fn-4k-76k-1",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - fix 0.5*sigma^2_{\epsilon}
     
-compileResults("Model D MZone 6 Test simUncorr5Lek-An-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
-compileResults("Model D MZone 6 Test simUncorr5Lek-Bn-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_a
-compileResults("Model D MZone 6 Test simUncorr5Lek-Cn-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_b
-compileResults("Model D MZone 6 Test simUncorr5Lek-Dn-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a, mu_b correlation
-compileResults("Model D MZone 6 Test simUncorr5Lek-En-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a altogether (regression through the origin)
-compileResults("Model D MZone 6 Test simUncorr5Lek-Fn-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+compileResults("Model D MZone 6 Test simUncorr5Lek-An-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop 0.5*sigma^2_{\epsilon}
+compileResults("Model D MZone 6 Test simUncorr5Lek-Bn-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_a
+compileResults("Model D MZone 6 Test simUncorr5Lek-Cn-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_b
+compileResults("Model D MZone 6 Test simUncorr5Lek-Dn-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a, mu_b correlation
+compileResults("Model D MZone 6 Test simUncorr5Lek-En-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a altogether (regression through the origin)
+compileResults("Model D MZone 6 Test simUncorr5Lek-Fn-4k-76k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix 0.5*sigma^2_{\epsilon} 
     
     
     
@@ -117,12 +117,12 @@ compileResults("Model D MZone 6 Test simCorr31Lek-Dn-4k-304k-4",simPoisRandCoefC
 compileResults("Model D MZone 6 Test simCorr31Lek-En-4k-304k-4",simPoisRandCoefCorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - drop mu_a altogether (regression through the origin)
 compileResults("Model D MZone 6 Test simCorr31Lek-Fn-4k-304k-4",simPoisRandCoefCorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - fix 0.5*sigma^2_{\epsilon}
     
-compileResults("Model D MZone 6 Test simCorr5Lek-An-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
-compileResults("Model D MZone 6 Test simCorr5Lek-Bn-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_a
-compileResults("Model D MZone 6 Test simCorr5Lek-Cn-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_b
-compileResults("Model D MZone 6 Test simCorr5Lek-Dn-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a, mu_b correlation
-compileResults("Model D MZone 6 Test simCorr5Lek-En-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a altogether (regression through the origin)
-compileResults("Model D MZone 6 Test simCorr5Lek-Fn-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+compileResults("Model D MZone 6 Test simCorr5Lek-An-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop 0.5*sigma^2_{\epsilon}
+compileResults("Model D MZone 6 Test simCorr5Lek-Bn-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_a
+compileResults("Model D MZone 6 Test simCorr5Lek-Cn-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_b
+compileResults("Model D MZone 6 Test simCorr5Lek-Dn-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a, mu_b correlation
+compileResults("Model D MZone 6 Test simCorr5Lek-En-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a altogether (regression through the origin)
+compileResults("Model D MZone 6 Test simCorr5Lek-Fn-4k-304k-4",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix 0.5*sigma^2_{\epsilon} 
     
 compileResults("Model D MZone 6 Test simUncorr31Lek-An-4k-304k-4",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - drop 0.5*sigma^2_{\epsilon}
 compileResults("Model D MZone 6 Test simUncorr31Lek-Bn-4k-304k-4",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - fix mu_a
@@ -131,12 +131,12 @@ compileResults("Model D MZone 6 Test simUncorr31Lek-Dn-4k-304k-4",simPoisRandCoe
 compileResults("Model D MZone 6 Test simUncorr31Lek-En-4k-304k-4",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - drop mu_a altogether (regression through the origin)
 compileResults("Model D MZone 6 Test simUncorr31Lek-Fn-4k-304k-4",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - fix 0.5*sigma^2_{\epsilon}
     
-compileResults("Model D MZone 6 Test simUncorr5Lek-An-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
-compileResults("Model D MZone 6 Test simUncorr5Lek-Bn-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_a
-compileResults("Model D MZone 6 Test simUncorr5Lek-Cn-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_b
-compileResults("Model D MZone 6 Test simUncorr5Lek-Dn-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a, mu_b correlation
-compileResults("Model D MZone 6 Test simUncorr5Lek-En-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a altogether (regression through the origin)
-compileResults("Model D MZone 6 Test simUncorr5Lek-Fn-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+compileResults("Model D MZone 6 Test simUncorr5Lek-An-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop 0.5*sigma^2_{\epsilon}
+compileResults("Model D MZone 6 Test simUncorr5Lek-Bn-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_a
+compileResults("Model D MZone 6 Test simUncorr5Lek-Cn-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_b
+compileResults("Model D MZone 6 Test simUncorr5Lek-Dn-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a, mu_b correlation
+compileResults("Model D MZone 6 Test simUncorr5Lek-En-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a altogether (regression through the origin)
+compileResults("Model D MZone 6 Test simUncorr5Lek-Fn-4k-304k-4",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix 0.5*sigma^2_{\epsilon} 
     
     
     
@@ -153,12 +153,12 @@ compileResults("Model D MZone 6 Test simCorr31Lek-Dn-4k-316k-1",simPoisRandCoefC
 compileResults("Model D MZone 6 Test simCorr31Lek-En-4k-316k-1",simPoisRandCoefCorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - drop mu_a altogether (regression through the origin)
 compileResults("Model D MZone 6 Test simCorr31Lek-Fn-4k-316k-1",simPoisRandCoefCorrData31Leks,'Management Zone','mZone 6',"Core")  # all zeros - fix 0.5*sigma^2_{\epsilon}
     
-compileResults("Model D MZone 6 Test simCorr5Lek-An-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
-compileResults("Model D MZone 6 Test simCorr5Lek-Bn-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")  # 1st zeros - fix mu_a
-compileResults("Model D MZone 6 Test simCorr5Lek-Cn-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_b
-compileResults("Model D MZone 6 Test simCorr5Lek-Dn-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a, mu_b correlation
-compileResults("Model D MZone 6 Test simCorr5Lek-En-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a altogether (regression through the origin)
-compileResults("Model D MZone 6 Test simCorr5Lek-Fn-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+compileResults("Model D MZone 6 Test simCorr5Lek-An-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop 0.5*sigma^2_{\epsilon}
+compileResults("Model D MZone 6 Test simCorr5Lek-Bn-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")  # Try - fix mu_a
+compileResults("Model D MZone 6 Test simCorr5Lek-Cn-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_b
+compileResults("Model D MZone 6 Test simCorr5Lek-Dn-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a, mu_b correlation
+compileResults("Model D MZone 6 Test simCorr5Lek-En-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a altogether (regression through the origin)
+compileResults("Model D MZone 6 Test simCorr5Lek-Fn-4k-316k-1",simPoisRandCoefCorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix 0.5*sigma^2_{\epsilon} 
     
 compileResults("Model D MZone 6 Test simUncorr31Lek-An-4k-316k-1",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - drop 0.5*sigma^2_{\epsilon}
 compileResults("Model D MZone 6 Test simUncorr31Lek-Bn-4k-316k-1",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - fix mu_a
@@ -167,12 +167,12 @@ compileResults("Model D MZone 6 Test simUncorr31Lek-Dn-4k-316k-1",simPoisRandCoe
 compileResults("Model D MZone 6 Test simUncorr31Lek-En-4k-316k-1",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - drop mu_a altogether (regression through the origin)
 compileResults("Model D MZone 6 Test simUncorr31Lek-Fn-4k-316k-1",simPoisRandCoefUncorrData31Leks,'Management Zone','mZone 6',"Core")   # all zeros - fix 0.5*sigma^2_{\epsilon}
     
-compileResults("Model D MZone 6 Test simUncorr5Lek-An-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop 0.5*sigma^2_{\epsilon}
-compileResults("Model D MZone 6 Test simUncorr5Lek-Bn-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_a
-compileResults("Model D MZone 6 Test simUncorr5Lek-Cn-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix mu_b
-compileResults("Model D MZone 6 Test simUncorr5Lek-Dn-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a, mu_b correlation
-compileResults("Model D MZone 6 Test simUncorr5Lek-En-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - drop mu_a altogether (regression through the origin)
-compileResults("Model D MZone 6 Test simUncorr5Lek-Fn-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # 1st zeros - fix 0.5*sigma^2_{\epsilon} 
+compileResults("Model D MZone 6 Test simUncorr5Lek-An-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop 0.5*sigma^2_{\epsilon}
+compileResults("Model D MZone 6 Test simUncorr5Lek-Bn-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_a
+compileResults("Model D MZone 6 Test simUncorr5Lek-Cn-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix mu_b
+compileResults("Model D MZone 6 Test simUncorr5Lek-Dn-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a, mu_b correlation
+compileResults("Model D MZone 6 Test simUncorr5Lek-En-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - drop mu_a altogether (regression through the origin)
+compileResults("Model D MZone 6 Test simUncorr5Lek-Fn-4k-316k-1",simPoisRandCoefUncorrData5Leks,'Management Zone','mZone 6',"Core")   # Try - fix 0.5*sigma^2_{\epsilon} 
     
     
     
@@ -189,6 +189,35 @@ compileResults("Model D MZone 1 Try 1",dat1stZerosCore[[1]],'Management Zone','m
     
 
 
+# 1st Zeros analysis 
+    
+compileResults("Model D MZone 1 Try 1",dat1stZerosCore[[1]],'Management Zone','mZone 1',"Core")
+compileResults("Model E MZone 1 Try 1",dat1stZerosNoco[[1]],'Management Zone','mZone 1',"Periphery")
+compileResults("Model F MZone 1 Try 1",dat1stZerosLeks[[1]],'Management Zone','mZone 1',"All Leks")
+    
+compileResults("Model D MZone 3 Try 1",dat1stZerosCore[[3]],'Management Zone','mZone 3',"Core")
+compileResults("Model E MZone 3 Try 1",dat1stZerosNoco[[3]],'Management Zone','mZone 3',"Periphery")
+compileResults("Model F MZone 3 Try 1",dat1stZerosLeks[[3]],'Management Zone','mZone 3',"All Leks")
+    
+compileResults("Model D MZone 4 Try 1",dat1stZerosCore[[4]],'Management Zone','mZone 4',"Core")
+compileResults("Model E MZone 4 Try 1",dat1stZerosNoco[[4]],'Management Zone','mZone 4',"Periphery")
+compileResults("Model F MZone 4 Try 1",dat1stZerosLeks[[4]],'Management Zone','mZone 4',"All Leks")
+    
+compileResults("Model D MZone 5 Try 1",dat1stZerosCore[[5]],'Management Zone','mZone 5',"Core")
+compileResults("Model E MZone 5 Try 1",dat1stZerosNoco[[5]],'Management Zone','mZone 5',"Periphery")
+compileResults("Model F MZone 5 Try 1",dat1stZerosLeks[[5]],'Management Zone','mZone 5',"All Leks")
+    
+compileResults("Model D MZone 6 Try 1",dat1stZerosCore[[6]],'Management Zone','mZone 6',"Core")
+compileResults("Model E MZone 6 Try 1",dat1stZerosNoco[[6]],'Management Zone','mZone 6',"Periphery")
+compileResults("Model F MZone 6 Try 1",dat1stZerosLeks[[6]],'Management Zone','mZone 6',"All Leks")
+    
+compileResults("Model D MZone 8 Try 1",dat1stZerosCore[[8]],'Management Zone','mZone 8',"Core")
+compileResults("Model E MZone 8 Try 1",dat1stZerosNoco[[8]],'Management Zone','mZone 8',"Periphery")
+compileResults("Model F MZone 8 Try 1",dat1stZerosLeks[[8]],'Management Zone','mZone 8',"All Leks")   
+    
+    
+    
+    
     
 # all zeros analysis 
     
@@ -217,7 +246,23 @@ compileResults("Model E MZone 8 All Zeros 1",datAllZerosNoco[[8]],'Management Zo
 compileResults("Model F MZone 8 All Zeros 1",datAllZerosLeks[[8]],'Management Zone','mZone 8',"All Leks")
     
 
-# 10 years analysis
+compileResults("Model F MZone MT All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'MT',],'State','MT',"All Leks")    
+compileResults("Model F MZone CA All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'CA',],'State','CA',"All Leks")  
+compileResults("Model F MZone ID All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'ID',],'State','ID',"All Leks")  
+compileResults("Model F MZone WA All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'WA',],'State','WA',"All Leks")  
+compileResults("Model F MZone WY All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'WY',],'State','WY',"All Leks")  
+compileResults("Model F MZone UT All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'UT',],'State','UT',"All Leks")  
+compileResults("Model F MZone NV All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'NV',],'State','NV',"All Leks")  
+compileResults("Model F MZone OR All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'OR',],'State','OR',"All Leks")  
+compileResults("Model F MZone CO All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'CO',],'State','CO',"All Leks")  
+compileResults("Model F MZone SD All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'SD',],'State','SD',"All Leks")  
+compileResults("Model F MZone ND All Zeros State 1",datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == 'ND',],'State','ND',"All Leks")  
+    
+    
+    
+    
+    
+    # 10 years analysis
 compileResults("Model D MZone 1 All Zeros 2005-2015",datAllZerosCore[[1]][datAllZerosCore[[1]]$Year %in% seq(2005,2015),],'Management Zone','mZone 1','Core')
 compileResults("Model E MZone 1 All Zeros 2005-2015",datAllZerosNoco[[1]][datAllZerosNoco[[1]]$Year %in% seq(2005,2015),],'Management Zone','mZone 1','Periphery')
 compileResults("Model F MZone 1 All Zeros 2005-2015",datAllZerosLeks[[1]][datAllZerosLeks[[1]]$Year %in% seq(2005,2015),],'Management Zone','mZone 1','All Leks')
@@ -275,18 +320,13 @@ makeHistogramPlots(datAllZerosCore[[1]],theUnit='Management Zone mZone 1',tracDi
     
     compileResults <- function(file,dat,string,theUnit,runType){
       
-#       file <- "Model D MZone 1 All Zeros 1"
-#       dat <- datAllZerosCore[[1]]   #[datAllZerosCore[[1]]$Year %in% seq(2005,2015),]
-#       string <- 'mZone 1'
-#       theUnit <- "mZone 1"
-#       runType <- 'Core'
-      
-      
-     
-
+#       file <- "Model E MZone 3 All Zeros 2005-2015"
+#       dat <- datAllZerosNoco[[3]][datAllZerosNoco[[3]]$Year %in% seq(2005,2015),]
+#       string <- 'mZone 3'
+#       theUnit <- "mZone 3"
+#       runType <- 'Periphery'
+    
       load(paste0(outpDir,'/',file,".RData"))  
-      
-      
       
       ifelse(!dir.exists(file.path(outpDir,file)), dir.create(file.path(outpDir,file)), FALSE)      # make new folder
       file.copy(paste0(outpDir,"/",file,".RData"),paste0(outpDir,"/",file))                         # copy bayes output to new folder
@@ -296,9 +336,6 @@ makeHistogramPlots(datAllZerosCore[[1]],theUnit='Management Zone mZone 1',tracDi
       ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Zeros Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Zeros Plots'))), FALSE)        # make new mzone trend plots folder
       ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Lek Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Lek Plots'))), FALSE)            # make new mzone lek plots folder
       ifelse(!dir.exists(file.path(paste0(outpDir,'/',file,'/Random Lek Plots'))), dir.create(file.path(paste0(outpDir,'/',file,'/Random Lek Plots'))), FALSE)            # make new mzone lek plots folder
-      
-      
-      
       
       # make trace, posterior, histogram, lek-trend, random-lek plots
       nParms <- dim(bayes$sims.array)[3]
@@ -319,4 +356,5 @@ makeHistogramPlots(datAllZerosCore[[1]],theUnit='Management Zone mZone 1',tracDi
       
       rm(nParms,parmList,bayes)
     }  
-
+    
+    

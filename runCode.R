@@ -1,6 +1,6 @@
 
 # packDir <- "C:/Program Files/R/R-3.2.1/library"
-# install.packages(c("R2WinBUGS","lme4","sp","rgdal","rgeos","raster","maptools","Cairo","RColorBrewer"),packDir,repos="http://cran.us.r-project.org")
+# install.packages(c("R2WinBUGS","lme4","sp","rgdal","rgeos","raster","maptools","Cairo","RColorBrewer","spsurvey","RGtk2","plyr","reshape2","AICcmodavg","car","R2wd","jpeg","matrixcalc","countreg"),packDir,repos="http://cran.us.r-project.org")
 
 require(R2WinBUGS)      # run WinBUGS
 require(lme4)           # glmm for poisson
@@ -20,7 +20,7 @@ outpDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Output"
 rsltDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Results"
 polyDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Data/Spatial/Density Polygons"
 analDir <- "//LAR-FILE-SRV/Data/Jason/sage grouse/Data/Spatial/Analysis Sets"
-manuDir <- '//LAR-FILE-SRV/Data/Jason/sage grouse/Results/Manuscript 2015.08.12'
+manuDir <- '//LAR-FILE-SRV/Data/Jason/sage grouse/Results/Manuscript 2015.09.02'
 
 PROJaea <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"
 PROJlat <- "+init=epsg:4326"
@@ -37,7 +37,9 @@ source(paste0(progDir,"/makeTrendPlots.R"))                 # make trend plots
 source(paste0(progDir,"/makeHistogramPlots.R"))             # make histogram plots
 source(paste0(progDir,"/make90pCredInt.R"))                 # calculate 5% 95% percentiles
 source(paste0(progDir,"/makeLekTrendPlots.R"))              # make lek plots
+source(paste0(progDir,"/makeRandomLekPlots.R"))             # make random lek plots
 source(paste0(progDir,"/makeRangeWide.R"))                  # make rangewide
+
 
 datAllZerosCore <- vector("list",9)
 datAllZerosNoco <- vector("list",9) 

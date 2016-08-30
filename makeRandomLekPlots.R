@@ -77,13 +77,13 @@ makeRandomLekPlots <- function(dat,tracDir,file,bayes,bsums90){
         if(i == 17){
           plot(X,yObs,type='p',pch=19,cex=0.8,col='gray50',axes=FALSE,frame.plot=TRUE,xlim=XLims,ylim=c(0,yMax),xlab='',ylab='')
           par(new=TRUE)
-          plot(X,yEst,type='l',col='red',axes=FALSE,xpd=NA,frame.plot=TRUE,xlim=XLims,ylim=c(0,yMax),xlab='Year',ylab='Peak Males / Lek',lwd=2)
+          plot(X,yEst,type='l',col='red',axes=FALSE,xpd=NA,frame.plot=TRUE,xlim=XLims,ylim=c(0,yMax),xlab='Year',ylab='Peak Males',lwd=2)
           axis(side=2,at=c(0,20,40,60,80,100),labels=c(0,20,40,60,80,100),las=2,cex.axis=0.8)
           axis(side=1,at=XLabs,labels=XLabs,cex.axis=0.8)
         } else if (i %% 5 == 2 & i != 17){
           plot(X,yObs,type='p',pch=19,cex=0.8,col='gray50',axes=FALSE,frame.plot=TRUE,xlim=XLims,ylim=c(0,yMax),xlab='',ylab='')
           par(new=TRUE)
-          plot(X,yEst,type='l',col='red',axes=FALSE,xpd=NA,frame.plot=TRUE,xlim=XLims,ylim=c(0,yMax),xlab='',ylab='Peak Males / Lek',lwd=2)
+          plot(X,yEst,type='l',col='red',axes=FALSE,xpd=NA,frame.plot=TRUE,xlim=XLims,ylim=c(0,yMax),xlab='',ylab='Peak Males',lwd=2)
           axis(side=2,at=c(0,20,40,60,80,100),labels=c(0,20,40,60,80,100),las=2,cex.axis=0.8)
         } else if(i > 17){
           plot(X,yObs,type='p',pch=19,cex=0.8,col='gray50',axes=FALSE,frame.plot=TRUE,xlim=XLims,ylim=c(0,yMax),xlab='',ylab='')

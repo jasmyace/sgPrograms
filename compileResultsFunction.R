@@ -340,19 +340,19 @@ makeHistogramPlots(datAllZerosCore[[1]],theUnit='Management Zone mZone 1',tracDi
       # make trace, posterior, histogram, lek-trend, random-lek plots
       nParms <- dim(bayes$sims.array)[3]
       parmList <- dimnames(bayes$sims.array)[[3]]
-      makeTracePlots(nParms,parmList,paste0(outpDir,'/',file,'/Trace Plots'),file,bayes)    
-      makePosteriorPlots(nParms,parmList,paste0(outpDir,'/',file,'/Posterior Plots'),file,bayes)
-      makeHistogramPlots(dat,paste0(" - ",string," ",theUnit),paste0(outpDir,'/',file,'/Zeros Plots'),file)
-      makeLekTrendPlots(dat,paste0(outpDir,'/',file,'/Lek Plots'),bayes)
+      #makeTracePlots(nParms,parmList,paste0(outpDir,'/',file,'/Trace Plots'),file,bayes)    
+      #makePosteriorPlots(nParms,parmList,paste0(outpDir,'/',file,'/Posterior Plots'),file,bayes)
+      #makeHistogramPlots(dat,paste0(" - ",string," ",theUnit),paste0(outpDir,'/',file,'/Zeros Plots'),file)
+      #makeLekTrendPlots(dat,paste0(outpDir,'/',file,'/Lek Plots'),bayes)
 
       bsums90 <- make90pCredInt(bayes)
       makeRandomLekPlots(dat,paste0(outpDir,'/',file,'/Random Lek Plots'),file,bayes,bsums90)     
       
       # make bayes summary file of estimates
-      write.csv(bsums90,paste0(outpDir,'/',file,'/bayesSummary - ',file,'.csv'))
+      #write.csv(bsums90,paste0(outpDir,'/',file,'/bayesSummary - ',file,'.csv'))
       
       # make trend plots
-      makeTrendPlots(dat,runType,paste0(" - ",string," ",theUnit),1,paste0(outpDir,'/',file,'/Trend Plots'),file,bayes)
+      #makeTrendPlots(dat,runType,paste0(" - ",string," ",theUnit),1,paste0(outpDir,'/',file,'/Trend Plots'),file,bayes)
       
       rm(nParms,parmList,bayes)
     }  

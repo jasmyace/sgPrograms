@@ -1222,7 +1222,7 @@ for(i in 1:6){
   axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
   axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
   mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+  mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
   dev.off()
   
 }
@@ -1425,7 +1425,7 @@ for(i in 1:6){
   axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
   axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
   mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+  mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
   dev.off()
   
 }
@@ -1642,7 +1642,7 @@ for(i in 1:6){
   axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
   axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
   mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+  mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
   dev.off()
   
 }
@@ -1845,7 +1845,7 @@ for(i in 1:6){
   axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
   axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
   mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+  mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
   dev.off()
   
 }
@@ -2052,7 +2052,7 @@ for(i in 1:11){
   axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
   axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
   mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+  mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
   dev.off()
   
 }
@@ -2231,7 +2231,7 @@ for(i in 1:11){
   axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
   axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
   mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+  mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
   dev.off()
   
 }
@@ -2431,7 +2431,7 @@ for(i in 1:1){
   
   # rangewide specific
   #   par(new=TRUE)
-    plot(x,yRA1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=2,lwd=2,main="Rangewide")
+    plot(x,yRA1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=2,lwd=2,main="Range-wide")
   #   par(new=TRUE)
   #   plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   #   par(new=TRUE)
@@ -2454,7 +2454,7 @@ legend("topright",c("Core","Periphery","Combined"),lty=c(2,3,1),lwd=c(2,2,2),col
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 
   dev.off()
   
@@ -2581,7 +2581,7 @@ for(i in 1:1){
   
   yMax <- 40
   
-  png(filename=paste0(manuDir,'/Trend Plot of C, NC, AL - All Zeros - Rangewide.png'),width=8,height=6,units="in",res=300,pointsize=12)
+  png(filename=paste0(manuDir,'/Trend Plot of C, NC, AL - All Zeros - Range-wide.png'),width=8,height=6,units="in",res=300,pointsize=12)
   
   # state specific
   #   plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
@@ -2605,7 +2605,7 @@ for(i in 1:1){
   
   # rangewide specific
   #   par(new=TRUE)
-  plot(x,yRA1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=2,lwd=2,main="Rangewide")
+  plot(x,yRA1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=2,lwd=2,main="Range-wide")
   #   par(new=TRUE)
   #   plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   #   par(new=TRUE)
@@ -2628,7 +2628,7 @@ for(i in 1:1){
   axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
   axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
   mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+  mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
   
   dev.off()
   
@@ -2765,7 +2765,7 @@ for(i in 1:1){
   
   yMax <- 40
   
-  png(filename=paste0(manuDir,'/Trend Plot of C, NC, AL - Y05-15 - 1st Zeros - Rangewide.png'),width=8,height=6,units="in",res=300,pointsize=12)
+  png(filename=paste0(manuDir,'/Trend Plot of C, NC, AL - Y05-15 - 1st Zeros - Range-wide.png'),width=8,height=6,units="in",res=300,pointsize=12)
   
   # state specific
   #   plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
@@ -2789,7 +2789,7 @@ for(i in 1:1){
   
   # rangewide specific
   #   par(new=TRUE)
-  plot(x,yRA1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=2,lwd=2,main="Rangewide")
+  plot(x,yRA1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=2,lwd=2,main="Range-wide")
   #   par(new=TRUE)
   #   plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   #   par(new=TRUE)
@@ -2812,7 +2812,7 @@ for(i in 1:1){
   axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
   axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
   mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+  mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
   
   dev.off()
   
@@ -2939,7 +2939,7 @@ for(i in 1:1){
   
   yMax <- 40
   
-  png(filename=paste0(manuDir,'/Trend Plot of C, NC, AL - Y05-15 - All Zeros - Rangewide.png'),width=8,height=6,units="in",res=300,pointsize=12)
+  png(filename=paste0(manuDir,'/Trend Plot of C, NC, AL - Y05-15 - All Zeros - Range-wide.png'),width=8,height=6,units="in",res=300,pointsize=12)
   
   # state specific
   #   plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
@@ -2963,7 +2963,7 @@ for(i in 1:1){
   
   # rangewide specific
   #   par(new=TRUE)
-  plot(x,yRA1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=2,lwd=2,main="Rangewide")
+  plot(x,yRA1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=2,lwd=2,main="Range-wide")
   #   par(new=TRUE)
   #   plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   #   par(new=TRUE)
@@ -2986,7 +2986,7 @@ for(i in 1:1){
   axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
   axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
   mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+  mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
   
   dev.off()
   
@@ -3349,11 +3349,11 @@ for(i in 1:11){
 #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   }
 }
-legend("topright",c(states[-8],"Rangewide"),lty=c(rep(1,10),1),lwd=c(rep(2,10),5),col=c(colVec[-8],'black'),bty="n",ncol=2)
+legend("topright",c(states[-8],"Range-wide"),lty=c(rep(1,10),1),lwd=c(rep(2,10),5),col=c(colVec[-8],'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -3533,11 +3533,11 @@ for(i in 1:11){
     #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   }
 }
-legend("topright",c(states[-8],"Rangewide"),lty=c(rep(1,10),1),lwd=c(rep(2,10),5),col=c(colVec[-8],'black'),bty="n",ncol=2)
+legend("topright",c(states[-8],"Range-wide"),lty=c(rep(1,10),1),lwd=c(rep(2,10),5),col=c(colVec[-8],'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -3737,7 +3737,7 @@ dev.off()
 # axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 # axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 # mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-# mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+# mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 # dev.off()
 # 
 # 
@@ -3921,7 +3921,7 @@ dev.off()
 # axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 # axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 # mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-# mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+# mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 # dev.off()
 
 
@@ -4112,11 +4112,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 # make plot of all mzones - all leks together - all ZEROS
@@ -4293,11 +4293,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -4477,11 +4477,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 # make plot of all mzones - all leks together - all ZEROS - 11 years!!!!!
@@ -4658,11 +4658,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -4873,11 +4873,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -5055,11 +5055,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -5237,11 +5237,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -5419,11 +5419,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -5635,11 +5635,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -5819,11 +5819,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -6007,11 +6007,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -6191,11 +6191,11 @@ for(i in 1:6){
   #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
   
 }
-legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Rangewide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
+legend("topright",c(c(mZones2[1],mZones2[6],mZones2[2:5]),"Range-wide"),lty=c(rep(1,6),1),lwd=c(rep(2,6),5),col=c(c(colVec[1],colVec[6],colVec[2:5]),'black'),bty="n",ncol=2)
 axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
 axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
 mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
 dev.off()
 
 
@@ -6239,394 +6239,285 @@ dev.off()
 
 
 
+makeJaggedPrettyTrends(mZones,'core','1st',51,60)   # 6
+makeJaggedPrettyTrends(mZones,'core','1st',11,60)   # 6
+makeJaggedPrettyTrends(mZones,'core','All',51,60)   # 6
+makeJaggedPrettyTrends(mZones,'core','All',11,60)   # 6
+makeJaggedPrettyTrends(mZones,'noco','1st',51,60)   # 6
+makeJaggedPrettyTrends(mZones,'noco','1st',11,60)   # 6
+makeJaggedPrettyTrends(mZones,'noco','All',51,60)   # 6
+makeJaggedPrettyTrends(mZones,'noco','All',11,60)   # 6
+makeJaggedPrettyTrends(mZones,'leks','1st',51,60)   # 6
+makeJaggedPrettyTrends(mZones,'leks','1st',11,60)   # 6
+makeJaggedPrettyTrends(mZones,'leks','All',51,60)   # 6
+makeJaggedPrettyTrends(mZones,'leks','All',11,60)   # 6
+
+makeJaggedPrettyTrends(states,'leks','1st',51,60)   # 11
+makeJaggedPrettyTrends(states,'leks','All',51,60)   # 11
 
 
 
 
+makeJaggedPrettyTrends <- function(geo,cut,zeros,time,yMax){
+  
+#   geo <- mZones
+#   cut <- 'leks'
+#   zeros <- '1st'
+#   time <- 51
+#   yMax <- 60
+  
+  # --------------------------------------------------------------------------------------
+  
+  bsums.core.CSV <- vector("list",6)
+  bsums.noco.CSV <- vector("list",6)
+  bsums.leks.CSV <- vector("list",6)
+  
+  nGeo <- length(geo)
+  
+  for(i in 1:nGeo){
+    if(length(geo) == 11){
+      units <- paste0("MZone ",states)
+      nUnits <- length(units)
+    } else if(length(geo) == 6){
+      units <- mZones
+      nUnits <- length(units)
+    }
+    
+    if(time == 51){
+      Year <- data.frame(Year=seq(1965,2015,1))
+      YearC <- Year - 1964 - 26
+    } else if(time == 11){
+      Year <- data.frame(Year=seq(2005,2015,1))
+      YearC <- Year - 2004 - 6      
+      yText1 <- 'Y05-15'
+    } else {
+      stop
+    }
+    
+    if(cut == 'core'){
+      cText1 <- 'Core'
+#       cText2 <- 'D'
+      cText3 <- 'C'
+    } else if(cut == 'noco'){
+      cText1 <- 'Non-Core'
+#       cText2 <- 'E'
+      cText3 <- 'NC'
+    } else if(cut == 'leks'){
+      cText1 <- 'All Leks'
+#       cText2 <- 'F'
+      cText3 <- 'AL'
+    } else {
+      stop
+    }
+    
+    if(zeros == '1st'){
+      zText1 <- '1st Zeros'
+      if(time == 51){
+        zText2 <- 'Try 1'
+      } else {
+        zText2 <- '1st Zeros 2005-2015'
+      }
+    } else if(zeros == 'All'){
+      zText1 <- 'All Zeros'
+      if(time == 51){
+        zText2 <- 'All Zeros 1'
+      } else {
+        zText2 <- 'All Zeros 2005-2015'
+      }
+    } else {
+      stop
+    }
 
+    if(zeros == 'All' & length(geo) == 11){
+      zText2 <- 'All Zeros State 1'
+    }
 
+    if(length(geo) == 6){
+      if(zeros == '1st' & cut == 'core'){
+        dat <- dat1stZerosCore[[as.numeric(substr(mZones,7,7))[i]]]
+      } else if(zeros == '1st' & cut == 'noco'){
+        dat <- dat1stZerosNoco[[as.numeric(substr(mZones,7,7))[i]]]
+      } else if(zeros == '1st' & cut == 'leks'){
+        dat <- dat1stZerosLeks[[as.numeric(substr(mZones,7,7))[i]]]      
+      } else if(zeros == 'All' & cut == 'core'){
+        dat <- datAllZerosCore[[as.numeric(substr(mZones,7,7))[i]]]    
+      } else if(zeros == 'All' & cut == 'noco'){
+        dat <- datAllZerosNoco[[as.numeric(substr(mZones,7,7))[i]]]    
+      } else if(zeros == 'All' & cut == 'leks'){
+        dat <- datAllZerosLeks[[as.numeric(substr(mZones,7,7))[i]]]      
+      } else {
+        stop
+      }
+    } else if(length(geo) == 11){
+      if(zeros == '1st' & cut == 'core'){
+        dat <- dat1stZerosCore[[9]][dat1stZerosCore[[9]]$State == states[i],]
+      } else if(zeros == '1st' & cut == 'noco'){
+        dat <- dat1stZerosNoco[[9]][dat1stZerosNoco[[9]]$State == states[i],]
+      } else if(zeros == '1st' & cut == 'leks'){
+        dat <- dat1stZerosLeks[[9]][dat1stZerosLeks[[9]]$State == states[i],]   
+      } else if(zeros == 'All' & cut == 'core'){
+        dat <- datAllZerosCore[[9]][datAllZerosCore[[9]]$State == states[i],]
+      } else if(zeros == 'All' & cut == 'noco'){
+        dat <- datAllZerosNoco[[9]][datAllZerosNoco[[9]]$State == states[i],]  
+      } else if(zeros == 'All' & cut == 'leks'){
+        dat <- datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == states[i],]
+      } else {
+        stop
+      }
+    }
+     
+    if(cut == 'core'){
+      bsums.core.CSV[[i]] <- read.csv(paste0(outpDir,'/Model D ',units[i],' ',zText2,'/bayesSummary - Model D ',units[i],' ',zText2,'.csv'))
+      coreMuB      <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.b',]$mean
+      coreMuB.X5   <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.b',]$X5.
+      coreMuB.X95  <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.b',]$X95.
+      coreMuA      <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$mean
+      coreMuA.X5   <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X5.
+      coreMuA.X95  <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X95.
+      Y.core       <- exp(coreMuA)*((coreMuB+1)^YearC)
+      Y.core.X5    <- exp(coreMuA.X5)*((coreMuB+1)^YearC)
+      Y.core.X95   <- exp(coreMuA.X95)*((coreMuB+1)^YearC)
+      
+      if(time == 51){
+        Rcore.CSV    <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - ',zText1,' - ',cText1,'.csv'))
+      } else if(time == 11){
+        Rcore.CSV    <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - ',yText1,' - ',zText1,' - ',cText1,'.csv'))        
+      } else {
+        stop
+      }
+      RcoreMuB     <- Rcore.CSV[Rcore.CSV$X == 'mu.b0',]$mean
+      RcoreMuB.X5  <- Rcore.CSV[Rcore.CSV$X == 'mu.b0',]$X5.
+      RcoreMuB.X95 <- Rcore.CSV[Rcore.CSV$X == 'mu.b0',]$X95.
+      RcoreMuA     <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$mean
+      RcoreMuA.X5  <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X5.
+      RcoreMuA.X95 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X95.
+      Y.Rcore      <- exp(RcoreMuA)*((RcoreMuB+1)^YearC)
+      Y.Rcore.X5   <- exp(RcoreMuA.X5)*((RcoreMuB+1)^YearC)
+      Y.Rcore.X95  <- exp(RcoreMuA.X95)*((RcoreMuB+1)^YearC)
+      
+      plotYears <- data.frame(Year=Year,YearC=YearC,Y.core=Y.core,Y.core.X5=Y.core.X5,Y.core.X95=Y.core.X95,Y.Rcore=Y.Rcore,Y.Rcore.X5=Y.Rcore.X5,Y.Rcore.X95=Y.Rcore.X95)
+      names(plotYears) <- c('Year','YearC','Y.core','Y.core.X5','Y.core.X95','Y.Rcore','Y.Rcore.X5','Y.Rcore.X95')
+      
+      yA1  <- plotYears$Y.core
+      yA2  <- plotYears$Y.core.X5
+      yA3  <- plotYears$Y.core.X95
+      yRA1 <- plotYears$Y.Rcore
+      yRA2 <- plotYears$Y.Rcore.X5
+      yRA3 <- plotYears$Y.Rcore.X95
+      
+    } else if(cut == 'noco'){
+      bsums.noco.CSV[[i]] <- read.csv(paste0(outpDir,'/Model E ',units[i],' ',zText2,'/bayesSummary - Model E ',units[i],' ',zText2,'.csv'))
+      nocoMuB      <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.b',]$mean
+      nocoMuB.X5   <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.b',]$X5.
+      nocoMuB.X95  <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.b',]$X95.
+      nocoMuA      <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$mean
+      nocoMuA.X5   <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X5.
+      nocoMuA.X95  <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X95.
+      Y.noco       <- exp(nocoMuA)*((nocoMuB+1)^YearC)
+      Y.noco.X5    <- exp(nocoMuA.X5)*((nocoMuB+1)^YearC)
+      Y.noco.X95   <- exp(nocoMuA.X95)*((nocoMuB+1)^YearC)
+      
+      if(time == 51){
+        Rnoco.CSV    <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - ',zText1,' - ',cText1,'.csv'))
+      } else if(time == 11){
+        Rnoco.CSV    <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - ',yText1,' - ',zText1,' - ',cText1,'.csv'))        
+      } else {
+        stop
+      }
+      RnocoMuB     <- Rnoco.CSV[Rnoco.CSV$X == 'mu.b0',]$mean
+      RnocoMuB.X5  <- Rnoco.CSV[Rnoco.CSV$X == 'mu.b0',]$X5.
+      RnocoMuB.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.b0',]$X95.
+      RnocoMuA     <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$mean
+      RnocoMuA.X5  <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X5.
+      RnocoMuA.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X95.
+      Y.Rnoco      <- exp(RnocoMuA)*((RnocoMuB+1)^YearC)
+      Y.Rnoco.X5   <- exp(RnocoMuA.X5)*((RnocoMuB+1)^YearC)
+      Y.Rnoco.X95  <- exp(RnocoMuA.X95)*((RnocoMuB+1)^YearC)
+      
+      plotYears <- data.frame(Year=Year,YearC=YearC,Y.noco=Y.noco , Y.noco.X5=Y.noco.X5 , Y.noco.X95=Y.noco.X95,Y.Rnoco=Y.Rnoco,Y.Rnoco.X5=Y.Rnoco.X5,Y.Rnoco.X95=Y.Rnoco.X95)
+      names(plotYears) <- c('Year','YearC','Y.noco','Y.noco.X5','Y.noco.X95','Y.Rnoco','Y.Rnoco.X5','Y.Rnoco.X95')
+      
+      yB1  <- plotYears$Y.noco
+      yB2  <- plotYears$Y.noco.X5
+      yB3  <- plotYears$Y.noco.X95
+      yRB1 <- plotYears$Y.Rnoco
+      yRB2 <- plotYears$Y.Rnoco.X5
+      yRB3 <- plotYears$Y.Rnoco.X95
+      
+    } else if(cut == 'leks'){
+      bsums.leks.CSV[[i]] <- read.csv(paste0(outpDir,'/Model F ',units[i],' ',zText2,'/bayesSummary - Model F ',units[i],' ',zText2,'.csv'))
+      leksMuB      <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.b',]$mean
+      leksMuB.X5   <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.b',]$X5.
+      leksMuB.X95  <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.b',]$X95.
+      leksMuA      <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$mean
+      leksMuA.X5   <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X5.
+      leksMuA.X95  <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X95.
+      Y.leks       <- exp(leksMuA)*((leksMuB+1)^YearC)
+      Y.leks.X5    <- exp(leksMuA.X5)*((leksMuB+1)^YearC)
+      Y.leks.X95   <- exp(leksMuA.X95)*((leksMuB+1)^YearC)
+      
+      if(time == 51){
+        Rleks.CSV    <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - ',zText1,' - ',cText1,'.csv'))
+      } else if(time == 11){
+        Rleks.CSV    <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - ',yText1,' - ',zText1,' - ',cText1,'.csv'))        
+      } else {
+        stop
+      }
+      RleksMuB     <- Rleks.CSV[Rleks.CSV$X == 'mu.b0',]$mean  
+      RleksMuB.X5  <- Rleks.CSV[Rleks.CSV$X == 'mu.b0',]$X5. 
+      RleksMuB.X95 <- Rleks.CSV[Rleks.CSV$X == 'mu.b0',]$X95. 
+      RleksMuA     <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$mean     
+      RleksMuA.X5  <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X5. 
+      RleksMuA.X95 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X95. 
+      Y.Rleks      <- exp(RleksMuA)*((RleksMuB+1)^YearC)
+      Y.Rleks.X5   <- exp(RleksMuA.X5)*((RleksMuB+1)^YearC)
+      Y.Rleks.X95  <- exp(RleksMuA.X95)*((RleksMuB+1)^YearC)
+      
+      plotYears <- data.frame(Year=Year,YearC=YearC,Y.leks=Y.leks,Y.leks.X5=Y.leks.X5,Y.leks.X95=Y.leks.X95,Y.Rleks=Y.Rleks,Y.Rleks.X5=Y.Rleks.X5,Y.Rleks.X95=Y.Rleks.X95)
+      names(plotYears) <- c('Year','YearC','Y.leks','Y.leks.X5','Y.leks.X95','Y.Rleks','Y.Rleks.X5','Y.Rleks.X95')
+      
+      yC1  <- plotYears$Y.leks
+      yC2  <- plotYears$Y.leks.X5
+      yC3  <- plotYears$Y.leks.X95
+      yRC1 <- plotYears$Y.Rleks
+      yRC2 <- plotYears$Y.Rleks.X5
+      yRC3 <- plotYears$Y.Rleks.X95
+      
+    } else {
+      stop
+    }
+    
+    x <- plotYears$Year
+    tsdf <- aggregate(data=dat, Peak_Males ~ Year, mean)
+    
+    if(time == 51){
+      CairoPNG(filename=paste0(manuDir,'/Jagged Line Plots/Trend Plot of ',cText3,' - ',zText1,' ',units[i],'.png'),width=8,height=6,units="in",res=300,pointsize=12)
+    } else if (time == 11){
+      CairoPNG(filename=paste0(manuDir,'/Jagged Line Plots/Trend Plot of ',cText3,' - ',yText1,' - ',zText1,' ',units[i],'.png'),width=8,height=6,units="in",res=300,pointsize=12)
+    }
 
-
-
-# make simple trends, with the 'jagged lines' of observed time series.
-
-# over states!!!!
-
-# make plot, for each state, of all leks together -- 1st zeros!!!!!!!!!!!!!!!
-
-
-bsums.core.CSV <- vector("list",6)
-bsums.noco.CSV <- vector("list",6)
-bsums.leks.CSV <- vector("list",6)
-for(i in 1:11){
-  units <- paste0("MZone ",states)
-  nUnits <- nStates
-  #   bsums.core.CSV[[i]] <- read.csv(paste0(outpDir,'/Model D ',units[i],' Try 1/bayesSummary - Model D ',units[i],' Try 1.csv'))
-  #   bsums.noco.CSV[[i]] <- read.csv(paste0(outpDir,'/Model E ',units[i],' Try 1/bayesSummary - Model E ',units[i],' Try 1.csv'))
-  bsums.leks.CSV[[i]] <- read.csv(paste0(outpDir,'/Model F ',units[i],' Try 1/bayesSummary - Model F ',units[i],' Try 1.csv'))
-  #   Rcore.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model D.csv'))
-  #   Rnoco.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model E.csv'))
-  Rleks.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - 1st Zeros - All Leks.csv'))
-  
-  #   coreBeta51 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$mean
-  #   nocoBeta51 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$mean
-  leksMuB <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.b',]$mean
-  #   RcoreBeta51 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$mean
-  #   RnocoBeta51 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$mean
-  RleksMuB <- Rleks.CSV[Rleks.CSV$X == 'mu.b0',]$mean  
-  
-  #   coreBeta51.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X5.
-  #   nocoBeta51.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X5.
-  #   leksBeta51.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X5.
-  #   RcoreBeta51.X5 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X5.
-  #   RnocoBeta51.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X5.
-  #   RleksBeta51.X5 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X5. 
-  #   
-  #   coreBeta51.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X95.
-  #   nocoBeta51.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X95.
-  #   leksBeta51.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X95.
-  #   RcoreBeta51.X95 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X95.
-  #   RnocoBeta51.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X95.
-  #   RleksBeta51.X95 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X95. 
-  
-  #   coreMu.a <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$mean
-  #   nocoMu.a <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$mean
-  leksMu.a <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$mean
-  #   RcoreMu.a <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$mean
-  #   RnocoMu.a <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$mean
-  RleksMu.a <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$mean 
-  
-  #   coreMu.a.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X5.
-  #   nocoMu.a.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X5.
-  leksMu.a.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X5.
-  #   RcoreMu.a.X5 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X5.
-  #   RnocoMu.a.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X5.
-  RleksMu.a.X5 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X5. 
-  
-  #   coreMu.a.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X95.
-  #   nocoMu.a.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X95.
-  leksMu.a.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X95.
-  #   RcoreMu.a.X95 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X95.
-  #   RnocoMu.a.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X95.
-  RleksMu.a.X95 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X95.
-  
-  
-  
-  Year <- data.frame(Year=seq(1965,2015,1))
-  YearC <- Year - 1964 - 26
-  
-  #   Y.core      <- exp(coreMu.a)*(coreBeta51^YearC)
-  #   Y.core.X5   <- exp(coreMu.a.X5)*(coreBeta51^YearC)
-  #   Y.core.X95  <- exp(coreMu.a.X95)*(coreBeta51^YearC)
-  #   Y.noco      <- exp(nocoMu.a)*(nocoBeta51^YearC)
-  #   Y.noco.X5   <- exp(nocoMu.a.X5)*(nocoBeta51^YearC)
-  #   Y.noco.X95  <- exp(nocoMu.a.X95)*(nocoBeta51^YearC)
-  Y.leks      <- exp(leksMu.a)*((leksMuB+1)^YearC)
-  Y.leks.X5   <- exp(leksMu.a.X5)*((leksMuB+1)^YearC)
-  Y.leks.X95  <- exp(leksMu.a.X95)*((leksMuB+1)^YearC)
-  #   Y.Rcore     <- exp(RcoreMu.a)*(RcoreBeta51^YearC)
-  #   Y.Rcore.X5  <- exp(RcoreMu.a.X5)*(RcoreBeta51^YearC)
-  #   Y.Rcore.X95 <- exp(RcoreMu.a.X95)*(RcoreBeta51^YearC)
-  #   Y.Rnoco     <- exp(RnocoMu.a)*(RnocoBeta51^YearC)
-  #   Y.Rnoco.X5  <- exp(RnocoMu.a.X5)*(RnocoBeta51^YearC)
-  #   Y.Rnoco.X95 <- exp(RnocoMu.a.X95)*(RnocoBeta51^YearC)
-  Y.Rleks     <- exp(RleksMu.a)*((RleksMuB+1)^YearC)
-  Y.Rleks.X5  <- exp(RleksMu.a.X5)*((RleksMuB+1)^YearC)
-  Y.Rleks.X95 <- exp(RleksMu.a.X95)*((RleksMuB+1)^YearC)
-  
-  plotYears <- data.frame(Year=Year,YearC=YearC, 
-                          #                           Y.core=Y.core , Y.core.X5=Y.core.X5 , Y.core.X95=Y.core.X95,
-                          #                           Y.noco=Y.noco , Y.noco.X5=Y.noco.X5 , Y.noco.X95=Y.noco.X95,
-                          Y.leks=Y.leks , Y.leks.X5=Y.leks.X5 , Y.leks.X95=Y.leks.X95,
-                          #                           Y.Rcore=Y.Rcore,Y.Rcore.X5=Y.Rcore.X5,Y.Rcore.X95=Y.Rcore.X95,
-                          #                           Y.Rnoco=Y.Rnoco,Y.Rnoco.X5=Y.Rnoco.X5,Y.Rnoco.X95=Y.Rnoco.X95,
-                          Y.Rleks=Y.Rleks,Y.Rleks.X5=Y.Rleks.X5,Y.Rleks.X95=Y.Rleks.X95)
-  names(plotYears) <- c('Year','YearC',
-                        #                         'Y.core','Y.core.X5','Y.core.X95',
-                        #                         'Y.noco','Y.noco.X5','Y.noco.X95',
-                        'Y.leks','Y.leks.X5','Y.leks.X95',
-                        #                         'Y.Rcore','Y.Rcore.X5','Y.Rcore.X95',
-                        #                         'Y.Rnoco','Y.Rnoco.X5','Y.Rnoco.X95',
-                        'Y.Rleks','Y.Rleks.X5','Y.Rleks.X95')
-  
-  
-  x <- plotYears$Year
-  #   yA1 <- plotYears$Y.core
-  #   yA2 <- plotYears$Y.core.X5
-  #   yA3 <- plotYears$Y.core.X95
-  #   yB1 <- plotYears$Y.noco
-  #   yB2 <- plotYears$Y.noco.X5
-  #   yB3 <- plotYears$Y.noco.X95
-  yC1 <- plotYears$Y.leks
-  yC2 <- plotYears$Y.leks.X5
-  yC3 <- plotYears$Y.leks.X95
-  
-  #   yRA1 <- plotYears$Y.Rcore
-  #   yRA2 <- plotYears$Y.Rcore.X5
-  #   yRA3 <- plotYears$Y.Rcore.X95
-  #   yRB1 <- plotYears$Y.Rnoco
-  #   yRB2 <- plotYears$Y.Rnoco.X5
-  #   yRB3 <- plotYears$Y.Rnoco.X95
-  yRC1 <- plotYears$Y.Rleks
-  yRC2 <- plotYears$Y.Rleks.X5
-  yRC3 <- plotYears$Y.Rleks.X95
-  
-  yMax <- 60
-  
-  df <- dat1stZerosLeks[[9]][dat1stZerosLeks[[9]]$State == states[i],]
-  tsdf <- aggregate(data=df, Peak_Males ~ Year, mean)
-  
-  CairoPNG(filename=paste0(manuDir,'/Jagged Line Plots/Trend Plot of AL - 1st Zeros ',units[i],'.png'),width=8,height=6,units="in",res=300,pointsize=12)
-  
-  # state specific
-  #   plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
-  #   par(new=TRUE)
-  #   plot(x,yA2,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE)
-  #   plot(x,yA3,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   
-  #   par(new=TRUE)
-  #   plot(x,yB1,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
-  #   par(new=TRUE)
-  #   plot(x,yB2,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE) 
-  #   plot(x,yB3,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  
-  plot(x,yC1,type='l',col='black' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=1,lwd=2,main=paste0(textyStates[i]))
-  #   par(new=TRUE)
-  #   plot(x,yC2,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE) 
-  #   plot(x,yC3,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  
-  # rangewide specific
-  #   par(new=TRUE)
-  #   plot(x,yRA1,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
-  #   par(new=TRUE)
-  #   plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE)
-  #   plot(x,yRA3,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   
-  #   par(new=TRUE)
-  #   plot(x,yRB1,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
-  #   par(new=TRUE)
-  #   plot(x,yRB2,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE) 
-  #   plot(x,yRB3,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  
-  #   par(new=TRUE)
-  #   plot(x,yRC1,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
-  #   par(new=TRUE)
-  #   plot(x,yRC2,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE) 
-  #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  
-  par(new=TRUE)
-  plot(tsdf$Year,tsdf$Peak_Males,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=3,lwd=0.5)
-  legend("topright",c("Observed","Combined"),lty=c(3,1),lwd=c(0.5,2),col=c('black','black'),bty="n")
-  axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
-  axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
-  mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
-  dev.off()
-  
+    # state specific
+    if(cut == 'core'){
+      plot(x,yA1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
+      #par(new=TRUE)
+      #plot(x,yRA1,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+    } else if(cut == 'noco'){
+      plot(x,yB1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
+      #par(new=TRUE)
+      #plot(x,yRB1,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+    } else if(cut == 'leks'){
+      plot(x,yC1,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
+      #par(new=TRUE)
+      #plot(x,yRC1,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
+    }  
+    
+    par(new=TRUE)
+    plot(tsdf$Year,tsdf$Peak_Males,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=3,lwd=0.5)
+    legend("topright",c("Observed","Combined"),lty=c(3,1),lwd=c(0.5,2),col=c('black','black'),bty="n")
+    axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
+    axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
+    mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
+    mtext("Peak Males / Lek", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
+    dev.off()
+  }
 }
-
-
-
-
-
-
-
-# make plot, for each state, of all leks together -- all zeros!!!!!!!!!!!!!!!
-
-
-bsums.core.CSV <- vector("list",6)
-bsums.noco.CSV <- vector("list",6)
-bsums.leks.CSV <- vector("list",6)
-for(i in 1:11){
-  units <- paste0("MZone ",states)
-  nUnits <- nStates
-  #   bsums.core.CSV[[i]] <- read.csv(paste0(outpDir,'/Model D ',units[i],' Try 1/bayesSummary - Model D ',units[i],' Try 1.csv'))
-  #   bsums.noco.CSV[[i]] <- read.csv(paste0(outpDir,'/Model E ',units[i],' Try 1/bayesSummary - Model E ',units[i],' Try 1.csv'))
-  bsums.leks.CSV[[i]] <- read.csv(paste0(outpDir,'/Model F ',units[i],' All Zeros State 1/bayesSummary - Model F ',units[i],' All Zeros State 1.csv'))
-  #   Rcore.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model D.csv'))
-  #   Rnoco.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - Model E.csv'))
-  Rleks.CSV      <- read.csv(paste0(outpDir,'/Rangewide/Trend Plots/bayesSummary - All Zeros - All Leks.csv'))
-  
-  #   coreBeta51 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$mean
-  #   nocoBeta51 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$mean
-  leksMuB <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.b',]$mean
-  #   RcoreBeta51 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$mean
-  #   RnocoBeta51 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$mean
-  RleksMuB <- Rleks.CSV[Rleks.CSV$X == 'mu.b0',]$mean  
-  
-  #   coreBeta51.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X5.
-  #   nocoBeta51.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X5.
-  #   leksBeta51.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X5.
-  #   RcoreBeta51.X5 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X5.
-  #   RnocoBeta51.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X5.
-  #   RleksBeta51.X5 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X5. 
-  #   
-  #   coreBeta51.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'beta[1]',]$X95.
-  #   nocoBeta51.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'beta[1]',]$X95.
-  #   leksBeta51.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'beta[1]',]$X95.
-  #   RcoreBeta51.X95 <- Rcore.CSV[Rcore.CSV$X == 'beta0',]$X95.
-  #   RnocoBeta51.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'beta0',]$X95.
-  #   RleksBeta51.X95 <- Rleks.CSV[Rleks.CSV$X == 'beta0',]$X95. 
-  
-  #   coreMu.a <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$mean
-  #   nocoMu.a <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$mean
-  leksMu.a <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$mean
-  #   RcoreMu.a <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$mean
-  #   RnocoMu.a <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$mean
-  RleksMu.a <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$mean 
-  
-  #   coreMu.a.X5 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X5.
-  #   nocoMu.a.X5 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X5.
-  leksMu.a.X5 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X5.
-  #   RcoreMu.a.X5 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X5.
-  #   RnocoMu.a.X5 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X5.
-  RleksMu.a.X5 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X5. 
-  
-  #   coreMu.a.X95 <- bsums.core.CSV[[i]][bsums.core.CSV[[i]]$X == 'mu.a',]$X95.
-  #   nocoMu.a.X95 <- bsums.noco.CSV[[i]][bsums.noco.CSV[[i]]$X == 'mu.a',]$X95.
-  leksMu.a.X95 <- bsums.leks.CSV[[i]][bsums.leks.CSV[[i]]$X == 'mu.a',]$X95.
-  #   RcoreMu.a.X95 <- Rcore.CSV[Rcore.CSV$X == 'mu.a0',]$X95.
-  #   RnocoMu.a.X95 <- Rnoco.CSV[Rnoco.CSV$X == 'mu.a0',]$X95.
-  RleksMu.a.X95 <- Rleks.CSV[Rleks.CSV$X == 'mu.a0',]$X95.
-  
-  
-  
-  Year <- data.frame(Year=seq(1965,2015,1))
-  YearC <- Year - 1964 - 26
-  
-  #   Y.core      <- exp(coreMu.a)*(coreBeta51^YearC)
-  #   Y.core.X5   <- exp(coreMu.a.X5)*(coreBeta51^YearC)
-  #   Y.core.X95  <- exp(coreMu.a.X95)*(coreBeta51^YearC)
-  #   Y.noco      <- exp(nocoMu.a)*(nocoBeta51^YearC)
-  #   Y.noco.X5   <- exp(nocoMu.a.X5)*(nocoBeta51^YearC)
-  #   Y.noco.X95  <- exp(nocoMu.a.X95)*(nocoBeta51^YearC)
-  Y.leks      <- exp(leksMu.a)*((leksMuB+1)^YearC)
-  Y.leks.X5   <- exp(leksMu.a.X5)*((leksMuB+1)^YearC)
-  Y.leks.X95  <- exp(leksMu.a.X95)*((leksMuB+1)^YearC)
-  #   Y.Rcore     <- exp(RcoreMu.a)*(RcoreBeta51^YearC)
-  #   Y.Rcore.X5  <- exp(RcoreMu.a.X5)*(RcoreBeta51^YearC)
-  #   Y.Rcore.X95 <- exp(RcoreMu.a.X95)*(RcoreBeta51^YearC)
-  #   Y.Rnoco     <- exp(RnocoMu.a)*(RnocoBeta51^YearC)
-  #   Y.Rnoco.X5  <- exp(RnocoMu.a.X5)*(RnocoBeta51^YearC)
-  #   Y.Rnoco.X95 <- exp(RnocoMu.a.X95)*(RnocoBeta51^YearC)
-  Y.Rleks     <- exp(RleksMu.a)*((RleksMuB+1)^YearC)
-  Y.Rleks.X5  <- exp(RleksMu.a.X5)*((RleksMuB+1)^YearC)
-  Y.Rleks.X95 <- exp(RleksMu.a.X95)*((RleksMuB+1)^YearC)
-  
-  plotYears <- data.frame(Year=Year,YearC=YearC, 
-                          #                           Y.core=Y.core , Y.core.X5=Y.core.X5 , Y.core.X95=Y.core.X95,
-                          #                           Y.noco=Y.noco , Y.noco.X5=Y.noco.X5 , Y.noco.X95=Y.noco.X95,
-                          Y.leks=Y.leks , Y.leks.X5=Y.leks.X5 , Y.leks.X95=Y.leks.X95,
-                          #                           Y.Rcore=Y.Rcore,Y.Rcore.X5=Y.Rcore.X5,Y.Rcore.X95=Y.Rcore.X95,
-                          #                           Y.Rnoco=Y.Rnoco,Y.Rnoco.X5=Y.Rnoco.X5,Y.Rnoco.X95=Y.Rnoco.X95,
-                          Y.Rleks=Y.Rleks,Y.Rleks.X5=Y.Rleks.X5,Y.Rleks.X95=Y.Rleks.X95)
-  names(plotYears) <- c('Year','YearC',
-                        #                         'Y.core','Y.core.X5','Y.core.X95',
-                        #                         'Y.noco','Y.noco.X5','Y.noco.X95',
-                        'Y.leks','Y.leks.X5','Y.leks.X95',
-                        #                         'Y.Rcore','Y.Rcore.X5','Y.Rcore.X95',
-                        #                         'Y.Rnoco','Y.Rnoco.X5','Y.Rnoco.X95',
-                        'Y.Rleks','Y.Rleks.X5','Y.Rleks.X95')
-  
-  
-  x <- plotYears$Year
-  #   yA1 <- plotYears$Y.core
-  #   yA2 <- plotYears$Y.core.X5
-  #   yA3 <- plotYears$Y.core.X95
-  #   yB1 <- plotYears$Y.noco
-  #   yB2 <- plotYears$Y.noco.X5
-  #   yB3 <- plotYears$Y.noco.X95
-  yC1 <- plotYears$Y.leks
-  yC2 <- plotYears$Y.leks.X5
-  yC3 <- plotYears$Y.leks.X95
-  
-  #   yRA1 <- plotYears$Y.Rcore
-  #   yRA2 <- plotYears$Y.Rcore.X5
-  #   yRA3 <- plotYears$Y.Rcore.X95
-  #   yRB1 <- plotYears$Y.Rnoco
-  #   yRB2 <- plotYears$Y.Rnoco.X5
-  #   yRB3 <- plotYears$Y.Rnoco.X95
-  yRC1 <- plotYears$Y.Rleks
-  yRC2 <- plotYears$Y.Rleks.X5
-  yRC3 <- plotYears$Y.Rleks.X95
-  
-  yMax <- 60
-  
-  df <- datAllZerosLeks[[9]][datAllZerosLeks[[9]]$State == states[i],]
-  tsdf <- aggregate(data=df, Peak_Males ~ Year, mean)
-  
-  CairoPNG(filename=paste0(manuDir,'/Jagged Line Plots/Trend Plot of AL - All Zeros ',units[i],'.png'),width=8,height=6,units="in",res=300,pointsize=12)
-  
-  # state specific
-  #   plot(x,yA1,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2,main=paste0("Temporal Trend of Observed Peak Males, Years 1965-2015\n75% ",units[i]))
-  #   par(new=TRUE)
-  #   plot(x,yA2,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE)
-  #   plot(x,yA3,type='l',col='lightgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   
-  #   par(new=TRUE)
-  #   plot(x,yB1,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
-  #   par(new=TRUE)
-  #   plot(x,yB2,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE) 
-  #   plot(x,yB3,type='l',col='pink'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  
-  plot(x,yC1,type='l',col='black' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=1,lwd=2,main=paste0(textyStates[i]))
-  #   par(new=TRUE)
-  #   plot(x,yC2,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE) 
-  #   plot(x,yC3,type='l',col='lightblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  
-  # rangewide specific
-  #   par(new=TRUE)
-  #   plot(x,yRA1,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
-  #   par(new=TRUE)
-  #   plot(x,yRA2,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE)
-  #   plot(x,yRA3,type='l',col='darkgreen',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   
-  #   par(new=TRUE)
-  #   plot(x,yRB1,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
-  #   par(new=TRUE)
-  #   plot(x,yRB2,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE) 
-  #   plot(x,yRB3,type='l',col='darkred'  ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  
-  #   par(new=TRUE)
-  #   plot(x,yRC1,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=2)
-  #   par(new=TRUE)
-  #   plot(x,yRC2,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  #   par(new=TRUE) 
-  #   plot(x,yRC3,type='l',col='darkblue' ,axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lwd=1)
-  par(new=TRUE)
-  plot(tsdf$Year,tsdf$Peak_Males,type='l',col='black',axes=FALSE,frame.plot=TRUE,xlim=c(1965,2015),ylim=c(0,yMax),xlab='',ylab='',lty=3,lwd=0.5)
-  legend("topright",c("Observed","Combined"),lty=c(3,1),lwd=c(0.5,2),col=c('black','black'),bty="n")
-  axis(side=1,labels=TRUE,seq(1965,2015,5),cex=1.5)
-  axis(side=2,labels=TRUE,seq(0,yMax,10),cex=1.5,las=1)
-  mtext("Year", side=1, line=3, cex.lab=1.5,las=1, col="black")   # x-axis
-  mtext("Peak Males / Lek Base Count", side=2, line=3, cex.lab=1.5, col="black")   # y-axis
-  dev.off()
-  
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
